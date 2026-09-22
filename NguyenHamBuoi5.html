@@ -2,8 +2,9 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chuyên đề: Nguyên Hàm VD - VDC (Lời Giải )</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <title>Chuyên đề: Nguyên Hàm VD - VDC (Lời Giải Chi Tiết)</title>
   
   <!-- MathJax for high-quality mathematical typography -->
   <script>
@@ -15,6 +16,9 @@
       },
       options: {
         skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      chtml: {
+        displayAlign: 'center'
       }
     };
   </script>
@@ -23,11 +27,12 @@
   <style>
     :root {
       --primary: #1e3a8a;
-      --primary-light: #3b82f6;
+      --primary-light: #2563eb;
       --primary-subtle: #eff6ff;
       --accent: #d97706;
       --accent-subtle: #fef3c7;
       --slate-800: #1e293b;
+      --slate-700: #334155;
       --slate-600: #475569;
       --slate-200: #e2e8f0;
       --slate-100: #f1f5f9;
@@ -35,75 +40,97 @@
       --card: #ffffff;
       --success: #059669;
       --success-subtle: #ecfdf5;
+      --radius: 12px;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
-      line-height: 1.65;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
       color: var(--slate-800);
       background-color: var(--bg);
       padding: 0;
+      overflow-x: hidden;
+      word-wrap: break-word;
     }
 
     header {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
       color: white;
-      padding: 2.2rem 1.5rem;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+      padding: 1.1rem 1rem 0.9rem;
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-content {
+      max-width: 1040px;
+      margin: 0 auto;
+      text-align: center;
     }
 
     header h1 {
-      font-size: 1.85rem;
+      font-size: 1.25rem;
       font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.3rem;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      margin-bottom: 0.2rem;
       text-transform: uppercase;
     }
 
     header p {
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       color: #cbd5e1;
+      display: none;
+    }
+
+    /* Mobile scrollable toolbar */
+    .toolbar-wrapper {
+      max-width: 1040px;
+      margin: 0.75rem auto 0;
+      position: relative;
     }
 
     .toolbar {
-      max-width: 1100px;
-      margin: 1.2rem auto 0;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding: 0.2rem 0.2rem 0.4rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .toolbar::-webkit-scrollbar {
+      display: none;
     }
 
     .btn {
-      appearance: none;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      background: rgba(255, 255, 255, 0.15);
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.12);
       color: #ffffff;
-      padding: 0.45rem 1rem;
+      padding: 0.42rem 0.85rem;
       border-radius: 9999px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
-      backdrop-filter: blur(8px);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      white-space: nowrap;
       transition: all 0.2s ease;
+      touch-action: manipulation;
     }
 
-    .btn:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: translateY(-1px);
-    }
-
-    .btn.active {
+    .btn:active, .btn.active {
       background: #ffffff;
       color: var(--primary);
       border-color: #ffffff;
@@ -112,108 +139,110 @@
 
     .container {
       max-width: 1040px;
-      margin: 2rem auto;
-      padding: 0 1.2rem;
+      margin: 1rem auto 3rem;
+      padding: 0 0.85rem;
     }
 
-    /* Theory Summary Box */
     .theory-card {
       background: #ffffff;
-      border-radius: 12px;
+      border-radius: var(--radius);
       border: 1.5px solid #bfdbfe;
-      padding: 1.4rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.06);
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 3px 10px rgba(30, 58, 138, 0.05);
     }
 
     .theory-card h3 {
       color: var(--primary);
-      font-size: 1.15rem;
+      font-size: 0.98rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.8rem;
+      gap: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .theory-desc {
+      font-size: 0.85rem;
+      color: var(--slate-600);
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
     }
 
     .formula-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 0.8rem;
-      margin-top: 0.8rem;
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
     }
 
     .formula-item {
       background: var(--primary-subtle);
-      border-left: 3px solid var(--primary-light);
-      padding: 0.6rem 0.9rem;
-      border-radius: 0 6px 6px 0;
-      font-size: 0.95rem;
+      border-left: 3.5px solid var(--primary-light);
+      padding: 0.55rem 0.75rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.88rem;
+      overflow-x: auto;
+      scrollbar-width: thin;
     }
 
-    /* Section Styling */
     .section-title {
-      font-size: 1.35rem;
+      font-size: 1.05rem;
       color: var(--primary);
-      font-weight: 700;
-      border-bottom: 2.5px solid var(--primary);
-      padding-bottom: 0.4rem;
-      margin: 2.5rem 0 1.2rem;
+      font-weight: 800;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.35rem;
+      margin: 1.8rem 0 0.9rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 0.5rem;
     }
 
     .section-badge {
-      font-size: 0.75rem;
-      font-weight: 600;
+      font-size: 0.7rem;
+      font-weight: 700;
       background: var(--primary-subtle);
       color: var(--primary);
-      padding: 0.25rem 0.7rem;
+      padding: 0.2rem 0.55rem;
       border-radius: 9999px;
       border: 1px solid #bfdbfe;
+      white-space: nowrap;
     }
 
-    /* Problem Cards */
     .problem-card {
       background: var(--card);
-      border-radius: 10px;
+      border-radius: var(--radius);
       border: 1px solid var(--slate-200);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
       overflow: hidden;
-      transition: border-color 0.2s;
-    }
-
-    .problem-card:hover {
-      border-color: #93c5fd;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .problem-header {
-      padding: 1rem 1.25rem;
+      padding: 0.8rem 0.95rem;
       background: #fafcff;
       border-bottom: 1px solid var(--slate-200);
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
+      align-items: center;
+      gap: 0.6rem;
     }
 
     .problem-title {
       font-weight: 700;
       color: var(--primary);
-      font-size: 1.05rem;
+      font-size: 0.92rem;
+      line-height: 1.35;
     }
 
     .problem-tag {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      background: var(--slate-100);
-      color: var(--slate-600);
+      padding: 0.18rem 0.5rem;
+      border-radius: 6px;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .problem-tag.vdc {
@@ -227,76 +256,197 @@
     }
 
     .problem-statement {
-      padding: 1rem 1.25rem;
-      font-size: 1rem;
+      padding: 0.85rem 0.95rem;
+      font-size: 0.95rem;
       color: var(--slate-800);
+      line-height: 1.6;
+    }
+
+    .card-actions {
+      padding: 0 0.95rem 0.75rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-toggle-solution {
+      appearance: none;
+      background: var(--slate-100);
+      border: 1px solid var(--slate-200);
+      color: var(--primary-light);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.15s ease;
+    }
+
+    .btn-toggle-solution:active {
+      background: var(--primary-subtle);
+      border-color: #93c5fd;
     }
 
     .solution-block {
-      background: #ffffff;
-      border-top: 1px dashed var(--slate-200);
-      padding: 1.25rem;
+      background: #fafcff;
+      border-top: 1px dashed #cbd5e1;
+      padding: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .solution-block.hidden {
+      display: none;
     }
 
     .solution-tag {
       display: inline-block;
       font-weight: 700;
       color: var(--success);
-      font-size: 0.88rem;
-      margin-bottom: 0.6rem;
+      font-size: 0.82rem;
+      margin-bottom: 0.5rem;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.02em;
     }
 
     .step-box {
-      margin-bottom: 0.8rem;
-      padding-left: 0.9rem;
-      border-left: 2.5px solid #cbd5e1;
+      margin-bottom: 0.65rem;
+      padding-left: 0.75rem;
+      border-left: 2.5px solid #94a3b8;
+      font-size: 0.91rem;
+      line-height: 1.55;
     }
 
     .step-box strong {
       color: var(--primary);
     }
 
+    .step-box ul {
+      padding-left: 1.15rem;
+      margin-top: 0.25rem;
+    }
+
+    .step-box li {
+      margin-bottom: 0.3rem;
+    }
+
     .final-answer {
-      margin-top: 1rem;
-      padding: 0.75rem 1rem;
+      margin-top: 0.75rem;
+      padding: 0.65rem 0.85rem;
       background: var(--success-subtle);
-      border-left: 4px solid var(--success);
-      border-radius: 4px;
+      border-left: 3.5px solid var(--success);
+      border-radius: 6px;
       font-weight: 600;
+      font-size: 0.9rem;
       color: #065f46;
+      word-break: break-word;
     }
 
-    .quick-toggle {
-      background: none;
+    /* MathJax Mobile Overflow Protection */
+    mjx-container[jax="CHTML"][display="true"] {
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      max-width: 100% !important;
+      padding: 0.35rem 0 !important;
+      margin: 0.4rem 0 !important;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    mjx-container[jax="CHTML"]:not([display="true"]) {
+      max-width: 100%;
+      word-break: break-word;
+    }
+
+    .fab-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1.25rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
       border: none;
-      color: var(--primary-light);
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.3);
+      display: flex;
       align-items: center;
-      gap: 0.3rem;
-      padding: 0.2rem 0;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.25s ease;
+      z-index: 99;
     }
 
-    .quick-toggle:hover {
-      text-decoration: underline;
+    .fab-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
 
     footer {
       text-align: center;
-      padding: 2.5rem 1rem;
+      padding: 1.5rem 1rem 2.5rem;
       color: var(--slate-600);
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       border-top: 1px solid var(--slate-200);
-      margin-top: 3rem;
+      line-height: 1.5;
     }
 
-    /* Print styles */
+    /* Tablet & Desktop enhancements */
+    @media (min-width: 640px) {
+      header {
+        padding: 1.8rem 1.5rem 1.2rem;
+      }
+      header h1 {
+        font-size: 1.7rem;
+      }
+      header p {
+        display: block;
+        margin-top: 0.2rem;
+      }
+      .toolbar {
+        justify-content: center;
+        flex-wrap: wrap;
+        overflow-x: visible;
+      }
+      .btn {
+        font-size: 0.85rem;
+        padding: 0.45rem 1rem;
+      }
+      .container {
+        margin: 1.8rem auto 4rem;
+        padding: 0 1.2rem;
+      }
+      .formula-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .problem-title {
+        font-size: 1.05rem;
+      }
+      .problem-statement {
+        padding: 1rem 1.25rem;
+        font-size: 1rem;
+      }
+      .solution-block {
+        padding: 1.25rem;
+      }
+      .step-box {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .formula-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     @media print {
-      header, .toolbar, .quick-toggle, footer {
+      header, .toolbar-wrapper, .card-actions, .fab-top, footer {
         display: none !important;
       }
       body {
@@ -311,7 +461,7 @@
       .problem-card {
         border: 1px solid #ccc;
         page-break-inside: avoid;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.2rem;
       }
       .solution-block {
         display: block !important;
@@ -322,16 +472,20 @@
 <body>
 
   <header>
-    <h1>Chuyên Đề: Nguyên Hàm VD – VDC</h1>
-  
+    <div class="header-content">
+      <h1>Nguyên Hàm VD – VDC</h1>
+      <p>Trình bày chuẩn SGK Toán THPT • Tối ưu di động & tra cứu nhanh</p>
+    </div>
     
-    <div class="toolbar">
-      <button class="btn active" onclick="filterCategory('all', this)">Tất cả bài toán</button>
-      <button class="btn" onclick="filterCategory('phan1', this)">1. Phân thức 2 TH</button>
-      <button class="btn" onclick="filterCategory('phan2', this)">2. Hàm hợp & Vi phân</button>
-      <button class="btn" onclick="filterCategory('btvn', this)">3. Bài tập về nhà</button>
-      <button class="btn" onclick="toggleAllSolutions()">Ẩn/Hiện toàn bộ lời giải</button>
-      <button class="btn" onclick="window.print()">In tài liệu / Lưu PDF</button>
+    <div class="toolbar-wrapper">
+      <div class="toolbar" id="filterBar">
+        <button class="btn active" onclick="filterCategory('all', this)">📋 Tất cả</button>
+        <button class="btn" onclick="filterCategory('phan1', this)">1. Phân thức 2 TH</button>
+        <button class="btn" onclick="filterCategory('phan2', this)">2. Hàm hợp & Vi phân</button>
+        <button class="btn" onclick="filterCategory('btvn', this)">3. Bài tập về nhà</button>
+        <button class="btn" id="btnToggleAll" onclick="toggleAllSolutions()">👁 Ẩn/Hiện lời giải</button>
+        <button class="btn" onclick="window.print()">🖨 In / PDF</button>
+      </div>
     </div>
   </header>
 
@@ -339,31 +493,31 @@
 
     <div class="theory-card">
       <h3>
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 10h2v4h-2zm0 6h2v2h-2z"/></svg>
-        Trọng Tâm Phương Pháp Sư Phạm Cần Ghi Nhớ
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 10h2v4h-2zm0 6h2v2h-2z"/></svg>
+        Trọng Tâm Phương Pháp Cần Nhớ
       </h3>
-      <p style="font-size:0.92rem; color:var(--slate-600);">
-        <strong>Quy tắc nguyên hàm phân thức hai trường hợp:</strong> Với $\int \dfrac{1}{ax+b}\,dx = \dfrac{1}{a}\ln|ax+b|+C$, khi biểu thức xét trên tập $\mathbb{R} \setminus \{x_0\}$, ta có <em>hai hằng số tích phân độc lập</em> $C_1$ và $C_2$ trên từng khoảng xác định.
-      </p>
+      <div class="theory-desc">
+        <strong>Nguyên hàm phân thức 2 trường hợp:</strong> Với $\int \frac{1}{ax+b}\,dx = \frac{1}{a}\ln|ax+b|+C$, khi biểu thức xét trên $\mathbb{R} \setminus \{x_0\}$, tồn tại <em>2 hằng số độc lập</em> $C_1, C_2$ trên hai khoảng $(-\infty; x_0)$ và $(x_0; +\infty)$.
+      </div>
       
       <div class="formula-grid">
         <div class="formula-item">
           $\displaystyle \int f(ax+b)\,dx = \frac{1}{a}F(ax+b)+C$
         </div>
         <div class="formula-item">
-          $\displaystyle f'(x)g(x) + f(x)g'(x) = [f(x)\cdot g(x)]'$
+          $\displaystyle f'g + fg' = [f\cdot g]'$
         </div>
         <div class="formula-item">
-          $\displaystyle \frac{f'(x)g(x) - f(x)g'(x)}{g^2(x)} = \left[\frac{f(x)}{g(x)}\right]'$
+          $\displaystyle \frac{f'g - fg'}{g^2} = \left[\frac{f}{g}\right]'$
         </div>
         <div class="formula-item">
-          $\displaystyle \frac{f'(x)}{[f(x)]^2} = -\left[\frac{1}{f(x)}\right]'$
+          $\displaystyle \frac{f'}{f^2} = -\left[\frac{1}{f}\right]'$
         </div>
         <div class="formula-item">
-          $\displaystyle \frac{f'(x)}{f(x)} = [\ln|f(x)|]'$
+          $\displaystyle \frac{f'}{f} = [\ln|f|]'$
         </div>
         <div class="formula-item">
-          $\displaystyle \frac{f'(x)}{\sqrt{f(x)}} = [2\sqrt{f(x)}]' \quad;\quad n f'(x) f^{n-1}(x) = [f^n(x)]'$
+          $\displaystyle \frac{f'}{\sqrt{f}} = [2\sqrt{f}]'$
         </div>
       </div>
     </div>
@@ -1432,11 +1586,48 @@
 
   </div>
 
+  <button class="fab-top" id="fabTop" onclick="scrollToTop()" aria-label="Lên đầu trang">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"></path>
+    </svg>
+  </button>
+
   <script>
+    // 1. Tự động thêm nút xem/ẩn lời giải cho từng thẻ trên mobile
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.problem-card');
+      cards.forEach((card, idx) => {
+        const solution = card.querySelector('.solution-block');
+        if (solution) {
+          const actionWrap = document.createElement('div');
+          actionWrap.className = 'card-actions';
+
+          const btn = document.createElement('button');
+          btn.className = 'btn-toggle-solution';
+          btn.innerHTML = '<span>Ẩn lời giải</span> <span style="font-size:0.75rem;">▲</span>';
+          btn.onclick = function() {
+            const isHidden = solution.classList.toggle('hidden');
+            if (isHidden) {
+              btn.innerHTML = '<span>Xem lời giải</span> <span style="font-size:0.75rem;">▼</span>';
+            } else {
+              btn.innerHTML = '<span>Ẩn lời giải</span> <span style="font-size:0.75rem;">▲</span>';
+            }
+          };
+
+          actionWrap.appendChild(btn);
+          card.insertBefore(actionWrap, solution);
+        }
+      });
+    });
+
+    // 2. Lọc theo chuyên mục với hỗ trợ cuộn chip
     function filterCategory(cat, btn) {
       const buttons = document.querySelectorAll('.toolbar .btn');
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+
+      // Cuộn chip được chọn vào giữa tầm nhìn trên di động
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 
       const blocks = document.querySelectorAll('.category-block');
       blocks.forEach(block => {
@@ -1448,18 +1639,52 @@
       });
     }
 
+    // 3. Nút bật/tắt toàn bộ lời giải
     let allVisible = true;
     function toggleAllSolutions() {
       allVisible = !allVisible;
       const solutions = document.querySelectorAll('.solution-block');
+      const toggleButtons = document.querySelectorAll('.btn-toggle-solution');
+      
       solutions.forEach(s => {
-        s.style.display = allVisible ? 'block' : 'none';
+        if (allVisible) {
+          s.classList.remove('hidden');
+        } else {
+          s.classList.add('hidden');
+        }
       });
+
+      toggleButtons.forEach(btn => {
+        if (allVisible) {
+          btn.innerHTML = '<span>Ẩn lời giải</span> <span style="font-size:0.75rem;">▲</span>';
+        } else {
+          btn.innerHTML = '<span>Xem lời giải</span> <span style="font-size:0.75rem;">▼</span>';
+        }
+      });
+
+      const btnAll = document.getElementById('btnToggleAll');
+      if (btnAll) {
+        btnAll.textContent = allVisible ? '🙈 Ẩn toàn bộ lời giải' : '👁 Hiện toàn bộ lời giải';
+      }
+    }
+
+    // 4. Xử lý nút cuộn lên đầu trang (Back to top FAB)
+    const fabTop = document.getElementById('fabTop');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 320) {
+        fabTop.classList.add('show');
+      } else {
+        fabTop.classList.remove('show');
+      }
+    }, { passive: true });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
 
   <footer>
-    Tài liệu giải chi tiết Chuyên đề Nguyên hàm VD – VDC • Sưu tầm & Chuẩn hóa định dạng Sư phạm Toán THPT
+    Tài liệu giải chi tiết Chuyên đề Nguyên hàm VD – VDC • Chuẩn SGK Toán THPT • Tối ưu di động
   </footer>
 
 </body>
