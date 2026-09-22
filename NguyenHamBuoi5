@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuyên đề: Nguyên Hàm VD - VDC (Lời Giải )</title>
+  
+  <!-- MathJax for high-quality mathematical typography -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #3b82f6;
+      --primary-subtle: #eff6ff;
+      --accent: #d97706;
+      --accent-subtle: #fef3c7;
+      --slate-800: #1e293b;
+      --slate-600: #475569;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --success: #059669;
+      --success-subtle: #ecfdf5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.65;
+      color: var(--slate-800);
+      background-color: var(--bg);
+      padding: 0;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: white;
+      padding: 2.2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+    }
+
+    header p {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+
+    .toolbar {
+      max-width: 1100px;
+      margin: 1.2rem auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .btn.active {
+      background: #ffffff;
+      color: var(--primary);
+      border-color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 2rem auto;
+      padding: 0 1.2rem;
+    }
+
+    /* Theory Summary Box */
+    .theory-card {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1.5px solid #bfdbfe;
+      padding: 1.4rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.06);
+    }
+
+    .theory-card h3 {
+      color: var(--primary);
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .formula-item {
+      background: var(--primary-subtle);
+      border-left: 3px solid var(--primary-light);
+      padding: 0.6rem 0.9rem;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.95rem;
+    }
+
+    /* Section Styling */
+    .section-title {
+      font-size: 1.35rem;
+      color: var(--primary);
+      font-weight: 700;
+      border-bottom: 2.5px solid var(--primary);
+      padding-bottom: 0.4rem;
+      margin: 2.5rem 0 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--primary-subtle);
+      color: var(--primary);
+      padding: 0.25rem 0.7rem;
+      border-radius: 9999px;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* Problem Cards */
+    .problem-card {
+      background: var(--card);
+      border-radius: 10px;
+      border: 1px solid var(--slate-200);
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .problem-card:hover {
+      border-color: #93c5fd;
+    }
+
+    .problem-header {
+      padding: 1rem 1.25rem;
+      background: #fafcff;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .problem-title {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1.05rem;
+    }
+
+    .problem-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      background: var(--slate-100);
+      color: var(--slate-600);
+      white-space: nowrap;
+    }
+
+    .problem-tag.vdc {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .problem-tag.vd {
+      background: var(--accent-subtle);
+      color: var(--accent);
+    }
+
+    .problem-statement {
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      color: var(--slate-800);
+    }
+
+    .solution-block {
+      background: #ffffff;
+      border-top: 1px dashed var(--slate-200);
+      padding: 1.25rem;
+    }
+
+    .solution-tag {
+      display: inline-block;
+      font-weight: 700;
+      color: var(--success);
+      font-size: 0.88rem;
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .step-box {
+      margin-bottom: 0.8rem;
+      padding-left: 0.9rem;
+      border-left: 2.5px solid #cbd5e1;
+    }
+
+    .step-box strong {
+      color: var(--primary);
+    }
+
+    .final-answer {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: var(--success-subtle);
+      border-left: 4px solid var(--success);
+      border-radius: 4px;
+      font-weight: 600;
+      color: #065f46;
+    }
+
+    .quick-toggle {
+      background: none;
+      border: none;
+      color: var(--primary-light);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0;
+    }
+
+    .quick-toggle:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--slate-600);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--slate-200);
+      margin-top: 3rem;
+    }
+
+    /* Print styles */
+    @media print {
+      header, .toolbar, .quick-toggle, footer {
+        display: none !important;
+      }
+      body {
+        background: #fff;
+        color: #000;
+      }
+      .container {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .problem-card {
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+        margin-bottom: 1.5rem;
+      }
+      .solution-block {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Chuyên Đề: Nguyên Hàm VD – VDC</h1>
+  
+    
+    <div class="toolbar">
+      <button class="btn active" onclick="filterCategory('all', this)">Tất cả bài toán</button>
+      <button class="btn" onclick="filterCategory('phan1', this)">1. Phân thức 2 TH</button>
+      <button class="btn" onclick="filterCategory('phan2', this)">2. Hàm hợp & Vi phân</button>
+      <button class="btn" onclick="filterCategory('btvn', this)">3. Bài tập về nhà</button>
+      <button class="btn" onclick="toggleAllSolutions()">Ẩn/Hiện toàn bộ lời giải</button>
+      <button class="btn" onclick="window.print()">In tài liệu / Lưu PDF</button>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="theory-card">
+      <h3>
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 10h2v4h-2zm0 6h2v2h-2z"/></svg>
+        Trọng Tâm Phương Pháp Sư Phạm Cần Ghi Nhớ
+      </h3>
+      <p style="font-size:0.92rem; color:var(--slate-600);">
+        <strong>Quy tắc nguyên hàm phân thức hai trường hợp:</strong> Với $\int \dfrac{1}{ax+b}\,dx = \dfrac{1}{a}\ln|ax+b|+C$, khi biểu thức xét trên tập $\mathbb{R} \setminus \{x_0\}$, ta có <em>hai hằng số tích phân độc lập</em> $C_1$ và $C_2$ trên từng khoảng xác định.
+      </p>
+      
+      <div class="formula-grid">
+        <div class="formula-item">
+          $\displaystyle \int f(ax+b)\,dx = \frac{1}{a}F(ax+b)+C$
+        </div>
+        <div class="formula-item">
+          $\displaystyle f'(x)g(x) + f(x)g'(x) = [f(x)\cdot g(x)]'$
+        </div>
+        <div class="formula-item">
+          $\displaystyle \frac{f'(x)g(x) - f(x)g'(x)}{g^2(x)} = \left[\frac{f(x)}{g(x)}\right]'$
+        </div>
+        <div class="formula-item">
+          $\displaystyle \frac{f'(x)}{[f(x)]^2} = -\left[\frac{1}{f(x)}\right]'$
+        </div>
+        <div class="formula-item">
+          $\displaystyle \frac{f'(x)}{f(x)} = [\ln|f(x)|]'$
+        </div>
+        <div class="formula-item">
+          $\displaystyle \frac{f'(x)}{\sqrt{f(x)}} = [2\sqrt{f(x)}]' \quad;\quad n f'(x) f^{n-1}(x) = [f^n(x)]'$
+        </div>
+      </div>
+    </div>
+
+    <div class="category-block" data-category="phan1">
+      <div class="section-title">
+        <span>★ PHẦN 1: NGUYÊN HÀM PHÂN THỨC 2 TRƯỜNG HỢP</span>
+        <span class="section-badge">Trang 1</span>
+      </div>
+
+      <!-- MẪU 1 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Mẫu 1 (Chuyên Hùng Vương – Gia Lai 2022)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $y=f(x)$ xác định trên $\mathbb{R}\setminus\{2\}$ thỏa mãn $f'(x) = \dfrac{1}{x-2}$, $f(1)=2021$ và $f(3)=2022$. Tính giá trị của biểu thức $P = \dfrac{f(2023)}{f(-2019)}$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>Bước 1: Tìm họ nguyên hàm trên từng khoảng xác định.</strong><br>
+            Hàm số $f'(x) = \dfrac{1}{x-2}$ liên tục trên hai khoảng riêng biệt $(-\infty; 2)$ và $(2; +\infty)$. Do đó:
+            \[
+            f(x) = \int \frac{1}{x-2}\,dx = 
+            \begin{cases} 
+              \ln(x-2) + C_1 & \text{khi } x > 2 \\
+              \ln(2-x) + C_2 & \text{khi } x < 2 
+            \end{cases}
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>Bước 2: Tìm các hằng số $C_1, C_2$ từ giả thiết ban đầu.</strong>
+            <ul>
+              <li>Tại $x = 1 < 2$: $f(1) = \ln(2-1) + C_2 = 2021 \implies C_2 = 2021$.</li>
+              <li>Tại $x = 3 > 2$: $f(3) = \ln(3-2) + C_1 = 2022 \implies C_1 = 2022$.</li>
+            </ul>
+          </div>
+
+          <div class="step-box">
+            <strong>Bước 3: Tính các giá trị $f(2023)$ và $f(-2019)$.</strong>
+            <ul>
+              <li>Do $2023 > 2$: $f(2023) = \ln(2023 - 2) + C_1 = \ln 2021 + 2022$.</li>
+              <li>Do $-2019 < 2$: $f(-2019) = \ln(2 - (-2019)) + C_2 = \ln 2021 + 2021$.</li>
+            </ul>
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $P = \dfrac{f(2023)}{f(-2019)} = \dfrac{\ln 2021 + 2022}{\ln 2021 + 2021}$.
+          </div>
+        </div>
+      </div>
+
+      <!-- MẪU 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Mẫu 2: Nguyên hàm hàm số cho bởi nhiều công thức</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x) = \begin{cases} x^2 & \text{khi } x \ge 1 \\ 6x - 5 & \text{khi } x < 1 \end{cases}$. Giả sử $F(x)$ xác định và liên tục trên $\mathbb{R}$ là một nguyên hàm của $f(x)$ thỏa mãn $F(0) = 3$. Tính giá trị của $F(-1) + F(4)$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+
+          <div class="step-box">
+            <strong>Bước 1: Tìm họ nguyên hàm của từng nhánh.</strong>
+            \[
+            F(x) = \begin{cases} 
+              \dfrac{x^3}{3} + C_1 & \text{khi } x \ge 1 \\[6pt]
+              3x^2 - 5x + C_2 & \text{khi } x < 1
+            \end{cases}
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>Bước 2: Sử dụng điều kiện $F(0)=3$ và tính liên tục tại điểm ranh giới $x=1$.</strong>
+            <ul>
+              <li>Vì $0 < 1 \implies F(0) = 3(0)^2 - 5(0) + C_2 = 3 \implies C_2 = 3$.</li>
+              <li>Vì $F(x)$ là nguyên hàm trên $\mathbb{R}$ nên $F(x)$ liên tục tại $x = 1$:
+                \[
+                \lim_{x \to 1^+} F(x) = \lim_{x \to 1^-} F(x) = F(1) \iff \frac{1^3}{3} + C_1 = 3(1)^2 - 5(1) + 3 \iff \frac{1}{3} + C_1 = 1 \implies C_1 = \frac{2}{3}.
+                \]
+              </li>
+            </ul>
+          </div>
+
+          <div class="step-box">
+            <strong>Bước 3: Tính các giá trị $F(-1)$ và $F(4)$.</strong>
+            <ul>
+              <li>$F(-1) = 3(-1)^2 - 5(-1) + 3 = 3 + 5 + 3 = 11$.</li>
+              <li>$F(4) = \dfrac{4^3}{3} + \dfrac{2}{3} = \dfrac{64 + 2}{3} = 22$.</li>
+            </ul>
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $F(-1) + F(4) = 11 + 22 = 33$.
+          </div>
+        </div>
+      </div>
+
+      <!-- BÀI TẬP CÂU 1 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 1 (Bài tập Trang 1)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x)$ xác định trên $\mathbb{R} \setminus \left\{\dfrac{1}{2}\right\}$ thỏa mãn $f'(x) = \dfrac{2}{2x-1}$, $f(0)=1$ và $f(1)=2$. Giá trị của biểu thức $f(-1) + f(3)$ bằng $a + \ln b$ (với $2 \le a, b \in \mathbb{N} \le 20$). Tính tổng $a+b$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Xác định nguyên hàm:</strong>
+            \[
+            f(x) = \int \frac{2}{2x-1}\,dx = \ln|2x-1| + C = 
+            \begin{cases} 
+              \ln(2x-1) + C_1 & \text{khi } x > \dfrac{1}{2} \\[6pt]
+              \ln(1-2x) + C_2 & \text{khi } x < \dfrac{1}{2}
+            \end{cases}
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Tính hằng số tích phân:</strong>
+            <ul>
+              <li>$f(0) = 1 \implies \ln(1 - 0) + C_2 = 1 \implies C_2 = 1$.</li>
+              <li>$f(1) = 2 \implies \ln(2 - 1) + C_1 = 2 \implies C_1 = 2$.</li>
+            </ul>
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính giá trị yêu cầu:</strong>
+            \[
+            f(-1) = \ln(1 - 2(-1)) + C_2 = \ln 3 + 1
+            \]
+            \[
+            f(3) = \ln(2 \cdot 3 - 1) + C_1 = \ln 5 + 2
+            \]
+            \[
+            \implies f(-1) + f(3) = 1 + \ln 3 + 2 + \ln 5 = 3 + \ln 15.
+            \]
+            Đối chiếu với dạng $a + \ln b$, ta được $a = 3$, $b = 15$ thỏa mãn $2 \le a, b \le 20$.
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $a + b = 3 + 15 = 18$.
+          </div>
+        </div>
+      </div>
+
+      <!-- BÀI TẬP CÂU 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 2 (Bài tập Trang 1)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x)$ xác định trên $\mathbb{R} \setminus \{1\}$ thỏa mãn $f'(x) = \dfrac{1}{x-1}$. Biết $f(0) = 2017$, $f(2) = 2018$. Tính $S = \big(f(3) - 2018\big)\big(f(-1) - 2017\big)$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Họ nguyên hàm:</strong>
+            \[
+            f(x) = \begin{cases} 
+              \ln(x-1) + C_1 & \text{khi } x > 1 \\
+              \ln(1-x) + C_2 & \text{khi } x < 1 
+            \end{cases}
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Xác định $C_1, C_2$:</strong>
+            <ul>
+              <li>$f(0) = \ln 1 + C_2 = 2017 \implies C_2 = 2017$.</li>
+              <li>$f(2) = \ln 1 + C_1 = 2018 \implies C_1 = 2018$.</li>
+            </ul>
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính $S$:</strong>
+            <ul>
+              <li>$f(3) = \ln(3-1) + 2018 = \ln 2 + 2018 \implies f(3) - 2018 = \ln 2$.</li>
+              <li>$f(-1) = \ln(1 - (-1)) + 2017 = \ln 2 + 2017 \implies f(-1) - 2017 = \ln 2$.</li>
+            </ul>
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $S = (\ln 2) \cdot (\ln 2) = \ln^2 2$.
+          </div>
+        </div>
+      </div>
+
+      <!-- BÀI TẬP CÂU 3 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 3 (Bài tập Trang 1)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x)$ biết $f'(x) = \dfrac{x+1}{x^2}$, thỏa mãn $f(-2) = \dfrac{3}{2}$ và $f(2) = 2\ln 2 - \dfrac{3}{2}$. Giá trị $f(-1)$ bằng bao nhiêu?
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Phân tích và lấy nguyên hàm:</strong>
+            \[
+            f'(x) = \frac{x+1}{x^2} = \frac{1}{x} + \frac{1}{x^2}
+            \]
+            \[
+            \implies f(x) = \int \left(\frac{1}{x} + \frac{1}{x^2}\right) dx = \ln|x| - \frac{1}{x} + C = 
+            \begin{cases} 
+              \ln x - \dfrac{1}{x} + C_1 & \text{khi } x > 0 \\[6pt]
+              \ln(-x) - \dfrac{1}{x} + C_2 & \text{khi } x < 0 
+            \end{cases}
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Tìm hằng số $C_2$ (thuộc khoảng $x < 0$):</strong><br>
+            Từ giả thiết $f(-2) = \dfrac{3}{2}$:
+            \[
+            \ln|-2| - \frac{1}{-2} + C_2 = \frac{3}{2} \iff \ln 2 + \frac{1}{2} + C_2 = \frac{3}{2} \implies C_2 = 1 - \ln 2.
+            \]
+            <em>(Giả thiết $f(2)$ cho ta $C_1 = \ln 2 - 1$, tuy nhiên câu hỏi chỉ cần tính tại điểm $x = -1 < 0$).</em>
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính $f(-1)$:</strong>
+            \[
+            f(-1) = \ln|-1| - \frac{1}{-1} + C_2 = 0 + 1 + (1 - \ln 2) = 2 - \ln 2.
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $f(-1) = 2 - \ln 2$.
+          </div>
+        </div>
+      </div>
+
+      <!-- BÀI TẬP CÂU 4 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 4 (Nhóm 1, 2, 3 – Trang 1)</div>
+          <span class="problem-tag vdc">VDC</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x)$ có đạo hàm trên mỗi khoảng $\left(-\infty; -\dfrac{1}{2}\right)$ và $\left(-\dfrac{1}{2}; +\infty\right)$, đồng thời thỏa mãn $f'(x) = \dfrac{1}{2x+1}$ và $f(-1) + 2f(0) = 2\ln 674$. Giá trị biểu thức $S = f(-2) + f(1) + f(4)$ bằng $a \ln b$ (với $206 \le b \in \mathbb{N} \le 2026$). Tính tổng $a+b$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Xác định cấu trúc nghiệm của $f(x)$ trên 2 khoảng:</strong>
+            \[
+            f(x) = \int \frac{1}{2x+1}\,dx = \frac{1}{2}\ln|2x+1| + C = 
+            \begin{cases} 
+              \dfrac{1}{2}\ln(2x+1) + C_1 & \text{khi } x > -\dfrac{1}{2} \\[6pt]
+              \dfrac{1}{2}\ln(-2x-1) + C_2 & \text{khi } x < -\dfrac{1}{2}
+            \end{cases}
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Khai thác giả thiết $f(-1) + 2f(0) = 2\ln 674$:</strong>
+            <ul>
+              <li>Tại $x = 0 > -\dfrac{1}{2}$: $f(0) = \dfrac{1}{2}\ln(1) + C_1 = C_1$.</li>
+              <li>Tại $x = -1 < -\dfrac{1}{2}$: $f(-1) = \dfrac{1}{2}\ln(1) + C_2 = C_2$.</li>
+            </ul>
+            Suy ra: $C_2 + 2C_1 = 2\ln 674$.
+          </div>
+
+          <div class="step-box">
+            <strong>3. Phân tích biểu thức $S = f(-2) + f(1) + f(4)$:</strong>
+            <ul>
+              <li>$f(-2) = \dfrac{1}{2}\ln|-4+1| + C_2 = \dfrac{1}{2}\ln 3 + C_2$ (vì $-2 < -1/2$).</li>
+              <li>$f(1) = \dfrac{1}{2}\ln(3) + C_1$ (vì $1 > -1/2$).</li>
+              <li>$f(4) = \dfrac{1}{2}\ln(9) + C_1 = \dfrac{1}{2}\ln(3^2) + C_1 = \ln 3 + C_1$ (vì $4 > -1/2$).</li>
+            </ul>
+            Cộng vế theo vế:
+            \[
+            S = \left(\frac{1}{2}\ln 3 + \frac{1}{2}\ln 3 + \ln 3\right) + (C_2 + 2C_1) = 2\ln 3 + 2\ln 674 = 2\big(\ln 3 + \ln 674\big) = 2\ln(3 \cdot 674) = 2\ln 2022.
+            \]
+            Đối chiếu $S = a\ln b$ với $206 \le b \le 2026 \implies a = 2, b = 2022$.
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $a + b = 2 + 2022 = 2024$.
+          </div>
+        </div>
+      </div>
+
+      <!-- BÀI TẬP CÂU 5 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 5 (Nhóm 1, 2 – Trang 1)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x) = \begin{cases} 2x-1 & \text{khi } x \ge 1 \\ 3x^2-2 & \text{khi } x < 1 \end{cases}$. Giả sử $F(x)$ là nguyên hàm của $f(x)$ trên $\mathbb{R}$ thỏa mãn $F(0) = 2$. Tính giá trị của $F(-1) + 2F(2)$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Họ nguyên hàm:</strong>
+            \[
+            F(x) = \begin{cases} 
+              x^2 - x + C_1 & \text{khi } x \ge 1 \\
+              x^3 - 2x + C_2 & \text{khi } x < 1
+            \end{cases}
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Tính hằng số tích phân:</strong>
+            <ul>
+              <li>Do $0 < 1$: $F(0) = 0^3 - 2(0) + C_2 = 2 \implies C_2 = 2$.</li>
+              <li>Hàm số $F(x)$ liên tục tại $x = 1$:
+                \[
+                \lim_{x \to 1^+} F(x) = \lim_{x \to 1^-} F(x) \iff 1^2 - 1 + C_1 = 1^3 - 2(1) + 2 \implies C_1 = 1.
+                \]
+              </li>
+            </ul>
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính các giá trị:</strong>
+            <ul>
+              <li>$F(-1) = (-1)^3 - 2(-1) + 2 = -1 + 2 + 2 = 3$.</li>
+              <li>$F(2) = 2^2 - 2 + 1 = 3$.</li>
+            </ul>
+            Do đó: $F(-1) + 2F(2) = 3 + 2(3) = 9$.
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $F(-1) + 2F(2) = 9$.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-block" data-category="phan2">
+      <div class="section-title">
+        <span>★ PHẦN 2: NGUYÊN HÀM HÀM HỢP VÀ PHƯƠNG TRÌNH VI PHÂN</span>
+        <span class="section-badge">Trang 1 – 2</span>
+      </div>
+
+      <!-- MẪU 1 PHẦN 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Mẫu 1: Dạng phân ly biến số vi phân cơ bản</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x)$ thỏa mãn $f(2) = -\dfrac{1}{3}$ và $f'(x) = x\big[f(x)\big]^2$ với mọi $x \in \mathbb{R}$. Giá trị của $f(1)$ bằng bao nhiêu?
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Chuyển vế tách biến:</strong>
+            Với $f(x) \ne 0$, chia cả hai vế cho $[f(x)]^2$:
+            \[
+            \frac{f'(x)}{[f(x)]^2} = x \iff -\left(\frac{1}{f(x)}\right)' = x
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Lấy nguyên hàm hai vế:</strong>
+            \[
+            -\frac{1}{f(x)} = \frac{x^2}{2} + C_0 \iff \frac{1}{f(x)} = -\frac{x^2}{2} + C.
+            \]
+            Thay $x = 2$:
+            \[
+            \frac{1}{f(2)} = \frac{1}{-\frac{1}{3}} = -3 = -\frac{2^2}{2} + C = -2 + C \implies C = -1.
+            \]
+            Suy ra:
+            \[
+            \frac{1}{f(x)} = -\frac{x^2}{2} - 1 = -\frac{x^2+2}{2} \implies f(x) = -\frac{2}{x^2+2}.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính $f(1)$:</strong>
+            \[
+            f(1) = -\frac{2}{1^2+2} = -\frac{2}{3}.
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $f(1) = -\dfrac{2}{3}$.
+          </div>
+        </div>
+      </div>
+
+      <!-- MẪU 2 PHẦN 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Mẫu 2 (Nhóm 1, 2, 3 – Trang 1): Đạo hàm tích hoặc thương</div>
+          <span class="problem-tag vdc">VDC</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $y=f(x)$ liên tục trên $\mathbb{R} \setminus \{0; -2\}$ thỏa mãn điều kiện $f(1) = -3\ln 3$ và:
+          \[
+          x(x+2)f'(x) + 2f(x) = x^2+3x+2.
+          \]
+          Biết $f(2) = a + b\ln 2$ với $a, b \in \mathbb{Q}$. Tính $a^2+b^2$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Nhận dạng đạo hàm của một tích hoặc thương:</strong><br>
+            Quan sát hệ số $x(x+2)$ và $2$: Ta thấy $\left(\dfrac{x}{x+2}\right)' = \dfrac{1(x+2) - x}{(x+2)^2} = \dfrac{2}{(x+2)^2}$.<br>
+            Do đó, ta chia hai vế của phương trình cho $(x+2)^2$:
+            \[
+            \frac{x}{x+2}f'(x) + \frac{2}{(x+2)^2}f(x) = \frac{x^2+3x+2}{(x+2)^2}.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Thu gọn và nguyên hàm:</strong>
+            Vế trái chính là đạo hàm của $\left[\dfrac{x}{x+2}f(x)\right]'$. Phân tích vế phải:
+            \[
+            \frac{x^2+3x+2}{(x+2)^2} = \frac{(x+1)(x+2)}{(x+2)^2} = \frac{x+1}{x+2} = 1 - \frac{1}{x+2}.
+            \]
+            Lấy nguyên hàm hai vế:
+            \[
+            \frac{x}{x+2}f(x) = \int \left(1 - \frac{1}{x+2}\right) dx = x - \ln|x+2| + C.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tìm $C$ và suy ra $f(2)$ trên khoảng $(0; +\infty)$:</strong>
+            Thay $x = 1$:
+            \[
+            \frac{1}{3}f(1) = 1 - \ln 3 + C \iff \frac{1}{3}(-3\ln 3) = 1 - \ln 3 + C \iff -\ln 3 = 1 - \ln 3 + C \implies C = -1.
+            \]
+            Hàm số thỏa: $\dfrac{x}{x+2}f(x) = x - 1 - \ln(x+2)$.<br>
+            Thay $x = 2$:
+            \[
+            \frac{2}{4}f(2) = 2 - 1 - \ln 4 \iff \frac{1}{2}f(2) = 1 - 2\ln 2 \implies f(2) = 2 - 4\ln 2.
+            \]
+            Đồng nhất với dạng $a + b\ln 2 \implies a = 2, b = -4$.
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $a^2 + b^2 = 2^2 + (-4)^2 = 20$.
+          </div>
+        </div>
+      </div>
+
+      <!-- CÂU 1 TRANG 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 1 (Bài tập Trang 2): Lượng giác hóa vi phân</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x)$ thỏa mãn $f\left(\dfrac{\pi}{4}\right) = 0$ và $f'(x) \cdot 4\sin^2\dfrac{x}{2}\cos^2\dfrac{x}{2} = 1$. Tính $f\left(\dfrac{\pi}{2}\right)$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Biến đổi lượng giác:</strong>
+            Áp dụng công thức nhân đôi $\sin x = 2\sin\dfrac{x}{2}\cos\dfrac{x}{2} \implies \sin^2 x = 4\sin^2\dfrac{x}{2}\cos^2\dfrac{x}{2}$.<br>
+            Phương trình trở thành:
+            \[
+            f'(x)\cdot \sin^2 x = 1 \iff f'(x) = \frac{1}{\sin^2 x}.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Tìm hàm số $f(x)$:</strong>
+            \[
+            f(x) = \int \frac{1}{\sin^2 x}\,dx = -\cot x + C.
+            \]
+            Vì $f\left(\dfrac{\pi}{4}\right) = 0 \implies -\cot\left(\dfrac{\pi}{4}\right) + C = 0 \iff -1 + C = 0 \implies C = 1$.<br>
+            Suy ra: $f(x) = 1 - \cot x$.
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính $f\left(\dfrac{\pi}{2}\right)$:</strong>
+            \[
+            f\left(\frac{\pi}{2}\right) = 1 - \cot\left(\frac{\pi}{2}\right) = 1 - 0 = 1.
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $f\left(\dfrac{\pi}{2}\right) = 1$.
+          </div>
+        </div>
+      </div>
+
+      <!-- CÂU 2 TRANG 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 2 (Mã 101 – 2020 Đợt 2)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Biết $F(x) = e^x + x^2$ là một nguyên hàm của hàm số $f(x)$ trên $\mathbb{R}$. Tính $\displaystyle\int f(2x)\,dx$.<br>
+          <div style="margin-top:0.4rem; display:flex; gap:1.5rem; flex-wrap:wrap;">
+            <span><strong>A.</strong> $2e^x + 2x^2 + C$</span>
+            <span><strong>B.</strong> $\dfrac{1}{2}e^{2x} + x^2 + C$</span>
+            <span><strong>C.</strong> $\dfrac{1}{2}e^{2x} + 2x^2 + C$</span>
+            <span><strong>D.</strong> $e^{2x} + 4x^2 + C$</span>
+          </div>
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>Áp dụng công thức đổi biến cơ bản SGK:</strong>
+            Nếu $\int f(x)\,dx = F(x) + C$ thì $\displaystyle\int f(ax+b)\,dx = \frac{1}{a}F(ax+b) + C$.<br>
+            Ở đây $a = 2, b = 0$, ta có:
+            \[
+            \int f(2x)\,dx = \frac{1}{2}F(2x) + C = \frac{1}{2}\left(e^{2x} + (2x)^2\right) + C = \frac{1}{2}e^{2x} + 2x^2 + C.
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: Chọn đáp án <strong>C</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- CÂU 3 TRANG 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 3 (Bài tập Trang 2)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $y=f(x)$ thỏa mãn $f'(x) \cdot f(x) = x^4 + x^2$. Biết $f(0) = 2$. Tính $f^2(2)$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Nhận xét vi phân:</strong>
+            Nhận thấy $f(x)f'(x) = \left[\dfrac{1}{2}f^2(x)\right]'$. Lấy nguyên hàm hai vế:
+            \[
+            \int f(x)f'(x)\,dx = \int (x^4 + x^2)\,dx \iff \frac{1}{2}f^2(x) = \frac{x^5}{5} + \frac{x^3}{3} + C_0
+            \]
+            \[
+            \iff f^2(x) = \frac{2}{5}x^5 + \frac{2}{3}x^3 + C.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Tìm $C$ và tính $f^2(2)$:</strong>
+            Thay $x = 0$: $f^2(0) = 2^2 = 4 \implies C = 4$.<br>
+            Tại $x = 2$:
+            \[
+            f^2(2) = \frac{2}{5}(2^5) + \frac{2}{3}(2^3) + 4 = \frac{64}{5} + \frac{16}{3} + 4 = \frac{192 + 80 + 60}{15} = \frac{332}{15}.
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $f^2(2) = \dfrac{332}{15}$.
+          </div>
+        </div>
+      </div>
+
+      <!-- CÂU 4 TRANG 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 4 (Bài tập Trang 2)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x)$ có đạo hàm và $f(x) > 0, \forall x \in \mathbb{R}$, thỏa mãn $f'(x) = (2x-1)f(x)$ và $f(0) = 1$. Tính $f(2)$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Biến đổi vi phân:</strong>
+            Vì $f(x) > 0$, chia cả hai vế cho $f(x)$:
+            \[
+            \frac{f'(x)}{f(x)} = 2x - 1 \iff [\ln f(x)]' = 2x - 1.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Lấy nguyên hàm:</strong>
+            \[
+            \ln f(x) = \int (2x-1)\,dx = x^2 - x + C.
+            \]
+            Thay $x = 0$: $\ln f(0) = \ln 1 = 0 \implies 0^2 - 0 + C = 0 \implies C = 0$.<br>
+            Do đó: $\ln f(x) = x^2 - x \implies f(x) = e^{x^2 - x}$.
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính $f(2)$:</strong>
+            \[
+            f(2) = e^{2^2 - 2} = e^2.
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $f(2) = e^2$.
+          </div>
+        </div>
+      </div>
+
+      <!-- CÂU 5 TRANG 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 5 (Bài tập Trang 2)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x)$ thỏa mãn $f(2) = -e$ và $f'(x) = e^{-x}\big[f(x)\big]^2$ với mọi $x \in \mathbb{R}$. Tính $f(1)$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Biến đổi vi phân:</strong>
+            \[
+            \frac{f'(x)}{[f(x)]^2} = e^{-x} \iff -\left(\frac{1}{f(x)}\right)' = e^{-x}.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Lấy nguyên hàm hai vế:</strong>
+            \[
+            -\frac{1}{f(x)} = -e^{-x} + C_0 \iff \frac{1}{f(x)} = e^{-x} + C.
+            \]
+            Thay $x = 2$:
+            \[
+            \frac{1}{f(2)} = \frac{1}{-e} = -e^{-1} = e^{-2} + C \implies C = -e^{-1} - e^{-2}.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính $f(1)$:</strong>
+            \[
+            \frac{1}{f(1)} = e^{-1} + C = e^{-1} + \left(-e^{-1} - e^{-2}\right) = -e^{-2} = -\frac{1}{e^2} \implies f(1) = -e^2.
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $f(1) = -e^2$.
+          </div>
+        </div>
+      </div>
+
+      <!-- CÂU 6 TRANG 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 6 (Bài tập Trang 2): Ứng dụng viết phương trình tiếp tuyến</div>
+          <span class="problem-tag vdc">VDC</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x)$ có đạo hàm liên tục trên $(0; +\infty)$ thỏa mãn $f'(x) + \dfrac{f(x)}{x} = 4x^2+3x$ và $f(1) = 2$. Viết phương trình tiếp tuyến của đồ thị hàm số $y=f(x)$ tại điểm có hoành độ $x=2$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Nhân lượng tích phân đưa về đạo hàm tích:</strong><br>
+            Nhân hai vế với $x > 0$:
+            \[
+            x f'(x) + f(x) = 4x^3 + 3x^2 \iff [x f(x)]' = 4x^3 + 3x^2.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Tìm công thức hàm số $f(x)$:</strong>
+            \[
+            x f(x) = \int (4x^3 + 3x^2)\,dx = x^4 + x^3 + C.
+            \]
+            Thay $x = 1$: $1 \cdot f(1) = 2 = 1^4 + 1^3 + C = 2 + C \implies C = 0$.<br>
+            Do đó: $x f(x) = x^4 + x^3 \implies f(x) = x^3 + x^2$.
+          </div>
+
+          <div class="step-box">
+            <strong>3. Lập phương trình tiếp tuyến tại $x_0 = 2$:</strong>
+            <ul>
+              <li>Tung độ tiếp điểm: $y_0 = f(2) = 2^3 + 2^2 = 8 + 4 = 12$.</li>
+              <li>Hệ số góc: $f'(x) = 3x^2 + 2x \implies k = f'(2) = 3(2^2) + 2(2) = 12 + 4 = 16$.</li>
+            </ul>
+            Phương trình tiếp tuyến có dạng $y = k(x - x_0) + y_0$:
+            \[
+            y = 16(x - 2) + 12 \iff y = 16x - 20.
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: Phương trình tiếp tuyến là $y = 16x - 20$.
+          </div>
+        </div>
+      </div>
+
+      <!-- CÂU 7 TRANG 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 7 (Nhóm 1, 2 – Trang 2): Cực trị tích phân hàm hợp</div>
+          <span class="problem-tag vdc">VDC</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm $y = f(x)$ liên tục và có đạo hàm trên $(-\sqrt{2}; \sqrt{2}) \setminus \{0\}$ thỏa mãn $f(1) = 0$ và:
+          \[
+          f'(x) + x\left(e^{f(x)} + 2\right) + \frac{x}{e^{f(x)}} = 0.
+          \]
+          Tìm giá trị nhỏ nhất của hàm số $g(x) = e^{f(x)} + 2x^2 + 2026$ trên đoạn $\left[-\dfrac{\sqrt{6}}{2}; \dfrac{\sqrt{6}}{2}\right]$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Quy đồng và nhận diện cấu trúc bình phương vi phân:</strong>
+            \[
+            f'(x) + x\left(\frac{e^{2f(x)} + 2e^{f(x)} + 1}{e^{f(x)}}\right) = 0 \iff f'(x) + x\frac{(e^{f(x)}+1)^2}{e^{f(x)}} = 0
+            \]
+            \[
+            \iff \frac{e^{f(x)} f'(x)}{(e^{f(x)}+1)^2} = -x \iff \left(-\frac{1}{e^{f(x)}+1}\right)' = -x.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Lấy nguyên hàm hai vế:</strong>
+            \[
+            \frac{1}{e^{f(x)}+1} = \frac{x^2}{2} + C.
+            \]
+            Thay $x = 1$: Do $f(1) = 0 \implies \dfrac{1}{e^0 + 1} = \dfrac{1}{2} = \dfrac{1^2}{2} + C \implies C = 0$.<br>
+            Do đó:
+            \[
+            \frac{1}{e^{f(x)}+1} = \frac{x^2}{2} \iff e^{f(x)}+1 = \frac{2}{x^2} \iff e^{f(x)} = \frac{2}{x^2} - 1.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tìm giá trị nhỏ nhất của $g(x)$ bằng bất đẳng thức AM-GM:</strong>
+            Hàm số $g(x)$ trở thành:
+            \[
+            g(x) = \left(\frac{2}{x^2} - 1\right) + 2x^2 + 2026 = \frac{2}{x^2} + 2x^2 + 2025.
+            \]
+            Áp dụng BĐT AM-GM cho hai số dương $\dfrac{2}{x^2}$ và $2x^2$:
+            \[
+            \frac{2}{x^2} + 2x^2 \ge 2\sqrt{\frac{2}{x^2} \cdot 2x^2} = 2 \cdot 2 = 4.
+            \]
+            \[
+            \implies g(x) \ge 4 + 2025 = 2029.
+            \]
+            Dấu đẳng thức xảy ra khi:
+            \[
+            \frac{2}{x^2} = 2x^2 \iff x^4 = 1 \iff x = \pm 1.
+            \]
+            Nhận thấy $x = \pm 1$ hoàn toàn thuộc miền xác định và nằm trong đoạn $\left[-\dfrac{\sqrt{6}}{2}; \dfrac{\sqrt{6}}{2}\right]$ (vì $\dfrac{\sqrt{6}}{2} \approx 1.225 > 1$).
+          </div>
+
+          <div class="final-answer">
+            Kết luận: Giá trị nhỏ nhất của $g(x)$ là $2029$.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-block" data-category="btvn">
+      <div class="section-title">
+        <span>★ PHẦN 3: BÀI TẬP VỀ NHÀ</span>
+        <span class="section-badge">Trang 2</span>
+      </div>
+
+      <!-- BTVN CÂU 1 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 1 (Bài tập về nhà)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Biết $F(x)$ là một nguyên hàm của hàm số $f(x)$. Khẳng định nào sau đây đúng?<br>
+          <div style="margin-top:0.4rem; display:flex; gap:1.5rem; flex-wrap:wrap;">
+            <span><strong>A.</strong> $[F(5x)]' = 5f(x)$</span>
+            <span><strong>B.</strong> $[F(5x)]' = f(5x)$</span>
+            <span><strong>C.</strong> $[F(5x)]' = \dfrac{1}{5}f(x)$</span>
+            <span><strong>D.</strong> $[F(5x)]' = 5f(5x)$</span>
+          </div>
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            Theo định nghĩa đạo hàm hàm số hợp $[F(u(x))]' = u'(x) \cdot F'(u(x))$:<br>
+            Đặt $u(x) = 5x \implies u'(x) = 5$. Mặt khác vì $F(u)$ là nguyên hàm của $f(u)$ nên $F'(u) = f(u)$.<br>
+            Do đó:
+            \[
+            [F(5x)]' = (5x)' \cdot F'(5x) = 5f(5x).
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: Chọn đáp án <strong>D</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- BTVN CÂU 2 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 2 (Bài tập về nhà)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \dfrac{1}{x-2}$ và $F(0) = 1$, $F(3) = 2$. Tính $K = F(4) - F(1)$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Xác định nguyên hàm trên hai khoảng:</strong>
+            \[
+            F(x) = \begin{cases} 
+              \ln(x-2) + C_1 & \text{khi } x > 2 \\
+              \ln(2-x) + C_2 & \text{khi } x < 2 
+            \end{cases}
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Tính hằng số $C_1, C_2$:</strong>
+            <ul>
+              <li>$F(0) = 1 \implies \ln(2 - 0) + C_2 = 1 \implies C_2 = 1 - \ln 2$.</li>
+              <li>$F(3) = 2 \implies \ln(3 - 2) + C_1 = 2 \implies C_1 = 2$.</li>
+            </ul>
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính $F(4)$ và $F(1)$:</strong>
+            <ul>
+              <li>$F(4) = \ln(4 - 2) + C_1 = \ln 2 + 2$.</li>
+              <li>$F(1) = \ln(2 - 1) + C_2 = 0 + (1 - \ln 2) = 1 - \ln 2$.</li>
+            </ul>
+            Suy ra:
+            \[
+            K = F(4) - F(1) = (\ln 2 + 2) - (1 - \ln 2) = 1 + 2\ln 2.
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $K = 1 + 2\ln 2$.
+          </div>
+        </div>
+      </div>
+
+      <!-- BTVN CÂU 3 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 3 (Bài tập về nhà)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $y=f(x)$ có đạo hàm liên tục trên đoạn $[-2; 1]$ thỏa mãn $f(0) = 3$ và:
+          \[
+          \big(f(x)\big)^2 \cdot f'(x) = 3x^2 + 4x + 2.
+          \]
+          Giá trị $f(1)$ bằng bao nhiêu?
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Lấy nguyên hàm hai vế:</strong>
+            \[
+            \int [f(x)]^2 f'(x)\,dx = \int (3x^2 + 4x + 2)\,dx \iff \frac{[f(x)]^3}{3} = x^3 + 2x^2 + 2x + C
+            \]
+            \[
+            \iff [f(x)]^3 = 3\left(x^3 + 2x^2 + 2x + C\right).
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Khai thác giả thiết $f(0)=3$:</strong>
+            \[
+            \frac{[f(0)]^3}{3} = \frac{3^3}{3} = 9 = 0^3 + 2(0)^2 + 2(0) + C \implies C = 9.
+            \]
+            Do đó:
+            \[
+            [f(x)]^3 = 3(x^3 + 2x^2 + 2x + 9).
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính $f(1)$:</strong>
+            \[
+            [f(1)]^3 = 3(1^3 + 2(1)^2 + 2(1) + 9) = 3(14) = 42 \implies f(1) = \sqrt[3]{42}.
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $f(1) = \sqrt[3]{42}$.
+          </div>
+        </div>
+      </div>
+
+      <!-- BTVN CÂU 4 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 4 (Bài tập về nhà)</div>
+          <span class="problem-tag vdc">VDC</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x)$ nhận giá trị dương và có đạo hàm liên tục trên khoảng $(0; +\infty)$ thỏa mãn $f(2) = \dfrac{1}{15}$ và $f'(x) + (2x+4)f^2(x) = 0$. Tính $f(1) + f(2) + f(3)$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Phân ly biến số:</strong>
+            Vì $f(x) > 0$, chia cả hai vế cho $f^2(x)$:
+            \[
+            -\frac{f'(x)}{f^2(x)} = 2x + 4 \iff \left(\frac{1}{f(x)}\right)' = 2x + 4.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Lấy nguyên hàm:</strong>
+            \[
+            \frac{1}{f(x)} = \int (2x+4)\,dx = x^2 + 4x + C.
+            \]
+            Thay $x = 2$:
+            \[
+            \frac{1}{f(2)} = 15 = 2^2 + 4(2) + C = 12 + C \implies C = 3.
+            \]
+            Suy ra:
+            \[
+            f(x) = \frac{1}{x^2+4x+3} = \frac{1}{(x+1)(x+3)}.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính tổng:</strong>
+            <ul>
+              <li>$f(1) = \dfrac{1}{(1+1)(1+3)} = \dfrac{1}{8}$.</li>
+              <li>$f(2) = \dfrac{1}{15}$.</li>
+              <li>$f(3) = \dfrac{1}{(3+1)(3+3)} = \dfrac{1}{24}$.</li>
+            </ul>
+            Tổng:
+            \[
+            f(1) + f(2) + f(3) = \left(\frac{1}{8} + \frac{1}{24}\right) + \frac{1}{15} = \frac{4}{24} + \frac{1}{15} = \frac{1}{6} + \frac{1}{15} = \frac{5 + 2}{30} = \frac{7}{30}.
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $f(1) + f(2) + f(3) = \dfrac{7}{30}$.
+          </div>
+        </div>
+      </div>
+
+      <!-- BTVN CÂU 5 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 5 (Bài tập về nhà)</div>
+          <span class="problem-tag vd">Vận Dụng</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $y=f(x)$ thỏa mãn $f(2) = -\dfrac{4}{19}$ và $f'(x) = x^3 f^2(x), \forall x \in \mathbb{R}$. Giá trị của $f(1)$ bằng bao nhiêu?
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Chuyển vế đạo hàm:</strong>
+            \[
+            \frac{f'(x)}{f^2(x)} = x^3 \iff -\left(\frac{1}{f(x)}\right)' = x^3 \implies \frac{1}{f(x)} = -\frac{x^4}{4} + C.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Xác định hằng số $C$:</strong>
+            Thay $x = 2$:
+            \[
+            \frac{1}{f(2)} = -\frac{19}{4} = -\frac{2^4}{4} + C = -4 + C \implies C = -\frac{19}{4} + 4 = -\frac{3}{4}.
+            \]
+            Do đó:
+            \[
+            \frac{1}{f(x)} = -\frac{x^4}{4} - \frac{3}{4} = -\frac{x^4+3}{4} \implies f(x) = -\frac{4}{x^4+3}.
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính $f(1)$:</strong>
+            \[
+            f(1) = -\frac{4}{1^4+3} = -\frac{4}{4} = -1.
+            \]
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $f(1) = -1$.
+          </div>
+        </div>
+      </div>
+
+      <!-- BTVN CÂU 6 -->
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-title">Câu 6 (Nhóm 1, 2 – Bài tập về nhà)</div>
+          <span class="problem-tag vdc">VDC</span>
+        </div>
+        <div class="problem-statement">
+          Cho hàm số $f(x)$ xác định trên $(0; +\infty) \setminus \{e\}$, thỏa mãn $f'(x) = \dfrac{1}{x(\ln x - 1)}$, $f(e^2) = 3$ và $f\left(\dfrac{1}{e^2}\right) = \ln 6$. Tính giá trị của biểu thức $f\left(\dfrac{1}{e}\right) - f(e^3)$.
+        </div>
+        <div class="solution-block">
+          <span class="solution-tag">Lời giải chi tiết:</span>
+          
+          <div class="step-box">
+            <strong>1. Tìm họ nguyên hàm:</strong>
+            Ta có vi phân $d(\ln x - 1) = \dfrac{1}{x}dx$. Do đó:
+            \[
+            f(x) = \int \frac{1}{\ln x - 1}\,d(\ln x - 1) = \ln|\ln x - 1| + C = 
+            \begin{cases} 
+              \ln(\ln x - 1) + C_1 & \text{khi } x > e \\
+              \ln(1 - \ln x) + C_2 & \text{khi } 0 < x < e
+            \end{cases}
+            \]
+          </div>
+
+          <div class="step-box">
+            <strong>2. Xác định $C_1, C_2$:</strong>
+            <ul>
+              <li>Vì $e^2 > e$: $f(e^2) = \ln(\ln e^2 - 1) + C_1 = \ln(2 - 1) + C_1 = C_1 \implies C_1 = 3$.</li>
+              <li>Vì $\dfrac{1}{e^2} < e$, có $\ln(e^{-2}) = -2$:
+                \[
+                f\left(\frac{1}{e^2}\right) = \ln(1 - (-2)) + C_2 = \ln 3 + C_2 = \ln 6 \implies C_2 = \ln 6 - \ln 3 = \ln 2.
+                \]
+              </li>
+            </ul>
+          </div>
+
+          <div class="step-box">
+            <strong>3. Tính giá trị $f\left(\dfrac{1}{e}\right)$ và $f(e^3)$:</strong>
+            <ul>
+              <li>Do $\dfrac{1}{e} < e$, với $\ln\left(e^{-1}\right) = -1$:
+                \[
+                f\left(\frac{1}{e}\right) = \ln(1 - (-1)) + C_2 = \ln 2 + \ln 2 = 2\ln 2.
+                \]
+              </li>
+              <li>Do $e^3 > e$:
+                \[
+                f(e^3) = \ln(\ln e^3 - 1) + C_1 = \ln(3 - 1) + 3 = \ln 2 + 3.
+                \]
+              </li>
+            </ul>
+          </div>
+
+          <div class="final-answer">
+            Kết luận: $f\left(\dfrac{1}{e}\right) - f(e^3) = 2\ln 2 - (\ln 2 + 3) = \ln 2 - 3$.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function filterCategory(cat, btn) {
+      const buttons = document.querySelectorAll('.toolbar .btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const blocks = document.querySelectorAll('.category-block');
+      blocks.forEach(block => {
+        if (cat === 'all' || block.getAttribute('data-category') === cat) {
+          block.style.display = 'block';
+        } else {
+          block.style.display = 'none';
+        }
+      });
+    }
+
+    let allVisible = true;
+    function toggleAllSolutions() {
+      allVisible = !allVisible;
+      const solutions = document.querySelectorAll('.solution-block');
+      solutions.forEach(s => {
+        s.style.display = allVisible ? 'block' : 'none';
+      });
+    }
+  </script>
+
+  <footer>
+    Tài liệu giải chi tiết Chuyên đề Nguyên hàm VD – VDC • Sưu tầm & Chuẩn hóa định dạng Sư phạm Toán THPT
+  </footer>
+
+</body>
+</html>
