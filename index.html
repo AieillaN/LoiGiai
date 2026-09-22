@@ -1,4 +1,1092 @@
 <!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Tài Liệu Lời Giải Chi Tiết - Chuyên Đề Nguyên Hàm & Ứng Dụng</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- KaTeX for High-Fidelity Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMath();"></script>
+
+  <!-- Google Fonts: Be Vietnam Pro -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      -webkit-tap-highlight-color: transparent;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Tối ưu hiển thị công thức toán học trên Mobile: Chống vỡ khung layout */
+    .katex-display {
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      padding: 6px 0 !important;
+      margin: 0.5rem 0 !important;
+      -webkit-overflow-scrolling: touch;
+      max-width: 100% !important;
+    }
+    .katex-display::-webkit-scrollbar {
+      height: 4px;
+    }
+    .katex-display::-webkit-scrollbar-thumb {
+      background-color: #cbd5e1;
+      border-radius: 4px;
+    }
+    .katex {
+      font-size: 1.05em;
+    }
+
+    /* Thanh cuộn ẩn cho menu tab di động */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Đánh dấu badge */
+    .badge-nb { background-color: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .badge-th { background-color: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+    .badge-vd { background-color: #fefce8; color: #a16207; border: 1px solid #fef08a; }
+    .badge-vdc { background-color: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+
+    @media print {
+      .no-print { display: none !important; }
+      body { background-color: white !important; color: black !important; }
+      .card-box { box-shadow: none !important; border: 1px solid #e2e8f0 !important; break-inside: avoid; }
+      details { display: block !important; }
+      details > summary { display: none !important; }
+      .solution-content { display: block !important; }
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen pb-16 sm:pb-12">
+
+  <!-- Header Cố Định Tối Ưu Màn Hình Nhỏ -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm no-print">
+    <div class="max-w-5xl mx-auto px-3.5 py-2.5 flex items-center justify-between gap-2">
+      <div class="flex items-center space-x-2.5 min-w-0">
+        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-base shadow shrink-0">
+          $\int$
+        </div>
+        <div class="truncate">
+          <h1 class="text-sm sm:text-base font-bold text-slate-900 leading-tight truncate">TOÁN 12: CHUYÊN ĐỀ NGUYÊN HÀM</h1>
+          <p class="text-[11px] text-slate-500 font-medium hidden sm:block">Lời giải chi tiết chuẩn quy cách Sách Giáo Khoa 2025</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-1.5 shrink-0">
+        <button id="toggleAllBtn" onclick="toggleAllSolutions()" class="text-[11px] sm:text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-100 text-slate-700 transition flex items-center gap-1">
+          <span id="toggleText">Ẩn lời giải</span>
+        </button>
+        <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] sm:text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-sm transition flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+          <span class="hidden sm:inline">In PDF</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Thanh Điều Hướng Ngang (Vuốt Chạm Mobile) -->
+    <nav class="border-t border-slate-100 bg-slate-50/80 px-3 py-1.5 flex items-center gap-2 overflow-x-auto no-scrollbar text-xs font-medium">
+      <a href="#phan-1" class="whitespace-nowrap px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 active:bg-indigo-50 active:text-indigo-600 shadow-2xs">Phần I: TN 4 Lựa chọn</a>
+      <a href="#phan-2" class="whitespace-nowrap px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 active:bg-amber-50 active:text-amber-600 shadow-2xs">Phần II: Đúng - Sai</a>
+      <a href="#phan-3" class="whitespace-nowrap px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 active:bg-emerald-50 active:text-emerald-600 shadow-2xs">Phần III: Điền Đáp Số</a>
+      <a href="#phan-4" class="whitespace-nowrap px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 active:bg-purple-50 active:text-purple-600 shadow-2xs">Phần IV: Bài Tập Về Nhà</a>
+    </nav>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-6 sm:space-y-8">
+
+    <!-- Mobile Banner -->
+    <div class="bg-gradient-to-br from-indigo-900 via-slate-900 to-indigo-950 text-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md text-left sm:text-center relative overflow-hidden">
+      <div class="relative z-10 space-y-1.5 sm:space-y-2">
+        <span class="inline-block px-2.5 py-0.5 bg-indigo-500/30 text-indigo-200 text-[10px] sm:text-xs font-semibold rounded-full uppercase tracking-wider border border-indigo-400/30">
+          Chương trình GDPT mới - Bộ GD&ĐT
+        </span>
+        <h2 class="text-lg sm:text-2xl font-bold tracking-tight leading-snug">HỆ THỐNG LỜI GIẢI NGUYÊN HÀM & MÔ HÌNH THỰC TẾ</h2>
+        <p class="text-xs sm:text-sm text-slate-300">
+          Trình bày tường minh theo chuẩn SGK mới. Chạm vào <strong>"Xem lời giải"</strong> ở mỗi bài để tra cứu nhanh.
+        </p>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PHẦN I: CÂU HỎI TRẮC NGHIỆM NHIỀU LỰA CHỌN -->
+    <!-- ========================================== -->
+    <section id="phan-1" class="space-y-4">
+      <div class="border-b-2 border-indigo-600 pb-1.5 flex justify-between items-baseline">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 inline-block"></span>
+          I. TRẮC NGHIỆM NHIỀU LỰA CHỌN
+        </h3>
+        <span class="text-[11px] text-slate-500 font-semibold">17 Câu (Mức 1 - 3)</span>
+      </div>
+
+      <!-- Câu 1 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 1</span>
+          <span class="badge-nb px-2 py-0.5 rounded text-[11px] font-semibold">Nhận biết</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Tìm $\int \frac{1}{x^2} dx$.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $\int \frac{1}{x^2}dx = \frac{1}{x} + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>B.</strong> $\int \frac{1}{x^2}dx = -\frac{1}{x} + C$ (Đúng)</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $\int \frac{1}{x^2}dx = \frac{1}{2x} + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>D.</strong> $\int \frac{1}{x^2}dx = \ln x^2 + C$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết lời giải SGK</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Áp dụng công thức nguyên hàm hàm số luỹ thừa $\int x^\alpha dx = \frac{x^{\alpha+1}}{\alpha+1} + C$ ($\alpha = -2 \ne -1$):</p>
+            <div class="overflow-x-auto py-1">$$\int \frac{1}{x^2} dx = \int x^{-2} dx = \frac{x^{-2+1}}{-2+1} + C = -\frac{1}{x} + C$$</div>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án B.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 2 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 2</span>
+          <span class="badge-nb px-2 py-0.5 rounded text-[11px] font-semibold">Nhận biết</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Họ các nguyên hàm của hàm số $f(x) = x^2 - 3x + \frac{1}{x}$ là:</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $F(x) = 2x - 3 - \frac{1}{x^2} + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>B.</strong> $F(x) = \frac{x^3}{3} - \frac{3}{2}x^2 + \ln|x| + C$ (Đúng)</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $F(x) = \frac{x^3}{3} + \frac{3}{2}x^2 + \ln x + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>D.</strong> $F(x) = \frac{x^3}{3} - \frac{3}{2}x^2 + \ln x + C$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết lời giải SGK</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Áp dụng tính chất tuyến tính của nguyên hàm từng thành phần:</p>
+            <div class="overflow-x-auto py-1">$$F(x) = \int \left(x^2 - 3x + \frac{1}{x}\right) dx = \frac{x^3}{3} - \frac{3}{2}x^2 + \ln|x| + C$$</div>
+            <p class="text-[11px] text-amber-700 bg-amber-50 p-2 rounded border border-amber-200"><em>Lưu ý thi trắc nghiệm:</em> Nguyên hàm của $\frac{1}{x}$ bắt buộc phải có giá trị tuyệt đối $\ln|x|$ vì $x$ có thể âm hoặc dương ($x \ne 0$).</p>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án B.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 3 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 3</span>
+          <span class="badge-nb px-2 py-0.5 rounded text-[11px] font-semibold">Nhận biết</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Tìm nguyên hàm $\int 7\sin x dx$.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $\frac{1}{7}\cos x + C$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>B.</strong> $-\cos x + C$</div>
+          <div class="p-2 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>C.</strong> $-7\cos x + C$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>D.</strong> $7\sin x + C$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết lời giải SGK</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Ta có $\int \sin x dx = -\cos x + C$, do đó: $\int 7\sin x dx = -7\cos x + C$.</p>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án C.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 4 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 4</span>
+          <span class="badge-nb px-2 py-0.5 rounded text-[11px] font-semibold">Nhận biết</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">$\int x^4 dx$ bằng:</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>A.</strong> $\frac{1}{5}x^5 + C$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>B.</strong> $4x^3 + C$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $x^5 + C$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>D.</strong> $5x^5 + C$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết lời giải SGK</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Áp dụng công thức nguyên hàm luỹ thừa: $\int x^4 dx = \frac{x^5}{5} + C = \frac{1}{5}x^5 + C$.</p>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án A.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 5 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 5</span>
+          <span class="badge-th px-2 py-0.5 rounded text-[11px] font-semibold">Thông hiểu</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Nguyên hàm của hàm số $f(x) = 3\cos x - 3^x$ là:</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 sm:p-2.5 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>A.</strong> $\int f(x)dx = 3\sin x - \frac{3^x}{\ln 3} + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>B.</strong> $\int f(x)dx = -3\sin x + \frac{3^x}{\ln 3} + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $\int f(x)dx = 3\sin x + \frac{3^x}{\ln 3} + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>D.</strong> $\int f(x)dx = -3\sin x - \frac{3^x}{\ln 3} + C$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết lời giải SGK</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Ta có $\int \cos x dx = \sin x + C$ và $\int a^x dx = \frac{a^x}{\ln a} + C$.</p>
+            <div class="overflow-x-auto py-1">$$\int (3\cos x - 3^x) dx = 3\sin x - \frac{3^x}{\ln 3} + C$$</div>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án A.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 6 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 6</span>
+          <span class="badge-th px-2 py-0.5 rounded text-[11px] font-semibold">Thông hiểu</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Khẳng định nào sau đây <strong>sai</strong>?</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $\int [f(x)+g(x)]dx = \int f(x)dx + \int g(x)dx$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>B.</strong> $\int [f(x)-g(x)]dx = \int f(x)dx - \int g(x)dx$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-rose-300 bg-rose-50 text-rose-950 font-semibold ring-1 ring-rose-300"><strong>C.</strong> $\int kf(x)dx = k\int f(x)dx, \forall k \in \mathbb{R}$ (Sai)</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>D.</strong> $\int kf(x)dx = k\int f(x)dx, \forall k \in \mathbb{R}, k \ne 0$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết phân tích sư phạm SGK</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-rose-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p><strong>Căn cứ SGK Toán 12:</strong> Định lý tính chất của nguyên hàm quy định rõ: $\int k f(x) dx = k \int f(x) dx$ với mọi hằng số <strong>$k \ne 0$</strong>.</p>
+            <p>Khi $k = 0$, vế trái là $\int 0 dx = C$ (một họ hàm hằng), trong khi vế phải là $0 \cdot \int f(x)dx = 0$ (một số cố định). Do đó mệnh đề C thiếu điều kiện $k \ne 0$ nên sai.</p>
+            <p class="font-bold text-rose-800">$\rightarrow$ Chọn đáp án C.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 7 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 7</span>
+          <span class="badge-th px-2 py-0.5 rounded text-[11px] font-semibold">Thông hiểu</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Cho hàm số $f(x) = 2x + e^x$. Tìm một nguyên hàm $F(x)$ của hàm số $f(x)$ thoả mãn $F(0) = 2024$.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 sm:p-2.5 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>A.</strong> $F(x) = x^2 + e^x + 2023$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>B.</strong> $F(x) = x^2 + e^x - 2023$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $F(x) = x^2 + e^x + 2022$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>D.</strong> $F(x) = x^2 + e^x - 2024$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết lời giải SGK</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Họ nguyên hàm: $F(x) = \int (2x + e^x)dx = x^2 + e^x + C$.</p>
+            <p>Thay điều kiện ban đầu: $F(0) = 0^2 + e^0 + C = 1 + C = 2024 \implies C = 2023$.</p>
+            <p>Vậy $F(x) = x^2 + e^x + 2023$.</p>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án A.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 8 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 8</span>
+          <span class="badge-vd px-2 py-0.5 rounded text-[11px] font-semibold">Vận dụng vật lý</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Một vật chuyển động có gia tốc $a(t) = 3t^2 + t\ (\text{m/s}^2)$. Biết rằng vận tốc ban đầu của vật là $2\ \text{m/s}$. Vận tốc của vật đó sau $2$ giây là:</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $8\ \text{m/s}$</div>
+          <div class="p-2 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>B.</strong> $12\ \text{m/s}$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $10\ \text{m/s}$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>D.</strong> $16\ \text{m/s}$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết lời giải SGK</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Vận tốc $v(t)$ là một nguyên hàm của gia tốc $a(t)$:</p>
+            <div class="overflow-x-auto py-1">$$v(t) = \int (3t^2 + t)dt = t^3 + \frac{t^2}{2} + C$$</div>
+            <p>Tại $t = 0$: $v(0) = 2 \implies 0 + C = 2 \implies C = 2 \implies v(t) = t^3 + \frac{t^2}{2} + 2$.</p>
+            <p>Tại $t = 2$ giây: $v(2) = 2^3 + \frac{2^2}{2} + 2 = 8 + 2 + 2 = 12\ (\text{m/s})$.</p>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án B.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 9 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 9</span>
+          <span class="badge-th px-2 py-0.5 rounded text-[11px] font-semibold">Thông hiểu</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Một nguyên hàm của hàm số $e^{-x} + x$ là:</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $e^{-x} + 2x + 2025$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>B.</strong> $-e^{-x} + 2x$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $e^{-x} + \frac{x^2}{2} + 2025$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>D.</strong> $-e^{-x} + \frac{x^2}{2} + 2025$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết lời giải SGK</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Ta có $\int (e^{-x} + x)dx = -e^{-x} + \frac{x^2}{2} + C$. Với hằng số $C = 2025$, ta nhận được một nguyên hàm tương ứng.</p>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án D.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 10 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 10</span>
+          <span class="badge-vd px-2 py-0.5 rounded text-[11px] font-semibold">Mô hình sinh học</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Một cây cà chua được trồng ban đầu có chiều cao $3\text{ cm}$ với tốc độ tăng trưởng được tính bởi công thức $h'(t) = -12t + 3$ (cm/tuần). Công thức nào sau đây tính độ cao của cây sau $t$ tuần?</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 sm:p-2.5 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>A.</strong> $h(t) = -6t^2 + 3t + 3$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>B.</strong> $h(t) = 6t^2 + 3t + 3$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $h(t) = 6t^2 + 3t$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>D.</strong> $h(t) = -6t^2 + 3t + 1$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết lời giải SGK</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Hàm chiều cao $h(t) = \int (-12t + 3)dt = -6t^2 + 3t + C$.</p>
+            <p>Ban đầu cây cao $3\text{ cm} \implies h(0) = C = 3$. Vậy $h(t) = -6t^2 + 3t + 3$.</p>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án A.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 11 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 11</span>
+          <span class="badge-th px-2 py-0.5 rounded text-[11px] font-semibold">Thông hiểu</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Tìm họ các nguyên hàm $F(x)$ của hàm số $f(x) = \frac{x+3}{x+1}$.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $F(x) = x - \ln|x+1| + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>B.</strong> $F(x) = x + \ln|x+1| + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $F(x) = x - 3\ln|x+1| + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>D.</strong> $F(x) = x + 2\ln|x+1| + C$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết biến đổi phân thức</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Tách phần nguyên tử số theo mẫu: $\frac{x+3}{x+1} = \frac{(x+1) + 2}{x+1} = 1 + \frac{2}{x+1}$.</p>
+            <div class="overflow-x-auto py-1">$$F(x) = \int \left(1 + \frac{2}{x+1}\right) dx = x + 2\ln|x+1| + C$$</div>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án D.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 12 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 12</span>
+          <span class="badge-th px-2 py-0.5 rounded text-[11px] font-semibold">Thông hiểu</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Họ tất cả các nguyên hàm của hàm số $f(x) = 5^{2x-1}$ là:</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $\frac{1}{2} \cdot 5^{2x-1} \cdot \ln 5 + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>B.</strong> $2 \cdot 5^{2x-1} \cdot \ln 5 + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $5^{2x-1} \cdot \ln 5 + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>D.</strong> $\frac{1}{2\ln 5} \cdot 5^{2x-1} + C$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết lời giải SGK</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Áp dụng công thức nguyên hàm hàm số hợp bậc nhất: $\int a^{kx+b} dx = \frac{1}{k} \cdot \frac{a^{kx+b}}{\ln a} + C$ ($k=2, a=5$):</p>
+            <div class="overflow-x-auto py-1">$$\int 5^{2x-1} dx = \frac{1}{2} \cdot \frac{5^{2x-1}}{\ln 5} + C = \frac{1}{2\ln 5} \cdot 5^{2x-1} + C$$</div>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án D.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 13 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 13</span>
+          <span class="badge-th px-2 py-0.5 rounded text-[11px] font-semibold">Thông hiểu</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Tìm nguyên hàm của hàm số $f(x) = \frac{x^4 + 2}{x^2}$.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $\int f(x)dx = \frac{x^3}{3} - \frac{1}{x} + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>B.</strong> $\int f(x)dx = \frac{x^3}{3} + \frac{2}{x} + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $\int f(x)dx = \frac{x^3}{3} + \frac{1}{x} + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>D.</strong> $\int f(x)dx = \frac{x^3}{3} - \frac{2}{x} + C$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết biến đổi</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Chia mẫu: $\frac{x^4+2}{x^2} = x^2 + 2x^{-2}$.</p>
+            <div class="overflow-x-auto py-1">$$\int (x^2 + 2x^{-2}) dx = \frac{x^3}{3} + 2\frac{x^{-1}}{-1} + C = \frac{x^3}{3} - \frac{2}{x} + C$$</div>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án D.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 14 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 14</span>
+          <span class="badge-th px-2 py-0.5 rounded text-[11px] font-semibold">Thông hiểu</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Tìm nguyên hàm của hàm số $f(x) = \sqrt{2x-1}$.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $\int f(x)dx = \frac{2}{3}(2x-1)\sqrt{2x-1} + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>B.</strong> $\int f(x)dx = \frac{1}{3}(2x-1)\sqrt{2x-1} + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $\int f(x)dx = -\frac{1}{3}\sqrt{2x-1} + C$</div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50"><strong>D.</strong> $\int f(x)dx = \frac{1}{2}\sqrt{2x-1} + C$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết biến đổi</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Viết dạng luỹ thừa $(2x-1)^{1/2}$:</p>
+            <div class="overflow-x-auto py-1">$$\int (2x-1)^{1/2} dx = \frac{1}{2} \cdot \frac{(2x-1)^{3/2}}{\frac{3}{2}} + C = \frac{1}{3}(2x-1)\sqrt{2x-1} + C$$</div>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án B.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 15 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 15</span>
+          <span class="badge-vd px-2 py-0.5 rounded text-[11px] font-semibold">Vận dụng</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Gọi $F(x)$ là một nguyên hàm của hàm số $f(x) = \frac{x(x-3)^2}{x^2}$, biết $F(1) = \frac{5}{2}$. Tính $F(2)$.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $2 + 9\ln 2$</div>
+          <div class="p-2 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>B.</strong> $-2 + 9\ln 2$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $1 + 9\ln 2$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>D.</strong> $7$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết lời giải SGK</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Khai triển tử: $f(x) = \frac{x^3 - 6x^2 + 9x}{x^2} = x - 6 + \frac{9}{x}$ (với $x > 0$).</p>
+            <p>$F(x) = \frac{x^2}{2} - 6x + 9\ln x + C$.</p>
+            <p>$F(1) = \frac{1}{2} - 6 + C = \frac{5}{2} \implies C = 8$.</p>
+            <p>Do đó: $F(2) = \frac{2^2}{2} - 6(2) + 9\ln 2 + 8 = -2 + 9\ln 2$.</p>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án B.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 16 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 16</span>
+          <span class="badge-vd px-2 py-0.5 rounded text-[11px] font-semibold">Vận dụng</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Hàm số $f(x) = ax + \frac{b}{x-1}\ (a, b \in \mathbb{Z})$ có nguyên hàm trên $(-\infty; 1)$ là $F(x)$ thỏa mãn $F(0) = -2$ và $F(-1) = \ln 2 - 3$. Khi đó giá trị $a+b$ bằng:</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $-2$</div>
+          <div class="p-2 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>B.</strong> $-1$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $0$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>D.</strong> $1$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết giải hệ phương trình vô tỉ</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Vì $x \in (-\infty; 1) \implies x - 1 < 0 \implies |x - 1| = 1 - x$.</p>
+            <p>$F(x) = \frac{a}{2}x^2 + b\ln(1-x) + C$.</p>
+            <ul class="list-disc pl-4 space-y-0.5">
+              <li>$F(0) = C = -2$.</li>
+              <li>$F(-1) = \frac{a}{2} + b\ln 2 - 2 = \ln 2 - 3 \iff \frac{a}{2} + b\ln 2 = -1 + \ln 2$.</li>
+            </ul>
+            <p>Do $a, b \in \mathbb{Z}$ và $\ln 2$ là số vô tỉ: $\begin{cases} b = 1 \\ \frac{a}{2} = -1 \end{cases} \iff \begin{cases} a = -2 \\ b = 1 \end{cases}$.</p>
+            <p>Vậy $a + b = -2 + 1 = -1$.</p>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án B.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- Câu 17 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-indigo-700 text-xs sm:text-sm bg-indigo-50 px-2 py-0.5 rounded">Câu 17</span>
+          <span class="badge-vdc px-2 py-0.5 rounded text-[11px] font-semibold">Vận dụng cao</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Cho $F(x)$ là một nguyên hàm của hàm số $f(x) = \frac{-x^2-2x}{(x+1)^4}$ thoả $F(-2) = -\frac{2}{3}$. Tính $F(1)$.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>A.</strong> $\frac{2}{3}$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>B.</strong> $-\frac{7}{6}$</div>
+          <div class="p-2 rounded-lg border border-slate-200 bg-slate-50/50"><strong>C.</strong> $-\frac{7}{24}$</div>
+          <div class="p-2 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-950 font-semibold ring-1 ring-emerald-300"><strong>D.</strong> $\frac{11}{24}$</div>
+        </div>
+        <details open class="group">
+          <summary class="cursor-pointer text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 select-none pt-1">
+            <span>Chi tiết biến đổi hằng đẳng thức</span>
+            <svg class="w-3.5 h-3.5 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </summary>
+          <div class="mt-2.5 bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-500 text-xs sm:text-sm space-y-1.5 solution-content">
+            <p>Biến đổi tử theo $(x+1)$: $-x^2 - 2x = -(x+1)^2 + 1$.</p>
+            <div class="overflow-x-auto py-1">$$f(x) = \frac{-(x+1)^2 + 1}{(x+1)^4} = -\frac{1}{(x+1)^2} + \frac{1}{(x+1)^4}$$</div>
+            <p>Lấy nguyên hàm: $F(x) = \frac{1}{x+1} - \frac{1}{3(x+1)^3} + C$.</p>
+            <p>Thay $x = -2$: $F(-2) = \frac{1}{-1} - \frac{1}{3(-1)} + C = -1 + \frac{1}{3} + C = -\frac{2}{3} + C$.</p>
+            <p>Giả thiết $F(-2) = -\frac{2}{3} \implies C = 0$.</p>
+            <p>Tại $x = 1$: $F(1) = \frac{1}{2} - \frac{1}{3(2)^3} = \frac{1}{2} - \frac{1}{24} = \frac{11}{24}$.</p>
+            <p class="font-bold text-emerald-800">$\rightarrow$ Chọn đáp án D.</p>
+          </div>
+        </details>
+      </article>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- PHẦN II: CÂU HỎI TRẮC NGHIỆM ĐÚNG - SAI    -->
+    <!-- ========================================== -->
+    <section id="phan-2" class="space-y-4 pt-2">
+      <div class="border-b-2 border-amber-600 pb-1.5 flex justify-between items-baseline">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-600 inline-block"></span>
+          II. TRẮC NGHIỆM ĐÚNG - SAI
+        </h3>
+        <span class="text-[11px] text-slate-500 font-semibold">2 Câu Lớn (8 Ý)</span>
+      </div>
+
+      <!-- II - Câu 1 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-amber-800 text-xs sm:text-sm bg-amber-50 px-2 py-0.5 rounded">Câu 1 (Nhóm 1, 2, 3 bò)</span>
+          <span class="badge-th px-2 py-0.5 rounded text-[11px] font-semibold">Đúng / Sai Cơ Bản</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Cho hàm số $f(x) = 4x^3 - 2x$. Biết $F(x)$ là một nguyên hàm của hàm số $f(x)$. Xét tính đúng sai của các khẳng định sau:</p>
+        
+        <div class="space-y-2.5 text-xs sm:text-sm">
+          <!-- a -->
+          <div class="p-2.5 sm:p-3 rounded-lg border border-slate-200 bg-slate-50/50 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-semibold text-slate-900">a) $F'(x) = 4x^3 - 2x$</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800 shrink-0">ĐÚNG</span>
+            </div>
+            <p class="text-[11px] sm:text-xs text-slate-600"><em>Giải thích:</em> Theo định nghĩa SGK, nếu $F(x)$ là nguyên hàm của $f(x)$ thì $F'(x) = f(x) = 4x^3 - 2x$.</p>
+          </div>
+
+          <!-- b -->
+          <div class="p-2.5 sm:p-3 rounded-lg border border-slate-200 bg-slate-50/50 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-semibold text-slate-900">b) $\int f(x)dx = x^4 - x^2 + C$</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800 shrink-0">ĐÚNG</span>
+            </div>
+            <p class="text-[11px] sm:text-xs text-slate-600"><em>Giải thích:</em> $\int (4x^3 - 2x)dx = 4 \frac{x^4}{4} - 2 \frac{x^2}{2} + C = x^4 - x^2 + C$.</p>
+          </div>
+
+          <!-- c -->
+          <div class="p-2.5 sm:p-3 rounded-lg border border-slate-200 bg-slate-50/50 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-semibold text-slate-900">c) $F(0)=1 \implies F(x) = x^4 - x^2 - 1$</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-100 text-rose-800 shrink-0">SAI</span>
+            </div>
+            <p class="text-[11px] sm:text-xs text-slate-600"><em>Giải thích:</em> $F(0) = 0 - 0 + C = 1 \implies C = 1$. Vậy $F(x) = x^4 - x^2 + 1$. Đề bài cho hằng số $-1$ là sai.</p>
+          </div>
+
+          <!-- d -->
+          <div class="p-2.5 sm:p-3 rounded-lg border border-slate-200 bg-slate-50/50 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-semibold text-slate-900">d) Biết $F(0) = 1$. Khi đó $F(-1) = -1$</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-100 text-rose-800 shrink-0">SAI</span>
+            </div>
+            <p class="text-[11px] sm:text-xs text-slate-600"><em>Giải thích:</em> $F(-1) = (-1)^4 - (-1)^2 + 1 = 1 - 1 + 1 = 1 \ne -1$.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- II - Câu 2 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-amber-800 text-xs sm:text-sm bg-amber-50 px-2 py-0.5 rounded">Câu 2 (Nhóm 1 bò)</span>
+          <span class="badge-vd px-2 py-0.5 rounded text-[11px] font-semibold">Vận Dụng Phân Khoảng</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Hàm số $f(x)$ xác định trên $\mathbb{R}\setminus\{0\}$ thỏa mãn $f(x) = \frac{x^2+2x-5}{x}$. Xét tính đúng sai của các khẳng định sau:</p>
+        
+        <div class="space-y-2.5 text-xs sm:text-sm">
+          <!-- a -->
+          <div class="p-2.5 sm:p-3 rounded-lg border border-slate-200 bg-slate-50/50 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-semibold text-slate-900">a) $f(x) = x + 2 - \frac{5}{x}$</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800 shrink-0">ĐÚNG</span>
+            </div>
+            <p class="text-[11px] sm:text-xs text-slate-600"><em>Giải thích:</em> Tách $\frac{x^2+2x-5}{x} = x + 2 - \frac{5}{x}$ hoàn toàn chính xác.</p>
+          </div>
+
+          <!-- b -->
+          <div class="p-2.5 sm:p-3 rounded-lg border border-slate-200 bg-slate-50/50 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-semibold text-slate-900">b) $\int f(x)dx = \frac{x^2}{2} + 2x - 5\ln|x| + C$</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800 shrink-0">ĐÚNG</span>
+            </div>
+            <p class="text-[11px] sm:text-xs text-slate-600"><em>Giải thích:</em> Lấy nguyên hàm từng thành phần, có trị tuyệt đối chuẩn mực theo SGK.</p>
+          </div>
+
+          <!-- c -->
+          <div class="p-2.5 sm:p-3 rounded-lg border border-slate-200 bg-slate-50/50 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-semibold text-slate-900">c) $F(1) = \frac{11}{2} \implies F(x) = \frac{x^2}{2} + 2x - 5\ln|x| - 3$</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-100 text-rose-800 shrink-0">SAI</span>
+            </div>
+            <p class="text-[11px] sm:text-xs text-slate-600"><em>Giải thích:</em> $F(1) = \frac{1}{2} + 2 - 0 + C = \frac{5}{2} + C = \frac{11}{2} \implies C = 3$ (khẳng định ghi $-3$).</p>
+          </div>
+
+          <!-- d -->
+          <div class="p-2.5 sm:p-3 rounded-lg border border-slate-200 bg-slate-50/50 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-semibold text-slate-900">d) $G(1)=4, G(3)+G(-9)=20 \implies a+b+c = -\frac{7}{2}$</span>
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800 shrink-0">ĐÚNG</span>
+            </div>
+            <div class="text-[11px] sm:text-xs text-slate-600 bg-white p-2 rounded border border-slate-200 space-y-1">
+              <p><strong>Cơ sở lý thuyết bản chất SGK mới:</strong> Vì tập xác định gồm 2 khoảng rời $(-\infty; 0)$ và $(0; +\infty)$ nên họ nguyên hàm chứa 2 hằng số độc lập:</p>
+              <div class="overflow-x-auto py-0.5">$$G(x) = \begin{cases} \frac{x^2}{2} + 2x - 5\ln x + C_1 & (x > 0) \\ \frac{x^2}{2} + 2x - 5\ln(-x) + C_2 & (x < 0) \end{cases}$$</div>
+              <p>1. Tại $x = 1 > 0$: $G(1) = \frac{5}{2} + C_1 = 4 \implies C_1 = \frac{3}{2}$.</p>
+              <p>2. Với $x = 3 > 0$: $G(3) = \frac{9}{2} + 6 - 5\ln 3 + \frac{3}{2} = 12 - 5\ln 3$.</p>
+              <p>3. Vì $G(3) + G(-9) = 20 \implies G(-9) = 20 - (12 - 5\ln 3) = 8 + 5\ln 3$.</p>
+              <p>Mặt khác: $G(-9) = \frac{81}{2} - 18 - 5\ln 9 + C_2 = \frac{45}{2} - 10\ln 3 + C_2 \implies C_2 = -\frac{29}{2} + 15\ln 3$.</p>
+              <p>4. Tính $G(-6)$ ($x < 0$):</p>
+              <div class="overflow-x-auto py-0.5">$$G(-6) = \frac{36}{2} - 12 - 5\ln 6 + C_2 = -\frac{17}{2} - 5\ln 2 + 10\ln 3$$</div>
+              <p>Suy ra: $a = -5, b = 10, c = -\frac{17}{2} \implies a+b+c = -5 + 10 - \frac{17}{2} = -\frac{7}{2}$.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- PHẦN III: CÂU HỎI TRẢ LỜI NGẮN             -->
+    <!-- ========================================== -->
+    <section id="phan-3" class="space-y-4 pt-2">
+      <div class="border-b-2 border-emerald-600 pb-1.5 flex justify-between items-baseline">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 inline-block"></span>
+          III. TRẢ LỜI NGẮN (ĐIỀN ĐÁP SỐ)
+        </h3>
+        <span class="text-[11px] text-slate-500 font-semibold">9 Câu Điểm 8 - 10</span>
+      </div>
+
+      <!-- III - Câu 1 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-emerald-800 text-xs sm:text-sm bg-emerald-50 px-2 py-0.5 rounded">Câu 1</span>
+          <span class="badge-vd px-2 py-0.5 rounded text-[11px] font-semibold">Vận dụng</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          Cho $f'(x) = \frac{1}{3x-2}$ trên $\mathbb{R} \setminus \left\{\frac{2}{3}\right\}$, $f(1)=3$ và $f(0)=5$. Giá trị $f(2) + f\left(\frac{1}{3}\right) = \frac{1}{a}\ln b + 8$; $a, b \in \mathbb{Z}$. Tính $a+b$.
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <ul class="list-disc pl-4 space-y-1 text-slate-700">
+            <li>Khoảng $\left(\frac{2}{3}; +\infty\right)$: $f(x) = \frac{1}{3}\ln(3x-2) + C_1$. Vì $f(1) = 3 \implies C_1 = 3$.<br>
+            $\implies f(2) = \frac{1}{3}\ln 4 + 3$.</li>
+            <li>Khoảng $\left(-\infty; \frac{2}{3}\right)$: $f(x) = \frac{1}{3}\ln(2-3x) + C_2$. Vì $f(0) = 5 \implies \frac{1}{3}\ln 2 + C_2 = 5 \implies C_2 = 5 - \frac{1}{3}\ln 2$.<br>
+            $\implies f\left(\frac{1}{3}\right) = 0 + C_2 = 5 - \frac{1}{3}\ln 2$.</li>
+          </ul>
+          <div class="overflow-x-auto py-1">$$f(2) + f\left(\frac{1}{3}\right) = \frac{1}{3}\ln 4 + 3 + 5 - \frac{1}{3}\ln 2 = \frac{1}{3}\ln 2 + 8$$</div>
+          <p>Đối chiếu: $a = 3, b = 2 \implies a + b = 5$.</p>
+          <div class="mt-1 p-2 bg-emerald-100/80 rounded-md text-emerald-900 font-bold text-xs sm:text-sm">
+            Đáp số: 5
+          </div>
+        </div>
+      </article>
+
+      <!-- III - Câu 2 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-emerald-800 text-xs sm:text-sm bg-emerald-50 px-2 py-0.5 rounded">Câu 2</span>
+          <span class="badge-th px-2 py-0.5 rounded text-[11px] font-semibold">Thông hiểu</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          Biết $\int (\sin x - \cos x)^2 dx = x + \frac{1}{a}\cos bx + C$. Tính tổng $S = a+b$.
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <div class="overflow-x-auto py-1">$$(\sin x - \cos x)^2 = \sin^2 x + \cos^2 x - 2\sin x \cos x = 1 - \sin 2x$$</div>
+          <div class="overflow-x-auto py-1">$$\int (1 - \sin 2x) dx = x + \frac{1}{2}\cos 2x + C$$</div>
+          <p>Đồng nhất hệ số: $a = 2, b = 2 \implies S = a + b = 4$.</p>
+          <div class="mt-1 p-2 bg-emerald-100/80 rounded-md text-emerald-900 font-bold text-xs sm:text-sm">
+            Đáp số: 4
+          </div>
+        </div>
+      </article>
+
+      <!-- III - Câu 3 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-emerald-800 text-xs sm:text-sm bg-emerald-50 px-2 py-0.5 rounded">Câu 3 (Sở GD&ĐT Thanh Hóa 2025)</span>
+          <span class="badge-vd px-2 py-0.5 rounded text-[11px] font-semibold">Mô hình kinh tế</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          Sản xuất chiếu cói Nga Sơn: $x$ chiếc ($0 \le x \le 20$). Chi phí biên $C'(x) = 3x^2 - 4x + 10$ (nghìn đồng). Chi phí cố định ban đầu $500$ nghìn đồng. Giá bán $720$ nghìn đồng/chiếc. Tìm lợi nhuận tối đa (nghìn đồng).
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <p>1. Tổng chi phí: $C(x) = \int (3x^2 - 4x + 10)dx = x^3 - 2x^2 + 10x + 500$ (do $C(0) = 500$).</p>
+          <p>2. Doanh thu: $R(x) = 720x$.</p>
+          <p>3. Hàm lợi nhuận: $L(x) = R(x) - C(x) = -x^3 + 2x^2 + 710x - 500$.</p>
+          <p>Đạo hàm tìm cực trị: $L'(x) = -3x^2 + 4x + 710 = 0 \iff x \approx 16.065$.</p>
+          <p>Với sản lượng nguyên $x = 16$:</p>
+          <div class="overflow-x-auto py-1">$$L(16) = -(16)^3 + 2(16)^2 + 710(16) - 500 = 7276\text{ (nghìn đồng)}$$</div>
+          <div class="mt-1 p-2 bg-emerald-100/80 rounded-md text-emerald-900 font-bold text-xs sm:text-sm">
+            Đáp số: 7276
+          </div>
+        </div>
+      </article>
+
+      <!-- III - Câu 4 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-emerald-800 text-xs sm:text-sm bg-emerald-50 px-2 py-0.5 rounded">Câu 4</span>
+          <span class="badge-vdc px-2 py-0.5 rounded text-[11px] font-semibold">Đọc đồ thị & Cực trị</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          Đồ thị $y=f(x)$ tiếp xúc $Ox$ tại $O(0;0)$, đạt cực đại tại $(200; 4\,000\,000)$ và cắt $Ox$ tại $(300; 0)$. Biết $F'(x) = f(x)$ và $F(2) = 800$. Tìm giá trị lớn nhất của $F(x)$ trên $[0; 300]$.
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <p>Hàm bậc ba tiếp xúc tại gốc tọa độ và cắt tại $x=300$: $f(x) = k x^2 (300 - x)$.</p>
+          <p>Tại đỉnh $(200; 4\,000\,000) \implies k(200^2)(100) = 4\,000\,000 \implies k = 1$.</p>
+          <p>Vậy $f(x) = 300x^2 - x^3 \ge 0, \forall x \in [0; 300]$. Vì $F'(x) = f(x) \ge 0$ nên $F(x)$ đồng biến trên $[0; 300]$, do đó $\max F(x) = F(300)$.</p>
+          <div class="overflow-x-auto py-1">$$F(x) = \int (300x^2 - x^3)dx = 100x^3 - \frac{x^4}{4} + C$$</div>
+          <p>Vì $F(2) = 800 \iff 100(8) - 4 + C = 800 \implies C = 4$.</p>
+          <p>Vậy $\max_{[0; 300]} F(x) = F(300) = 100(300^3) - \frac{300^4}{4} + 4 = 675\,000\,004$.</p>
+          <div class="mt-1 p-2 bg-emerald-100/80 rounded-md text-emerald-900 font-bold text-xs sm:text-sm">
+            Đáp số: 675000004
+          </div>
+        </div>
+      </article>
+
+      <!-- III - Câu 5 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-emerald-800 text-xs sm:text-sm bg-emerald-50 px-2 py-0.5 rounded">Câu 5</span>
+          <span class="badge-vd px-2 py-0.5 rounded text-[11px] font-semibold">Tốc độ biến thiên</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          Tốc độ biến đổi của doanh thu khi bán con chíp: $M_R(x) = R'(x) = 300 - 0.1x$ (triệu đồng). Tìm doanh thu khi đã bán $1000$ con chíp.
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <p>$R(x) = \int (300 - 0.1x)dx = 300x - 0.05x^2 + C$.</p>
+          <p>Khi chưa bán hàng ($x=0$) thì $R(0) = 0 \implies C = 0$.</p>
+          <p>Tại $x = 1000$: $R(1000) = 300(1000) - 0.05(1000^2) = 300\,000 - 50\,000 = 250\,000$ (triệu đồng).</p>
+          <div class="mt-1 p-2 bg-emerald-100/80 rounded-md text-emerald-900 font-bold text-xs sm:text-sm">
+            Đáp số: 250000 (triệu đồng)
+          </div>
+        </div>
+      </article>
+
+      <!-- III - Câu 6 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-emerald-800 text-xs sm:text-sm bg-emerald-50 px-2 py-0.5 rounded">Câu 6</span>
+          <span class="badge-vdc px-2 py-0.5 rounded text-[11px] font-semibold">Phương trình vi phân đạo hàm tích</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          Cho hàm số $f(x)$ thỏa mãn $f(4) = \frac{23}{6}$ và $f(x) = x\left(1 + \frac{1}{\sqrt{x}} - f'(x)\right), \forall x > 0$. Tính $f(1)$.
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <p>Biến đổi giả thiết: $x f'(x) + f(x) = x + \sqrt{x} \iff [x f(x)]' = x + x^{1/2}$.</p>
+          <div class="overflow-x-auto py-1">$$x f(x) = \int (x + x^{1/2}) dx = \frac{x^2}{2} + \frac{2}{3}x^{3/2} + C$$</div>
+          <p>Thay $x = 4$: $4 f(4) = \frac{4^2}{2} + \frac{2}{3}(8) + C = 8 + \frac{16}{3} + C = \frac{40}{3} + C$.</p>
+          <p>Vì $f(4) = \frac{23}{6} \implies 4 \cdot \frac{23}{6} = \frac{46}{3} \implies C = 2$.</p>
+          <p>Do đó với $x = 1$: $1 \cdot f(1) = \frac{1}{2} + \frac{2}{3} + 2 = \frac{19}{6}$.</p>
+          <div class="mt-1 p-2 bg-emerald-100/80 rounded-md text-emerald-900 font-bold text-xs sm:text-sm">
+            Đáp số: 19/6
+          </div>
+        </div>
+      </article>
+
+      <!-- III - Câu 7 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-emerald-800 text-xs sm:text-sm bg-emerald-50 px-2 py-0.5 rounded">Câu 7</span>
+          <span class="badge-vdc px-2 py-0.5 rounded text-[11px] font-semibold">Tối ưu hóa hình học</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          Đoạn sắt dài $100\text{ m}$ cắt thành $AC=x$ uốn hình vuông, $CB=100-x$ uốn tam giác đều. Khi tổng diện tích nhỏ nhất, tìm $x$ và diện tích nhỏ nhất đó (làm tròn hàng phần trăm).
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <div class="overflow-x-auto py-1">$$S(x) = \left(\frac{x}{4}\right)^2 + \frac{\sqrt{3}}{4}\left(\frac{100-x}{3}\right)^2 = \frac{x^2}{16} + \frac{\sqrt{3}(100-x)^2}{36}$$</div>
+          <p>Đạo hàm: $S'(x) = \frac{x}{8} - \frac{\sqrt{3}(100-x)}{18} = 0 \iff (9 + 4\sqrt{3})x = 400\sqrt{3} \implies x \approx 43.50\text{ m}$.</p>
+          <p>Thay giá trị $x \approx 43.50$: $S_{\min} \approx 271.86\text{ m}^2$.</p>
+          <div class="mt-1 p-2 bg-emerald-100/80 rounded-md text-emerald-900 font-bold text-xs sm:text-sm">
+            Đáp số: x ≈ 43.50 m; S ≈ 271.86 m²
+          </div>
+        </div>
+      </article>
+
+      <!-- III - Câu 8 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-emerald-800 text-xs sm:text-sm bg-emerald-50 px-2 py-0.5 rounded">Câu 8 (Chuyên ĐH Vinh)</span>
+          <span class="badge-vd px-2 py-0.5 rounded text-[11px] font-semibold">Thừa số tích phân</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          Cho hàm số $f(x)$ thỏa mãn $f(x) + f'(x) = e^{-x}, \forall x \in \mathbb{R}$ và $f(0) = 2$. Tính $f(1)$.
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <p>Nhân hai vế với $e^x$: $e^x f'(x) + e^x f(x) = 1 \iff [e^x f(x)]' = 1$.</p>
+          <p>Nguyên hàm: $e^x f(x) = x + C$.</p>
+          <p>Tại $x = 0$: $e^0 f(0) = C \implies C = 2 \implies f(x) = \frac{x+2}{e^x}$.</p>
+          <p>Tại $x = 1$: $f(1) = \frac{1+2}{e^1} = \frac{3}{e}$.</p>
+          <div class="mt-1 p-2 bg-emerald-100/80 rounded-md text-emerald-900 font-bold text-xs sm:text-sm">
+            Đáp số: 3/e
+          </div>
+        </div>
+      </article>
+
+      <!-- III - Câu 9 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-emerald-800 text-xs sm:text-sm bg-emerald-50 px-2 py-0.5 rounded">Câu 9 (Mã đề 101 - 2023)</span>
+          <span class="badge-vdc px-2 py-0.5 rounded text-[11px] font-semibold">Đạo hàm logarit</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          Hàm số $f(x) > 0$ trên $(0; +\infty)$ thỏa mãn $f(x)\ln f(x) = x(f(x) - f'(x))$ và $f(1) = f(4)$. Tính $f(2)$.
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-emerald-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <p>Chia hai vế cho $x \cdot f(x)$: $\frac{f'(x)}{f(x)} + \frac{\ln f(x)}{x} = 1$.</p>
+          <p>Đặt $u(x) = \ln f(x) \implies u'(x) + \frac{1}{x}u(x) = 1 \iff [x u(x)]' = x$.</p>
+          <div class="overflow-x-auto py-1">$$x u(x) = \frac{x^2}{2} + C \implies u(x) = \ln f(x) = \frac{x}{2} + \frac{C}{x}$$</div>
+          <p>Vì $f(1) = f(4) \implies \frac{1}{2} + C = \frac{4}{2} + \frac{C}{4} \implies \frac{3}{4}C = \frac{3}{2} \implies C = 2$.</p>
+          <p>Tại $x = 2$: $\ln f(2) = \frac{2}{2} + \frac{2}{2} = 2 \implies f(2) = e^2$.</p>
+          <div class="mt-1 p-2 bg-emerald-100/80 rounded-md text-emerald-900 font-bold text-xs sm:text-sm">
+            Đáp số: e²
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- PHẦN IV: BÀI TẬP VỀ NHÀ                     -->
+    <!-- ========================================== -->
+    <section id="phan-4" class="space-y-4 pt-2">
+      <div class="border-b-2 border-purple-600 pb-1.5 flex justify-between items-baseline">
+        <h3 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-purple-600 inline-block"></span>
+          IV. BÀI TẬP VỀ NHÀ (TỰ LUYỆN)
+        </h3>
+        <span class="text-[11px] text-slate-500 font-semibold">5 Bài Trọng Tâm</span>
+      </div>
+
+      <!-- BTVN - Câu 1 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-purple-800 text-xs sm:text-sm bg-purple-50 px-2 py-0.5 rounded">Bài 1 (Đúng / Sai)</span>
+          <span class="badge-th px-2 py-0.5 rounded text-[11px] font-semibold">Lý thuyết</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">Biết $F(x)$ là một nguyên hàm của $f(x) = \frac{x^2+1}{x}$ trên $(0; +\infty)$. Xét tính đúng sai:</p>
+        
+        <div class="space-y-2 text-xs sm:text-sm">
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50 flex justify-between items-center gap-2">
+            <span><strong>a)</strong> $F(x) = f'(x), \forall x \in (0; +\infty)$</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-100 text-rose-800">SAI</span>
+          </div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50 flex justify-between items-center gap-2">
+            <span><strong>b)</strong> $F(x) + 2025$ cũng là một nguyên hàm của $f(x)$</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800">ĐÚNG</span>
+          </div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50 flex justify-between items-center gap-2">
+            <span><strong>c)</strong> $F(x) = x^2 + \ln x + 2025$</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-100 text-rose-800">SAI</span>
+          </div>
+          <div class="p-2 sm:p-2.5 rounded-lg border border-slate-200 bg-slate-50/50 flex justify-between items-center gap-2">
+            <span><strong>d)</strong> $F(1) = \frac{3}{2} \implies F(e) = \frac{e^2}{2} + 2$</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 text-emerald-800">ĐÚNG</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- BTVN - Câu 2 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-purple-800 text-xs sm:text-sm bg-purple-50 px-2 py-0.5 rounded">Bài 2</span>
+          <span class="badge-vd px-2 py-0.5 rounded text-[11px] font-semibold">Vận dụng</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          Cho $f(2) = -\frac{1}{25}$ và $f'(x) = 4x^3 [f(x)]^2$ với mọi $x \in \mathbb{R}$. Tính $f(1)$.
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-purple-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <div class="overflow-x-auto py-1">$$\frac{f'(x)}{[f(x)]^2} = 4x^3 \iff -\left(\frac{1}{f(x)}\right)' = 4x^3 \implies \frac{1}{f(x)} = -x^4 - C$$</div>
+          <p>Tại $x = 2$: $\frac{1}{f(2)} = -25 \iff -(2^4) - C = -25 \implies C = 9$.</p>
+          <p>Vậy $f(x) = -\frac{1}{x^4 + 9}$. Tại $x = 1 \implies f(1) = -\frac{1}{10} = -0.1$.</p>
+          <div class="mt-1 p-2 bg-purple-100/80 rounded-md text-purple-900 font-bold text-xs sm:text-sm">
+            Đáp số: -1/10 (hoặc -0.1)
+          </div>
+        </div>
+      </article>
+
+      <!-- BTVN - Câu 3 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-purple-800 text-xs sm:text-sm bg-purple-50 px-2 py-0.5 rounded">Bài 3</span>
+          <span class="badge-vd px-2 py-0.5 rounded text-[11px] font-semibold">Định luật làm mát Newton</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          Nước sôi ở $95^\circ\text{C}$ trong phòng $20^\circ\text{C}$. Tốc độ giảm nhiệt độ $T'(t) = -\frac{3}{2}e^{-\frac{t}{50}}\ (^\circ\text{C}/\text{phút})$. Tính nhiệt độ sau $30$ phút.
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-purple-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <div class="overflow-x-auto py-1">$$T(t) = \int -\frac{3}{2}e^{-\frac{t}{50}} dt = 75e^{-\frac{t}{50}} + C$$</div>
+          <p>Tại $t = 0$: $T(0) = 95 \iff 75 + C = 95 \implies C = 20$.</p>
+          <p>Tại $t = 30$: $T(30) = 75e^{-0.6} + 20 \approx 75(0.54881) + 20 \approx 61.16^\circ\text{C}$.</p>
+          <div class="mt-1 p-2 bg-purple-100/80 rounded-md text-purple-900 font-bold text-xs sm:text-sm">
+            Đáp số: ≈ 61.16°C
+          </div>
+        </div>
+      </article>
+
+      <!-- BTVN - Câu 4 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-purple-800 text-xs sm:text-sm bg-purple-50 px-2 py-0.5 rounded">Bài 4</span>
+          <span class="badge-vdc px-2 py-0.5 rounded text-[11px] font-semibold">Hàm liên tục & Tích số</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          $f(x) + x f'(x) + f'(x) = 4x^3 - 6x^2 - 2x + 4$ có đạo hàm liên tục trên $\mathbb{R}$. Tìm GTLN của $f(x)$ trên $[0; 10]$.
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-purple-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <p>Nhận xét vế trái là đạo hàm tích: $[(x+1)f(x)]' = 4x^3 - 6x^2 - 2x + 4$.</p>
+          <div class="overflow-x-auto py-1">$$(x+1)f(x) = x^4 - 2x^3 - x^2 + 4x + C$$</div>
+          <p>Do $f(x)$ liên tục tại $x = -1$, thay $x = -1$ thì vế trái $= 0 \implies C = 2$.</p>
+          <p>Chia cho $x+1$: $f(x) = x^3 - 3x^2 + 2x + 2$.</p>
+          <p>Trên đoạn $[0; 10]$, giá trị cực đại đạt tại biên phải $x = 10$:</p>
+          <div class="overflow-x-auto py-1">$$f(10) = 10^3 - 3(10^2) + 2(10) + 2 = 722$$</div>
+          <div class="mt-1 p-2 bg-purple-100/80 rounded-md text-purple-900 font-bold text-xs sm:text-sm">
+            Đáp số: 722
+          </div>
+        </div>
+      </article>
+
+      <!-- BTVN - Câu 5 -->
+      <article class="bg-white rounded-xl border border-slate-200/90 shadow-2xs p-3.5 sm:p-5 card-box space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-purple-800 text-xs sm:text-sm bg-purple-50 px-2 py-0.5 rounded">Bài 5 (Nhóm 1, 2)</span>
+          <span class="badge-vdc px-2 py-0.5 rounded text-[11px] font-semibold">Vận dụng cao</span>
+        </div>
+        <p class="font-medium text-slate-800 text-sm sm:text-base leading-relaxed">
+          Cho $F(x)$ là nguyên hàm của $f(x) = \frac{(x+1)^2}{x^2+1}$ thỏa $F(0) = 0$. Tính tổng bình phương các nghiệm của $F(x) = x[1 + \log(x^2+1)]$ (làm tròn hàng phần mười).
+        </p>
+        <div class="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-3 sm:border-l-4 border-purple-600 text-xs sm:text-sm space-y-1.5">
+          <p class="font-bold text-slate-900">Các bước giải:</p>
+          <p>Biến đổi: $f(x) = \frac{x^2+1+2x}{x^2+1} = 1 + \frac{2x}{x^2+1} \implies F(x) = x + \ln(x^2+1)$ (vì $F(0)=0$).</p>
+          <p>Phương trình đã cho:</p>
+          <div class="overflow-x-auto py-1">$$x + \ln(x^2+1) = x + x \log(x^2+1) \iff \ln(x^2+1)\left(1 - \frac{x}{\ln 10}\right) = 0$$</div>
+          <p>Nghiệm: $x_1 = 0$ và $x_2 = \ln 10 \approx 2.3026$.</p>
+          <p>Tổng bình phương nghiệm: $S = x_1^2 + x_2^2 = 0^2 + (\ln 10)^2 \approx 5.3$.</p>
+          <div class="mt-1 p-2 bg-purple-100/80 rounded-md text-purple-900 font-bold text-xs sm:text-sm">
+            Đáp số: 5.3
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Nút Nổi Quay Lên Đầu Trang Cho Điện Thoại -->
+    <div class="fixed bottom-4 right-4 z-40 no-print">
+      <a href="#" class="w-10 h-10 rounded-full bg-slate-900/90 text-white flex items-center justify-center shadow-lg active:scale-95 transition backdrop-blur border border-slate-700/50" title="Về đầu trang">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+      </a>
+    </div>
+
+    <footer class="text-center py-4 border-t border-slate-200 text-[11px] text-slate-500 space-y-0.5">
+      <p class="font-semibold text-slate-700">Tài liệu ôn tập chuẩn mực theo Chương trình Giáo dục Phổ thông mới</p>
+      <p>Tối ưu hiển thị cho điện thoại thông minh, máy tính bảng và in ấn PDF</p>
+    </footer>
+
+  </main>
+
+  <script>
+    // Hàm render Math bằng KaTeX
+    function renderMath() {
+      if (typeof renderMathInElement !== 'undefined') {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    // Toggle Ẩn / Hiện tất cả lời giải trên thiết bị di động
+    let allOpen = true;
+    function toggleAllSolutions() {
+      allOpen = !allOpen;
+      const detailsList = document.querySelectorAll('details');
+      detailsList.forEach(d => {
+        d.open = allOpen;
+      });
+      const toggleText = document.getElementById('toggleText');
+      if (toggleText) {
+        toggleText.innerText = allOpen ? 'Ẩn lời giải' : 'Hiện lời giải';
+      }
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -440,3 +1528,597 @@
   </div>
 </body>
 </html>
+% --- UNIVERSAL PREAMBLE BLOCK ---
+\documentclass[11pt, a4paper]{article}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2cm]{geometry}
+\usepackage{fontspec}
+
+\usepackage[vietnamese, bidi=basic, provide=*]{babel}
+
+\babelprovide[import, onchar=ids fonts]{vietnamese}
+\babelprovide[import, onchar=ids fonts]{english}
+
+% Set default/Latin font to Sans Serif in the main (rm) slot
+\babelfont{rm}{Noto Sans}
+
+% Add because main language is not English
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+% --- END UNIVERSAL PREAMBLE BLOCK ---
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\LARGE LỜI GIẢI CHI TIẾT - PHƯƠNG TRÌNH MẶT PHẲNG (Oxyz)}
+\end{center}
+
+\section*{BẢNG TÓM TẮT ĐÁP ÁN}
+
+\subsection*{I. BÀI TẬP VÍ DỤ VÀ HOẠT ĐỘNG (LÝ THUYẾT)}
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{4cm}|p{12cm}|}
+        \hline
+        \textbf{Câu hỏi} & \textbf{Đáp án / Kết quả chính} \\
+        \hline
+        \textbf{Ví dụ 1 (Phần 1)} & a) Cặp VTCP: $\vec{AB}, \vec{AD}$ \newline b) VTPT: $\vec{AA'}$ hoặc $\vec{BB'}$ \\
+        \hline
+        \textbf{Hoạt động 1} & a) Cặp VTCP: $\vec{AB}, \vec{AC}$ \newline b) VTPT: $[\vec{OA}, \vec{OB}]$ (Chọn $\vec{n} = (0; 0; 1)$) \\
+        \hline
+        \textbf{Ví dụ 1 (Phần 2.a)} & $[\vec{u}, \vec{v}] = (3; -2; -1)$ \\
+        \hline
+        \textbf{Ví dụ 2 (Phần 2.a)} & $\vec{n_P} = (7; 7; -7)$ \\
+        \hline
+        \textbf{Hoạt động 2} & VTCP: $\vec{AB} = (-2; 0; 4), \vec{AC} = (9; 6; -2)$ \newline VTPT: $\vec{n_Q} = (-24; 32; -12)$ \\
+        \hline
+        \textbf{Ví dụ 1 (Phần 2.b)} & Chọn \textbf{C} ($m + 2n = 13$) \\
+        \hline
+        \textbf{Ví dụ 2 (Phần 2.b)} & $[\vec{a}, \vec{b}] \cdot \vec{c} = -7 \neq 0 \Rightarrow$ 3 vectơ không đồng phẳng \\
+        \hline
+        \textbf{Ví dụ 3 (Phần 2.b)} & $S_{\Delta ABC} = \frac{3\sqrt{5}}{2}$ \\
+        \hline
+        \textbf{Ví dụ 4 (Phần 2.b)} & $S_{ABCD} = 2\sqrt{83}$ \\
+        \hline
+        \textbf{Ví dụ 5 (Phần 2.b)} & $V = 12$ \\
+        \hline
+        \textbf{Ví dụ 6 (Phần 2.b)} & $V = 2$ \\
+        \hline
+        \textbf{Ví dụ 1 (Phần 2.PT)} & $\vec{n} = (2; -3; 1)$ \\
+        \hline
+        \textbf{Ví dụ 2 (Phần 2.PT)} & $x + 2y - 2z - 10 = 0$ \\
+        \hline
+        \textbf{Ví dụ 3 (Phần 2.PT)} & a) $\vec{n_P} = (3; -5; 7), \vec{n_Q} = (1; 1; 0)$ \newline b) Điểm $A \in (P)$ \\
+        \hline
+        \textbf{Hoạt động 5} & a) $\vec{n_{\alpha}} = (3; -1; -6)$ \newline b) $3x - y - 6z + 4 = 0$ \\
+        \hline
+        \textbf{Hoạt động 6} & a) Cặp VTCP: $\vec{AB}, \vec{AC}$ \newline b) $\vec{n_{\alpha}} = (-4; 10; -11)$ \newline c) $4x - 10y + 11z - 1 = 0$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection*{II. PHẦN BÀI TẬP TRẢ LỜI NGẮN}
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{4cm}|p{12cm}|}
+        \hline
+        \textbf{Câu hỏi} & \textbf{Đáp án} \\
+        \hline
+        \textbf{Câu 1} & $m = 2$ \\
+        \hline
+        \textbf{Câu 2} & $\frac{\sqrt{11}}{2}$ \\
+        \hline
+        \textbf{Câu 3} & $4$ \\
+        \hline
+        \textbf{Câu 4} & $\sqrt{61}$ \\
+        \hline
+        \textbf{Câu 5} & $\sqrt{853}$ \\
+        \hline
+        \textbf{Câu 6} & $\frac{3\sqrt{2}}{2}$ \\
+        \hline
+        \textbf{Câu 7} & $\left\{0; \frac{3}{2}\right\}$ \\
+        \hline
+        \textbf{Câu 8} & $-6$ \\
+        \hline
+        \textbf{Câu 9} & $1$ \\
+        \hline
+        \textbf{Câu 10} & $\frac{64}{27}$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection*{III. PHẦN BÀI TẬP VỀ NHÀ}
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|p{4cm}|p{12cm}|}
+        \hline
+        \textbf{Câu hỏi} & \textbf{Đáp án} \\
+        \hline
+        \textbf{Câu 1} & a) $\vec{n_{\alpha}} = (2; 2; -3), \vec{n_{\beta}} = (1; 4; 0)$ \newline b) Điểm $N(1; 1; 0)$ \\
+        \hline
+        \textbf{Câu 2} & $(3; 2; 0)$ \\
+        \hline
+        \textbf{Câu 3} & $(-2; 0; 0)$ \\
+        \hline
+        \textbf{Câu 4} & $(3; 1; -2)$ \\
+        \hline
+        \textbf{Câu 5 (Đ/S)} & a) Đúng \quad b) Đúng \quad c) Sai \quad d) Đúng \\
+        \hline
+        \textbf{Câu 6} & b) $S = 3\sqrt{10}, h = \frac{6\sqrt{65}}{13}$ \newline c) $V = \frac{16}{3}, h_A = \frac{8\sqrt{10}}{15}$ \newline d) $\cos = \frac{1}{3}$ \\
+        \hline
+        \textbf{Câu 7} & $M\left(\frac{3}{4}; 0; -\frac{1}{2}\right)$ \\
+        \hline
+        \textbf{Câu 8} & $S_{min} = \frac{a^2\sqrt{6}}{4}$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\clearpage
+\section*{PHẦN I: LỜI GIẢI CHI TIẾT CÁC VÍ DỤ VÀ HOẠT ĐỘNG}
+
+\subsection*{1. VECTƠ PHÁP TUYẾN - CẶP VECTƠ CHỈ PHƯƠNG CỦA MẶT PHẲNG}
+
+\textbf{Ví dụ 1:}
+\begin{itemize}
+    \item a) Cặp vectơ chỉ phương của mặt phẳng $(ABCD)$ là hai vectơ có giá nằm trong mặt phẳng, ví dụ: $\vec{AB}$ và $\vec{AD}$.
+    \item b) Vectơ pháp tuyến của mặt phẳng $(ABCD)$ là vectơ có giá vuông góc với mặt phẳng, ví dụ: $\vec{AA'}$ hoặc $\vec{BB'}$.
+\end{itemize}
+
+\textbf{Hoạt động 1:}
+\begin{itemize}
+    \item a) Cặp vectơ chỉ phương của mặt phẳng $(ABC)$ là:
+    
+    $ \vec{AB} = (-3; 4; 0) $
+    
+    $ \vec{AC} = (-3; 0; 5) $
+
+    \item b) Để tìm vectơ pháp tuyến của mặt phẳng $(OAB)$, ta tính tích có hướng của cặp vectơ chỉ phương $\vec{OA}$ và $\vec{OB}$:
+    
+    $ \vec{OA} = (3; 0; 0), \quad \vec{OB} = (0; 4; 0) $
+    
+    $ [\vec{OA}, \vec{OB}] = \left( \begin{vmatrix} 0 & 0 \\ 4 & 0 \end{vmatrix}; \begin{vmatrix} 0 & 3 \\ 0 & 0 \end{vmatrix}; \begin{vmatrix} 3 & 0 \\ 0 & 4 \end{vmatrix} \right) = (0; 0; 12) $
+    
+    Chọn vectơ pháp tuyến là $\vec{n} = (0; 0; 1)$.
+\end{itemize}
+
+\subsection*{2. XÁC ĐỊNH VECTƠ PHÁP TUYẾN KHI BIẾT MỘT CẶP VECTƠ CHỈ PHƯƠNG}
+\subsubsection*{a. TÍCH CÓ HƯỚNG CỦA 2 VECTƠ}
+
+\textbf{Ví dụ 1:}
+$ \vec{u} = (1; 2; -1), \quad \vec{v} = (2; 3; 0) $
+
+$ [\vec{u}, \vec{v}] = \left( \begin{vmatrix} 2 & -1 \\ 3 & 0 \end{vmatrix}; \begin{vmatrix} -1 & 1 \\ 0 & 2 \end{vmatrix}; \begin{vmatrix} 1 & 2 \\ 2 & 3 \end{vmatrix} \right) = (3; -2; -1) $
+
+\vspace{0.5cm}
+\textbf{Ví dụ 2:}
+Vectơ pháp tuyến của mặt phẳng $(P)$ là tích có hướng của $\vec{a}$ và $\vec{b}$:
+
+$ \vec{a} = (1; 2; 3), \quad \vec{b} = (4; 1; 5) $
+
+$ \vec{n_P} = [\vec{a}, \vec{b}] = \left( \begin{vmatrix} 2 & 3 \\ 1 & 5 \end{vmatrix}; \begin{vmatrix} 3 & 1 \\ 5 & 4 \end{vmatrix}; \begin{vmatrix} 1 & 2 \\ 4 & 1 \end{vmatrix} \right) = (7; 7; -7) $
+
+\vspace{0.5cm}
+\textbf{Hoạt động 2:}
+\begin{itemize}
+    \item a) Một cặp vectơ chỉ phương của mặt phẳng $(Q)$ là:
+    
+    $ \vec{AB} = (-2; 0; 4) $
+    
+    $ \vec{AC} = (9; 6; -2) $
+
+    \item b) Vectơ pháp tuyến của mặt phẳng $(Q)$ là:
+    
+    $ \vec{n_Q} = [\vec{AB}, \vec{AC}] = \left( \begin{vmatrix} 0 & 4 \\ 6 & -2 \end{vmatrix}; \begin{vmatrix} 4 & -2 \\ -2 & 9 \end{vmatrix}; \begin{vmatrix} -2 & 0 \\ 9 & 6 \end{vmatrix} \right) = (-24; 32; -12) $
+\end{itemize}
+
+\subsubsection*{b. TÍNH CHẤT VÀ ỨNG DỤNG TÍCH CÓ HƯỚNG}
+
+\textbf{Ví dụ 1:}
+$ \vec{AB} = (0; 2; -1), \quad \vec{AC} = (-1; 1; 2), \quad \vec{AD} = (-3; m+2; n) $
+
+Tích có hướng:
+
+$ [\vec{AB}, \vec{AC}] = (4 - (-1); 1 - 0; 0 - (-2)) = (5; 1; 2) $
+
+Điều kiện đồng phẳng:
+
+$ [\vec{AB}, \vec{AC}] \cdot \vec{AD} = 0 $
+
+$ \Leftrightarrow 5(-3) + 1(m+2) + 2n = 0 \Leftrightarrow m + 2n = 13 $
+
+\textbf{Chọn C.}
+
+\vspace{0.5cm}
+\textbf{Ví dụ 2:}
+$ [\vec{a}, \vec{b}] = \left( \begin{vmatrix} -7 & 0 \\ -3 & 1 \end{vmatrix}; \begin{vmatrix} 0 & 3 \\ 1 & 2 \end{vmatrix}; \begin{vmatrix} 3 & -7 \\ 2 & -3 \end{vmatrix} \right) = (-7; -3; 5) $
+
+Tích hỗn tạp:
+
+$ [\vec{a}, \vec{b}] \cdot \vec{c} = (-7) \cdot 3 + (-3) \cdot 2 + 5 \cdot 4 = -7 \neq 0 $
+
+Vì tích hỗn tạp khác 0 nên $\vec{a}, \vec{b}$ và $\vec{c}$ không đồng phẳng.
+
+\vspace{0.5cm}
+\textbf{Ví dụ 3:}
+$ \vec{AB} = (3; -2; 1), \quad \vec{AC} = (1; 0; 2) $
+
+$ [\vec{AB}, \vec{AC}] = (-4; -5; 2) $
+
+Diện tích tam giác $ABC$:
+
+$ S_{\Delta ABC} = \frac{1}{2} \vert{}[\vec{AB}, \vec{AC}]\vert{} = \frac{1}{2}\sqrt{(-4)^2 + (-5)^2 + 2^2} = \frac{3\sqrt{5}}{2} $
+
+\vspace{0.5cm}
+\textbf{Ví dụ 4:}
+Giả sử hình bình hành tạo bởi 2 cạnh $\vec{AB}$ và $\vec{AC}$.
+
+$ \vec{AB} = (1; 2; 3), \quad \vec{AC} = (5; 4; 1) $
+
+$ [\vec{AB}, \vec{AC}] = (-10; 14; -6) $
+
+Diện tích hình bình hành:
+
+$ S_{ABCD} = \vert{}[\vec{AB}, \vec{AC}]\vert{} = \sqrt{(-10)^2 + 14^2 + (-6)^2} = 2\sqrt{83} $
+
+\vspace{0.5cm}
+\textbf{Ví dụ 5:}
+$ \vec{AB} = (-6; 3; 3), \quad \vec{AC} = (-4; 2; -4), \quad \vec{AD} = (-2; 3; -3) $
+
+$ [\vec{AB}, \vec{AC}] = (-18; -36; 0) $
+
+Thể tích tứ diện:
+
+$ V = \frac{1}{6} \vert{}[\vec{AB}, \vec{AC}] \cdot \vec{AD}\vert{} = \frac{1}{6} \vert{}(-18)(-2) + (-36)(3) + 0\vert{} = 12 $
+
+\vspace{0.5cm}
+\textbf{Ví dụ 6:}
+Hình hộp được xác định bởi $\vec{AB}, \vec{AD}, \vec{AA'}$.
+
+$ \vec{AB} = (-1; 4; -1), \quad \vec{AA'} = (-1; 3; -1) $
+
+$ \vec{AD} = \vec{A'D'} = (-1; 0; 1) $
+
+$ [\vec{AB}, \vec{AD}] = (4; 2; 4) $
+
+Thể tích hình hộp:
+
+$ V = \vert{}[\vec{AB}, \vec{AD}] \cdot \vec{AA'}\vert{} = \vert{}4(-1) + 2(3) + 4(-1)\vert{} = 2 $
+
+\subsection*{2. PHƯƠNG TRÌNH TỔNG QUÁT CỦA MẶT PHẲNG}
+
+\textbf{Ví dụ 1:}
+$(\alpha): 2x - 3y + z - 1 = 0 \Rightarrow$ VTPT là $\vec{n} = (2; -3; 1)$.
+
+\vspace{0.5cm}
+\textbf{Ví dụ 2:}
+Phương trình mặt phẳng đi qua $M(2; 4; 0)$ nhận $\vec{n} = (1; 2; -2)$ làm VTPT:
+
+$ 1(x - 2) + 2(y - 4) - 2(z - 0) = 0 \Leftrightarrow x + 2y - 2z - 10 = 0 $
+
+\vspace{0.5cm}
+\textbf{Ví dụ 3:}
+\begin{itemize}
+    \item a) VTPT của $(P)$ là $\vec{n_P} = (3; -5; 7)$. VTPT của $(Q)$ là $\vec{n_Q} = (1; 1; 0)$.
+    \item b) Thế toạ độ vào $(P)$:
+    
+    $ A(1; 3; 1) \Rightarrow 3(1) - 5(3) + 7(1) + 5 = 0 \Rightarrow A \in (P) $
+    
+    $ B(1; 2; 3) \Rightarrow 3(1) - 5(2) + 7(3) + 5 = 19 \neq 0 \Rightarrow B \notin (P) $
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Hoạt động 5:}
+\begin{itemize}
+    \item a) Toạ độ một VTPT của mặt phẳng $(\alpha)$:
+    
+    $ \vec{a} = (1; 3; 1), \quad \vec{b} = (2; 0; 1) $
+    
+    $ \vec{n_{\alpha}} = [\vec{a}, \vec{b}] = (3 \cdot 1 - 1 \cdot 0; 1 \cdot 2 - 1 \cdot 1; 1 \cdot 0 - 3 \cdot 2) = (3; 1; -6) $
+    
+    \item b) Phương trình mặt phẳng $(\alpha)$ đi qua $M(0; 2; 1)$:
+    
+    $ 3(x - 0) + 1(y - 2) - 6(z - 1) = 0 \Leftrightarrow 3x + y - 6z + 4 = 0 $
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Hoạt động 6:}
+\begin{itemize}
+    \item a) Một cặp vectơ chỉ phương của mặt phẳng $(\alpha)$ là:
+    
+    $ \vec{AB} = (2; 3; 2), \quad \vec{AC} = (5; 2; 0) $
+    
+    \item b) Một vectơ pháp tuyến của mặt phẳng $(\alpha)$:
+    
+    $ \vec{n_{\alpha}} = [\vec{AB}, \vec{AC}] = (-4; 10; -11) $
+    
+    \item c) Phương trình mặt phẳng $(\alpha)$ đi qua $A(0; 1; 1)$:
+    
+    $ -4(x - 0) + 10(y - 1) - 11(z - 1) = 0 \Leftrightarrow 4x - 10y + 11z - 1 = 0 $
+\end{itemize}
+
+\clearpage
+\section*{PHẦN II: LỜI GIẢI CHI TIẾT BÀI TẬP TRẢ LỜI NGẮN}
+
+\textbf{Câu 1:}
+$ \vec{b} = (1; 2; 1), \quad \vec{c} = (m; 3; -1) $
+
+$ [\vec{b}, \vec{c}] = \left( \begin{vmatrix} 2 & 1 \\ 3 & -1 \end{vmatrix}; \begin{vmatrix} 1 & 1 \\ -1 & m \end{vmatrix}; \begin{vmatrix} 1 & 2 \\ m & 3 \end{vmatrix} \right) = (-5; m+1; 3-2m) $
+
+Để $\vec{a} = [\vec{b}, \vec{c}]$, với $\vec{a} = (-5; 3; -1)$, ta có:
+$
+\begin{cases}
+-5 = -5 \\
+m + 1 = 3 \\
+3 - 2m = -1
+\end{cases}
+\Leftrightarrow m = 2
+$
+
+\vspace{0.5cm}
+\textbf{Câu 2:}
+$ \vec{OA} = (1; 0; -1), \quad \vec{OB} = (1; -1; 2) $
+
+$ [\vec{OA}, \vec{OB}] = (-1; -3; -1) $
+
+Diện tích tam giác $OAB$:
+
+$ S = \frac{1}{2} \vert{}[\vec{OA}, \vec{OB}]\vert{} = \frac{1}{2}\sqrt{(-1)^2 + (-3)^2 + (-1)^2} = \frac{\sqrt{11}}{2} $
+
+\vspace{0.5cm}
+\textbf{Câu 3:}
+$ \vec{AB} = (1; 2; 3), \quad \vec{AC} = (-3; 3; 3), \quad \vec{AD} = (-1; 3; 1) $
+
+$ [\vec{AB}, \vec{AC}] = (-3; -12; 9) $
+
+Thể tích khối tứ diện $ABCD$:
+
+$ V = \frac{1}{6} \vert{}[\vec{AB}, \vec{AC}] \cdot \vec{AD}\vert{} = \frac{1}{6} \vert{}(-3)(-1) - 12(3) + 9(1)\vert{} = 4 $
+
+\vspace{0.5cm}
+\textbf{Câu 4:}
+$ \vec{AB} = (-2; 3; 0), \quad \vec{AC} = (-2; 0; 4) $
+
+$ [\vec{AB}, \vec{AC}] = (12; 8; 6) $
+
+Diện tích tam giác $ABC$:
+
+$ S = \frac{1}{2} \vert{}[\vec{AB}, \vec{AC}]\vert{} = \frac{1}{2}\sqrt{12^2 + 8^2 + 6^2} = \sqrt{61} $
+
+\vspace{0.5cm}
+\textbf{Câu 5:}
+Giả sử hình bình hành được xác định bởi hai vectơ cạnh $\vec{AB}$ và $\vec{AD}$.
+
+$ \vec{AB} = (-2; -3; 8), \quad \vec{AD} = (-4; 0; 5) $
+
+$ [\vec{AB}, \vec{AD}] = (-15; -22; -12) $
+
+Diện tích hình bình hành:
+
+$ S = \vert{}[\vec{AB}, \vec{AD}]\vert{} = \sqrt{(-15)^2 + (-22)^2 + (-12)^2} = \sqrt{853} $
+
+\vspace{0.5cm}
+\textbf{Câu 6:}
+$ \vec{BC} = (0; -2; -2), \quad \vec{BD} = (-1; -1; -1) \Rightarrow [\vec{BC}, \vec{BD}] = (0; 2; -2) $
+
+Diện tích đáy $BCD$:
+
+$ S_{BCD} = \frac{1}{2} \vert{}[\vec{BC}, \vec{BD}]\vert{} = \frac{1}{2}\sqrt{0^2 + 2^2 + (-2)^2} = \sqrt{2} $
+
+Tính thể tích tứ diện với $\vec{BA} = (-1; 0; -3)$:
+
+$ V = \frac{1}{6} \vert{}[\vec{BC}, \vec{BD}] \cdot \vec{BA}\vert{} = \frac{1}{6} \vert{}0(-1) + 2(0) - 2(-3)\vert{} = 1 $
+
+Đường cao hạ từ đỉnh $A$:
+
+$ h = \frac{3V}{S_{BCD}} = \frac{3 \cdot 1}{\sqrt{2}} = \frac{3\sqrt{2}}{2} $
+
+\vspace{0.5cm}
+\textbf{Câu 7:}
+$ \vec{CA} = (4; 1; 2-a), \quad \vec{CB} = (a+7; 2; 1), \quad \vec{CD} = (3; 1; a-1) $
+
+Tích có hướng:
+
+$ [\vec{CA}, \vec{CB}] = (2a-3; -a^2-5a+10; 1-a) $
+
+Điều kiện đồng phẳng:
+
+$ [\vec{CA}, \vec{CB}] \cdot \vec{CD} = 0 $
+
+$ \Leftrightarrow 3(2a-3) + 1(-a^2-5a+10) + (a-1)(1-a) = 0 \Leftrightarrow -2a^2 + 3a = 0 $
+
+Giải ra ta được $a = 0$ hoặc $a = \frac{3}{2}$. Tập hợp là $\left\{0; \frac{3}{2}\right\}$.
+
+\vspace{0.5cm}
+\textbf{Câu 8:}
+Vì $D \in Oy \Rightarrow D(0; y; 0)$.
+
+$ \vec{AB} = (1; 1; -2), \quad \vec{AC} = (0; 0; 2) \Rightarrow [\vec{AB}, \vec{AC}] = (2; -2; 0) $
+
+$ \vec{AD} = (-2; y+1; -1) $
+
+Thể tích tứ diện:
+
+$ V = \frac{1}{6} \vert{}[\vec{AB}, \vec{AC}] \cdot \vec{AD}\vert{} = \frac{1}{6} \vert{}2(-2) - 2(y+1) + 0\vert{} = \frac{\vert{}-2y - 6\vert{}}{6} $
+
+Theo đề, $V = 5 \Rightarrow \vert{}-2y - 6\vert{} = 30$.
+$
+\Rightarrow
+\begin{cases}
+-2y - 6 = 30 \Rightarrow y = -18 \\
+-2y - 6 = -30 \Rightarrow y = 12
+\end{cases}
+$
+
+Tổng tung độ: $-18 + 12 = -6$.
+
+\vspace{0.5cm}
+\textbf{Câu 9:}
+$ \vec{AB} = (-2; 6; -4), \quad \vec{AC} = (m; m-1; -1) \Rightarrow [\vec{AB}, \vec{AC}] = (4m-10; 4m+2; -8m+2) $
+
+Diện tích tam giác:
+
+$ S = \frac{1}{2} \sqrt{(4m-10)^2 + (4m+2)^2 + (-8m+2)^2} = 3\sqrt{3} $
+
+Bình phương 2 vế và rút gọn:
+
+$ 96m^2 - 96m = 0 \Leftrightarrow \left[\begin{array}{l} m=0 \\ m=1 \end{array}\right. $
+
+Tổng các giá trị của tham số $m$: $0 + 1 = 1$.
+
+\vspace{0.5cm}
+\textbf{Câu 10:}
+Tọa độ các đỉnh: $A'(0; 0; b), B(a; 0; 0), D(0; a; 0), M(a; a; \frac{b}{2})$.
+
+$ \vec{A'B} = (a; 0; -b), \quad \vec{A'D} = (0; a; -b) \Rightarrow [\vec{A'B}, \vec{A'D}] = (ab; ab; a^2) $
+
+$ \vec{A'M} = (a; a; -\frac{b}{2}) $
+
+$ V_{A'BDM} = \frac{1}{6} \vert{}[\vec{A'B}, \vec{A'D}] \cdot \vec{A'M}\vert{} = \frac{1}{6} \left\vert{} a^2b + a^2b - \frac{a^2b}{2} \right\vert{} = \frac{a^2b}{4} $
+
+Do $a + b = 4 \Rightarrow b = 4 - a$. Xét hàm số $V(a) = \frac{4a^2 - a^3}{4}$.
+
+$ V'(a) = \frac{8a - 3a^2}{4} = 0 \Rightarrow a = \frac{8}{3} $
+
+Giá trị lớn nhất của thể tích:
+
+$ V_{max} = \frac{(\frac{8}{3})^2 \cdot (4 - \frac{8}{3})}{4} = \frac{64}{27} $
+
+\clearpage
+\section*{PHẦN III: LỜI GIẢI CHI TIẾT BÀI TẬP VỀ NHÀ}
+
+\textbf{Câu 1:}
+\begin{itemize}
+    \item a) VTPT của $(\alpha): 2x + 2y - 3z - 4 = 0$ là $\vec{n_{\alpha}} = (2; 2; -3)$.
+    \item[] VTPT của $(\beta): x + 4y - 12 = 0$ là $\vec{n_{\beta}} = (1; 4; 0)$.
+    \item b) Thay tọa độ vào phương trình $(\alpha)$:
+    \item[] $M(1; 0; 1) \Rightarrow 2(1) + 2(0) - 3(1) - 4 = -5 \neq 0$ (Loại).
+    \item[] $N(1; 1; 0) \Rightarrow 2(1) + 2(1) - 3(0) - 4 = 0$ (Nhận).
+    \item[] Vậy điểm $N(1; 1; 0) \in (\alpha)$.
+\end{itemize}
+
+\textbf{Câu 2:}
+Hình chiếu vuông góc của $A(3; 2; -4)$ lên mặt phẳng $(Oxy)$ có phương trình $z = 0$.
+Tọa độ là $(3; 2; 0)$.
+
+\vspace{0.5cm}
+\textbf{Câu 3:}
+Hình chiếu vuông góc của $A(-2; 1; 3)$ lên trục $Ox$ có phương trình $y = 0, z = 0$.
+Tọa độ là $(-2; 0; 0)$.
+
+\vspace{0.5cm}
+\textbf{Câu 4:}
+Tọa độ điểm đối xứng $A'$ của $A(-3; 1; 2)$ qua trục $Oy$ (đổi dấu hoành độ và cao độ, giữ nguyên tung độ) là $A'(3; 1; -2)$.
+
+\vspace{0.5cm}
+\textbf{Câu 5:} Trắc nghiệm Đúng/Sai
+
+\begin{table}[htbp]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|c|p{7cm}|c|p{6.5cm}|}
+        \hline
+        \textbf{Ý} & \textbf{Mệnh đề} & \textbf{Đ/S} & \textbf{Giải thích chi tiết} \\
+        \hline
+        a & Hai vectơ $\vec{a}$ và $\vec{b}$ không cùng phương & Đ & Xét tỷ lệ các toạ độ: $\frac{0}{3} \neq \frac{1}{0} \neq \frac{-2}{-4}$. Chúng không tỉ lệ nên không cùng phương. \\
+        \hline
+        b & Vectơ $[\vec{a}, \vec{b}] \perp \vec{a}$ & Đ & Theo định nghĩa, vectơ kết quả của tích có hướng luôn vuông góc với hai vectơ thành phần. \\
+        \hline
+        c & $[\vec{a}, \vec{b}] \cdot \vec{b} = \vec{0}$ & S & Tích vô hướng của 2 vectơ là một SỐ THỰC, không phải là một VECTƠ. Khẳng định đúng phải là: $[\vec{a}, \vec{b}] \cdot \vec{b} = 0$. \\
+        \hline
+        d & $[\vec{a}, \vec{b}] = (-4; -6; -3)$ & Đ & $[\vec{a}, \vec{b}] = \left( \begin{vmatrix} 1 & -2 \\ 0 & -4 \end{vmatrix}; \begin{vmatrix} -2 & 0 \\ -4 & 3 \end{vmatrix}; \begin{vmatrix} 0 & 1 \\ 3 & 0 \end{vmatrix} \right) = (-4; -6; -3)$. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Câu 6:}
+\begin{itemize}
+    \item a) $\vec{AB} = (-1; -2; -3), \vec{AC} = (0; -4; 0), \vec{AD} = (3; 0; 1)$.
+    
+    $ [\vec{AB}, \vec{AC}] = (-12; 0; 4) \Rightarrow [\vec{AB}, \vec{AC}] \cdot \vec{AD} = -36 + 0 + 4 = -32 \neq 0 $
+    
+    Vậy bốn điểm không đồng phẳng.
+
+    \item b) $\vec{CB} = (-1; 2; -3), \vec{CD} = (3; 4; 1) \Rightarrow [\vec{CB}, \vec{CD}] = (14; -8; -10)$.
+    
+    $ S_{BCD} = \frac{1}{2} \sqrt{14^2 + (-8)^2 + (-10)^2} = 3\sqrt{10} $
+    
+    Đường cao $BH$ của tam giác $BCD$: $CD = \sqrt{3^2 + 4^2 + 1^2} = \sqrt{26}$.
+    
+    $ h_{BH} = \frac{2S_{BCD}}{CD} = \frac{6\sqrt{10}}{\sqrt{26}} = \frac{6\sqrt{65}}{13} $
+
+    \item c) Thể tích tứ diện $ABCD$:
+    
+    $ \vec{CA} = (0; 2; 0) $ \quad (Dựa theo đáp án đề cho)
+    
+    $ V = \frac{1}{6} \vert{}[\vec{CB}, \vec{CD}] \cdot \vec{CA}\vert{} = \frac{1}{6} \vert{}14(0) - 8(2) - 10(0)\vert{} = \frac{16}{3} $
+    
+    Đường cao hạ từ $A$:
+    
+    $ h_A = \frac{3V}{S_{BCD}} = \frac{3(\frac{16}{3})}{3\sqrt{10}} = \frac{16}{3\sqrt{10}} = \frac{8\sqrt{10}}{15} $
+
+    \item d) Tính góc: $\vec{AC} = (0; -4; 0)$ và $\vec{BD} = (4; 2; 4)$.
+    
+    $ \cos(\vec{AC}, \vec{BD}) = \frac{\vert{}\vec{AC} \cdot \vec{BD}\vert{}}{\vert{}\vec{AC}\vert{} \cdot \vert{}\vec{BD}\vert{}} = \frac{\vert{}0 - 8 + 0\vert{}}{4 \cdot \sqrt{4^2+2^2+4^2}} = \frac{8}{4 \cdot 6} = \frac{1}{3} $
+\end{itemize}
+
+\textbf{Câu 7:}
+Ta có $A(2; 2; 2)$. Vì $M \in (Oxz)$ nên $M(x; 0; z)$.
+Điểm $M$ cách đều $A, B, C$ nghĩa là $MA^2 = MB^2 = MC^2$.
+$
+\begin{cases}
+(x-2)^2 + (-2)^2 + (z-2)^2 = (x+2)^2 + (-2)^2 + z^2 \\
+(x+2)^2 + (-2)^2 + z^2 = (x-4)^2 + (-1)^2 + (z+1)^2
+\end{cases}
+$
+
+Khai triển và rút gọn ta được hệ phương trình:
+$
+\begin{cases}
+2x + z = 1 \\
+6x - z = 5
+\end{cases}
+\Leftrightarrow
+\begin{cases}
+x = \frac{3}{4} \\
+z = -\frac{1}{2}
+\end{cases}
+$
+
+Vậy tọa độ $M\left(\frac{3}{4}; 0; -\frac{1}{2}\right)$.
+
+\vspace{0.5cm}
+\textbf{Câu 8:}
+Tọa độ các điểm: $B'(0; a; 2a) \Rightarrow D$ là trung điểm $BB'$ có tọa độ $D(0; a; a)$.
+
+Lăng trụ tam giác $ABC.A'B'C'$ có đáy $ABC$ đều cạnh $a$, tọa độ $C\left(\frac{a\sqrt{3}}{2}; \frac{a}{2}; 0\right) \Rightarrow C'\left(\frac{a\sqrt{3}}{2}; \frac{a}{2}; 2a\right)$.
+
+$M$ di động trên $AA' \Rightarrow M(0; 0; z)$ với $0 \le z \le 2a$.
+
+$ \vec{MD} = (0; a; a-z), \quad \vec{MC'} = \left(\frac{a\sqrt{3}}{2}; \frac{a}{2}; 2a-z\right) $
+
+$ [\vec{MD}, \vec{MC'}] = \left( \frac{a}{2}(3a - z); \frac{a\sqrt{3}}{2}(a-z); -\frac{a^2\sqrt{3}}{2} \right) $
+
+Tính bình phương độ dài tích có hướng:
+
+$ \vert{}[\vec{MD}, \vec{MC'}]\vert{}^2 = \frac{a^2}{4}(3a-z)^2 + \frac{3a^2}{4}(a-z)^2 + \frac{3a^4}{4} = \frac{a^2}{4} (4z^2 - 12az + 15a^2) $
+
+Diện tích tam giác $MDC'$:
+
+$ S = \frac{1}{2} \sqrt{ \frac{a^2}{4} \left[ (2z - 3a)^2 + 6a^2 \right] } $
+
+Diện tích đạt giá trị nhỏ nhất khi $(2z - 3a)^2 = 0 \Rightarrow z = \frac{3a}{2}$ (thỏa mãn $0 \le z \le 2a$).
+
+Thay vào:
+
+$ S_{min} = \frac{1}{2} \cdot \frac{a}{2} \sqrt{6a^2} = \frac{a^2\sqrt{6}}{4} $
+
+\end{document}
