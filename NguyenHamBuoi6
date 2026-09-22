@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lời Giải Chi Tiết - Chương III: Nguyên Hàm</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- KaTeX for rendering math -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    .exercise-box {
+      border-left: 4px solid #3b82f6;
+    }
+    .ans-box {
+      border-left: 4px solid #10b981;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 leading-relaxed">
+  <div class="max-w-4xl mx-auto px-4 py-10">
+
+    <!-- Header -->
+    <header class="text-center pb-8 border-b border-slate-200 mb-10">
+      <span class="text-sm font-semibold tracking-wider text-blue-600 uppercase">Chuyên đề Toán THPT</span>
+      <h1 class="text-3xl font-extrabold text-slate-900 mt-1 mb-2">CHƯƠNG III – NGUYÊN HÀM &amp; TÍCH PHÂN</h1>
+      <h2 class="text-xl font-medium text-slate-600">BÀI 1: BẢNG NGUYÊN HÀM LƯỢNG GIÁC &amp; MỞ RỘNG (HƯỚNG DẪN GIẢI CHI TIẾT)</h2>
+    </header>
+
+    <!-- SECTION I -->
+    <section class="mb-12">
+      <h3 class="text-xl font-bold text-blue-800 bg-blue-50 px-4 py-2 rounded-lg mb-6 border border-blue-100 flex items-center gap-2">
+        <span>📌</span> PHẦN I. VÍ DỤ & BÀI TẬP CƠ BẢN
+      </h3>
+
+      <!-- Ví dụ 12, 13, 14 -->
+      <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 mb-6">
+        <h4 class="font-bold text-slate-900 mb-3 text-lg border-b pb-2 text-indigo-700">Ví dụ minh họa mẫu</h4>
+        <div class="space-y-4">
+          <div class="exercise-box pl-4">
+            <p class="font-medium text-slate-700"><strong>Ví dụ 12:</strong> Tính $\int (1 + \cos x)\,dx$</p>
+            <p class="text-emerald-700 mt-1 font-semibold">$$\int (1 + \cos x)\,dx = x + \sin x + C$$</p>
+          </div>
+          <div class="exercise-box pl-4">
+            <p class="font-medium text-slate-700"><strong>Ví dụ 13:</strong> Tính $\int (2\sin x + 2027x)\,dx$</p>
+            <p class="text-emerald-700 mt-1 font-semibold">$$\int (2\sin x + 2027x)\,dx = -2\cos x + \frac{2027}{2}x^2 + C$$</p>
+          </div>
+          <div class="exercise-box pl-4">
+            <p class="font-medium text-slate-700"><strong>Ví dụ 14:</strong> Tính $\int \left(\sin 2x - \frac{1}{\cos^2 x}\right)dx$</p>
+            <p class="text-emerald-700 mt-1 font-semibold">$$\int \left(\sin 2x - \frac{1}{\cos^2 x}\right)dx = -\frac{1}{2}\cos 2x - \tan x + C$$</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bài 1 -->
+      <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 mb-6">
+        <h4 class="font-bold text-slate-900 mb-4 text-lg border-b pb-2 text-indigo-700">Bài 1: Tính các nguyên hàm sau</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-3 bg-slate-50 rounded-lg">
+            <p><strong>a)</strong> $\int \frac{2\sin x}{3}\,dx = -\frac{2}{3}\cos x + C$</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg">
+            <p><strong>b)</strong> $\int (5\cos x - 3x + 1)\,dx = 5\sin x - \frac{3}{2}x^2 + x + C$</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg">
+            <p><strong>c)</strong> $\int \left(3\cos x - \frac{4}{x}\right)dx = 3\sin x - 4\ln|x| + C$</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg">
+            <p><strong>d)</strong> $\int 2\sin \frac{x}{2}\cos \frac{x}{2}\,dx = \int \sin x\,dx = -\cos x + C$</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg md:col-span-2">
+            <p><strong>e)</strong> $\int \left(\frac{3}{\cos^2 x} + \frac{1}{x} - x^2\right)dx = 3\tan x + \ln|x| - \frac{x^3}{3} + C$</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg md:col-span-2">
+            <p><strong>f)</strong> $\int \left(e^x + 2^{3x+2} - \frac{1}{\sin^2 x}\right)dx = e^x + \frac{2^{3x+2}}{3\ln 2} + \cot x + C$</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg md:col-span-2">
+            <p><strong>g)</strong> $\int \left(e^x + \cos 2026x + \frac{2027}{x^3}\right)dx = e^x + \frac{\sin 2026x}{2026} - \frac{2027}{2x^2} + C$</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg md:col-span-2">
+            <p><strong>h)</strong> $\int (x + \tan^2 x)\,dx = \int \left(x + \frac{1}{\cos^2 x} - 1\right)dx = \frac{x^2}{2} + \tan x - x + C$</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg">
+            <p><strong>k)</strong> $\int (5\cos x - 3\sin x)\,dx = 5\sin x + 3\cos x + C$</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg">
+            <p><strong>l)</strong> $\int \left(e^{x-2} - \frac{2}{\sin^2 x}\right)dx = e^{x-2} + 2\cot x + C$</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ví dụ 15 -->
+      <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+        <h4 class="font-bold text-slate-900 mb-4 text-lg border-b pb-2 text-indigo-700">Ví dụ 15: Biến đổi lũy thừa &amp; hạ bậc</h4>
+        <div class="space-y-4">
+          <div>
+            <p><strong>a)</strong> $\int \sqrt{x}(x + 5x^3)\,dx = \int (x^{\frac{3}{2}} + 5x^{\frac{7}{2}})\,dx = \frac{2}{5}x^2\sqrt{x} + \frac{10}{9}x^4\sqrt{x} + C$</p>
+          </div>
+          <div>
+            <p><strong>b)</strong> $\int \frac{4x + 5x^6}{2\sqrt{x}}\,dx = \int \left(2x^{\frac{1}{2}} + \frac{5}{2}x^{\frac{11}{2}}\right)dx = \frac{4}{3}x\sqrt{x} + \frac{5}{13}x^6\sqrt{x} + C$</p>
+          </div>
+          <div>
+            <p><strong>c)</strong> $\int 5^x \cdot 4^x\,dx = \int 20^x\,dx = \frac{20^x}{\ln 20} + C$</p>
+          </div>
+          <div>
+            <p><strong>d)</strong> $\int \cos^2 \frac{x}{2}\,dx = \int \frac{1 + \cos x}{2}\,dx = \frac{1}{2}x + \frac{1}{2}\sin x + C$</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION II -->
+    <section class="mb-12">
+      <h3 class="text-xl font-bold text-blue-800 bg-blue-50 px-4 py-2 rounded-lg mb-6 border border-blue-100 flex items-center gap-2">
+        <span>📖</span> PHẦN II. BÀI TẬP TỰ LUẬN THEO SGK
+      </h3>
+
+      <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-6">
+        <div>
+          <h4 class="font-bold text-slate-900 mb-2">Bài 1: Tính các nguyên hàm sau</h4>
+          <ul class="list-disc list-inside space-y-2 text-slate-700">
+            <li><strong>a)</strong> $\int x(x^3 - 2x + 5)\,dx = \int (x^4 - 2x^2 + 5x)\,dx = \frac{x^5}{5} - \frac{2x^3}{3} + \frac{5x^2}{2} + C$</li>
+            <li><strong>b)</strong> $\int (x^2 - 1)^2\,dx = \int (x^4 - 2x^2 + 1)\,dx = \frac{x^5}{5} - \frac{2x^3}{3} + x + C$</li>
+            <li><strong>c)</strong> $\int \frac{x^2 + 3x - 1}{x}\,dx = \int \left(x + 3 - \frac{1}{x}\right)dx = \frac{x^2}{2} + 3x - \ln|x| + C$</li>
+          </ul>
+        </div>
+
+        <div class="border-t pt-4">
+          <h4 class="font-bold text-slate-900 mb-2">Bài 2: Tính các nguyên hàm sau</h4>
+          <ul class="list-disc list-inside space-y-2 text-slate-700">
+            <li><strong>a)</strong> $\int x(2x - 3)^2\,dx = \int (4x^3 - 12x^2 + 9x)\,dx = x^4 - 4x^3 + \frac{9}{2}x^2 + C$</li>
+            <li><strong>b)</strong> $\int \sin^2 \frac{x}{2}\,dx = \int \frac{1 - \cos x}{2}\,dx = \frac{1}{2}x - \frac{1}{2}\sin x + C$</li>
+            <li><strong>c)</strong> $\int \tan^2 x\,dx = \int \left(\frac{1}{\cos^2 x} - 1\right)dx = \tan x - x + C$</li>
+            <li><strong>d)</strong> $\int 2^{3x} \cdot 3^x\,dx = \int 24^x\,dx = \frac{24^x}{\ln 24} + C$</li>
+          </ul>
+        </div>
+
+        <div class="border-t pt-4">
+          <h4 class="font-bold text-slate-900 mb-2">Bài 3: Tìm nguyên hàm thỏa mãn điều kiện ban đầu</h4>
+          <p class="text-slate-600">Tìm $F(x)$ của $f(x) = \frac{1}{\sin^2 x}$ thỏa mãn $F\left(\frac{\pi}{2}\right) = 1$.</p>
+          <div class="mt-2 bg-slate-50 p-3 rounded text-sm text-slate-800">
+            Ta có: $F(x) = \int \frac{1}{\sin^2 x}\,dx = -\cot x + C$.<br>
+            Thay $x = \frac{\pi}{2} \Rightarrow F\left(\frac{\pi}{2}\right) = -\cot \frac{\pi}{2} + C = 0 + C = 1 \Rightarrow C = 1$.<br>
+            <strong>Kết luận:</strong> $F(x) = -\cot x + 1$.
+          </div>
+        </div>
+
+        <div class="border-t pt-4">
+          <h4 class="font-bold text-slate-900 mb-2">Bài 4:</h4>
+          <p class="text-slate-600">Tìm $F(x)$ của $f(x) = \sin x + \cos x$ thỏa mãn $F\left(\frac{\pi}{2}\right) = 2$.</p>
+          <div class="mt-2 bg-slate-50 p-3 rounded text-sm text-slate-800">
+            Ta có: $F(x) = \int (\sin x + \cos x)\,dx = -\cos x + \sin x + C$.<br>
+            Thay $x = \frac{\pi}{2} \Rightarrow -\cos \frac{\pi}{2} + \sin \frac{\pi}{2} + C = 2 \Rightarrow 0 + 1 + C = 2 \Rightarrow C = 1$.<br>
+            <strong>Kết luận:</strong> $F(x) = -\cos x + \sin x + 1$.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION III -->
+    <section class="mb-12">
+      <h3 class="text-xl font-bold text-blue-800 bg-blue-50 px-4 py-2 rounded-lg mb-6 border border-blue-100 flex items-center gap-2">
+        <span>🎯</span> PHẦN III. BÀI TẬP TRẮC NGHIỆM 4 LỰA CHỌN
+      </h3>
+
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden divide-y divide-slate-200">
+        <div class="p-4 flex items-start justify-between">
+          <div><span class="font-bold">Câu 1:</span> Nguyên hàm của hàm số nào bằng $\cot x$?</div>
+          <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold rounded-md">Đáp án A</span>
+        </div>
+        <div class="p-4 flex items-start justify-between">
+          <div><span class="font-bold">Câu 2:</span> Họ nguyên hàm của $f(x) = \cos x + 6x$ là $\sin x + 3x^2 + C$.</div>
+          <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold rounded-md">Đáp án A</span>
+        </div>
+        <div class="p-4 flex items-start justify-between">
+          <div><span class="font-bold">Câu 3:</span> $\int 2\sin x\,dx = -2\cos x + C$.</div>
+          <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold rounded-md">Đáp án A</span>
+        </div>
+        <div class="p-4 flex items-start justify-between">
+          <div><span class="font-bold">Câu 4:</span> $\int f(x)\,dx = -\cos x + C \implies f(x) = \sin x$.</div>
+          <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold rounded-md">Đáp án C</span>
+        </div>
+        <div class="p-4 flex items-start justify-between">
+          <div><span class="font-bold">Câu 5:</span> $\int (1 + 2\cos 2x)\,dx = x + \sin 2x + C$.</div>
+          <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold rounded-md">Đáp án B</span>
+        </div>
+        <div class="p-4 flex items-start justify-between">
+          <div><span class="font-bold">Câu 6:</span> $\int (\cos x + x)\,dx = \sin x + \frac{x^2}{2} + C$.</div>
+          <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold rounded-md">Đáp án D</span>
+        </div>
+        <div class="p-4 flex items-start justify-between">
+          <div><span class="font-bold">Câu 7:</span> $\int \left(1 - \frac{1}{\cos^2 2x}\right)dx = x - \frac{1}{2}\tan 2x + C$.</div>
+          <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold rounded-md">Đáp án C</span>
+        </div>
+        <div class="p-4 flex items-start justify-between">
+          <div><span class="font-bold">Câu 8:</span> $\int \cos 3x\,dx = \frac{\sin 3x}{3} + C$.</div>
+          <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold rounded-md">Đáp án B</span>
+        </div>
+        <div class="p-4 flex items-start justify-between">
+          <div><span class="font-bold">Câu 9:</span> $\int (x - \sin 2x)\,dx = \frac{x^2}{2} + \frac{\cos 2x}{2} + C$.</div>
+          <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold rounded-md">Đáp án D</span>
+        </div>
+        <div class="p-4 flex items-start justify-between">
+          <div><span class="font-bold">Câu 10:</span> $\int \left(3\cos x - \frac{2}{x} + \frac{4}{\sin^2 x}\right)dx = 3\sin x - 2\ln|x| - 4\cot x + C$.</div>
+          <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold rounded-md">Đáp án A</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION IV -->
+    <section class="mb-12">
+      <h3 class="text-xl font-bold text-blue-800 bg-blue-50 px-4 py-2 rounded-lg mb-6 border border-blue-100 flex items-center gap-2">
+        <span>💡</span> PHẦN IV. TỔNG HỢP VẬN DỤNG &amp; VẬN DỤNG CAO
+      </h3>
+
+      <div class="space-y-6">
+        <!-- Câu 1 -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 1: Tìm nguyên hàm thỏa mãn điều kiện $F(0) = 1$</h4>
+          <p class="text-sm text-slate-600 mt-1">Tìm nguyên hàm $F(x)$ của hàm số $f(x) = \cos x$ thỏa mãn $F(0) = 1$.</p>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm">
+            <p>Ta có họ nguyên hàm: $F(x) = \int \cos x\,dx = \sin x + C$.</p>
+            <p>Thay điều kiện: $F(0) = \sin 0 + C = 1 \Rightarrow C = 1$.</p>
+            <p class="font-semibold text-emerald-700 mt-1">$$\Rightarrow F(x) = \sin x + 1$$</p>
+          </div>
+        </div>
+
+        <!-- Câu 2 -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 2 (Sở Bạc Liêu 2025): Tính giá trị $F\left(\frac{\pi}{2}\right)$</h4>
+          <p class="text-sm text-slate-600 mt-1">Cho $F(x)$ là nguyên hàm của $f(x) = \cos x$ thỏa mãn $F(0) = 2027$. Tính $F\left(\frac{\pi}{2}\right)$.</p>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm">
+            <p>Ta có: $F(x) = \int \cos x\,dx = \sin x + C$.</p>
+            <p>Từ $F(0) = \sin 0 + C = 2027 \Rightarrow C = 2027 \Rightarrow F(x) = \sin x + 2027$.</p>
+            <p class="font-semibold text-emerald-700 mt-1">$$F\left(\frac{\pi}{2}\right) = \sin\left(\frac{\pi}{2}\right) + 2027 = 1 + 2027 = 2028$$</p>
+          </div>
+        </div>
+
+        <!-- Câu 3 -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 3 (Mã 123 – 2017): Tìm hàm số $f(x)$</h4>
+          <p class="text-sm text-slate-600 mt-1">Cho hàm số $f(x)$ thỏa mãn $f'(x) = 3 - 5\sin x$ và $f(0) = 10$.</p>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm">
+            <p>Ta có: $f(x) = \int (3 - 5\sin x)\,dx = 3x + 5\cos x + C$.</p>
+            <p>Do $f(0) = 3(0) + 5\cos 0 + C = 10 \Rightarrow 5 + C = 10 \Rightarrow C = 5$.</p>
+            <p class="font-semibold text-emerald-700 mt-1">$$\Rightarrow f(x) = 3x + 5\cos x + 5 \quad \text{(Chọn C)}$$</p>
+          </div>
+        </div>
+
+        <!-- Câu 4 -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 4: Tìm nguyên hàm thỏa mãn $F(0) = 0$</h4>
+          <p class="text-sm text-slate-600 mt-1">Biết $F(x)$ là một nguyên hàm của hàm số $f(x) = e^{-x} + \sin x$ thỏa mãn $F(0) = 0$.</p>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm">
+            <p>Ta có: $F(x) = \int (e^{-x} + \sin x)\,dx = -e^{-x} - \cos x + C$.</p>
+            <p>Điều kiện ban đầu: $F(0) = -e^0 - \cos 0 + C = 0 \Rightarrow -1 - 1 + C = 0 \Rightarrow C = 2$.</p>
+            <p class="font-semibold text-emerald-700 mt-1">$$\Rightarrow F(x) = -e^{-x} - \cos x + 2$$</p>
+          </div>
+        </div>
+
+        <!-- Câu 5 -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 5 (Cụm Ninh Giang - Tứ Kỳ - Gia Lộc): Tìm $a + b + 2c$</h4>
+          <p class="text-sm text-slate-600 mt-1">Cho $F(x) = (ax^2 + bx + c)e^{2x}$ là một nguyên hàm của $f(x) = (2x^2 + 6x)e^{2x}$.</p>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm">
+            <p>Ta có $F'(x) = f(x)$. Đạo hàm tích ta được:</p>
+            $$F'(x) = [2ax^2 + (2a + 2b)x + (b + 2c)]e^{2x}$$
+            <p>Đồng nhất hệ số với $f(x) = (2x^2 + 6x)e^{2x}$:</p>
+            $$\begin{cases} 2a = 2 \Rightarrow a = 1 \\ 2(1) + 2b = 6 \Rightarrow b = 2 \\ 2 + 2c = 0 \Rightarrow c = -1 \end{cases}$$
+            <p class="font-semibold text-blue-700 mt-2">$\Rightarrow a + b + 2c = 1 + 2 + 2(-1) = 1$.</p>
+          </div>
+        </div>
+
+        <!-- Câu 6 -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 6: Kiểm tra nguyên hàm chứa căn thức</h4>
+          <p class="text-sm text-slate-600 mt-1">Chứng minh hàm số $F(x) = (4x^2 - 2x + 1)\sqrt{2x - 3}$ là một nguyên hàm của $f(x) = \frac{20x^2 - 30x + 7}{\sqrt{2x - 3}}$ trên khoảng $\left(\frac{3}{2}; +\infty\right)$.</p>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm space-y-2">
+            <p>Lấy đạo hàm của $F(x)$ theo quy tắc $(u \cdot v)' = u'v + uv'$:</p>
+            $$F'(x) = (4x^2 - 2x + 1)'\sqrt{2x - 3} + (4x^2 - 2x + 1)(\sqrt{2x - 3})'$$
+            $$= (8x - 2)\sqrt{2x - 3} + (4x^2 - 2x + 1) \cdot \frac{2}{2\sqrt{2x - 3}}$$
+            <p>Quy đồng mẫu số chung $\sqrt{2x - 3}$:</p>
+            $$F'(x) = \frac{(8x - 2)(2x - 3) + (4x^2 - 2x + 1)}{\sqrt{2x - 3}} = \frac{(16x^2 - 28x + 6) + (4x^2 - 2x + 1)}{\sqrt{2x - 3}} = \frac{20x^2 - 30x + 7}{\sqrt{2x - 3}} = f(x)$$
+            <p class="font-semibold text-emerald-700">Vậy $F(x)$ là một nguyên hàm của $f(x)$ trên $\left(\frac{3}{2}; +\infty\right)$ (đpcm).</p>
+          </div>
+        </div>
+
+        <!-- Câu 7 -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 7: Thiết kế đường cong sân chơi &amp; bồn hoa</h4>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm space-y-2">
+            <p>Chọn gốc tọa độ tại $A(0;0)$, trục $Ox$ theo chiều $AB$, trục $Oy$ vuông góc hướng lên trên.</p>
+            <p>Theo giả thiết, đường cong $PQIR$ là hàm bậc ba $y = f(x) = ax^3 + bx^2 + cx + d$ đi qua:</p>
+            <ul class="list-disc list-inside pl-2 space-y-1 text-slate-700">
+              <li>$P(0; -30) \Rightarrow d = -30$</li>
+              <li>Điểm cực trị tại $Q(20; -25) \Rightarrow f(20) = -25$ và $f'(20) = 0$</li>
+              <li>$R(40; -20) \Rightarrow f(40) = -20$</li>
+            </ul>
+            <p>Giải hệ phương trình ta được: $a = -\frac{1}{3200}, b = \frac{3}{160}, c = 0$.</p>
+            <p>Đường cong $HEK$ là $g(x) = f(x) + 10 = -\frac{1}{3200}x^3 + \frac{3}{160}x^2 - 20$.</p>
+            <p>Nguyên hàm $H(x) = \int g(x)dx = -\frac{1}{12800}x^4 + \frac{1}{160}x^3 - 20x + C$ với $H(0) = 2 \Rightarrow C = 2$.</p>
+            <p class="font-semibold text-blue-700">$$\Rightarrow H(1) = -\frac{1}{12800} + \frac{1}{160} - 20 + 2 = -\frac{230321}{12800} \approx -17{,}994$$</p>
+          </div>
+        </div>
+
+        <!-- Câu 8 -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 8 (Sở Hà Tĩnh):</h4>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm">
+            <p>Ta có $F(x) = \int \sin^2 x\,dx = \frac{x}{2} - \frac{\sin 2x}{4} + C$.</p>
+            <p>$F\left(\frac{\pi}{4}\right) = 0 \Rightarrow C = \frac{1}{4} - \frac{\pi}{8}$.</p>
+            <p class="font-semibold text-blue-700 mt-2">$$S = F(-\pi) + 2F\left(\frac{\pi}{2}\right) = \frac{3}{4} - \frac{3\pi}{8}$$</p>
+          </div>
+        </div>
+
+        <!-- Câu 9 -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 9 (Phương trình vi phân dạng đạo hàm đúng):</h4>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm space-y-2">
+            <p>Biến đổi biểu thức: $x \cdot f'(x) + f(x) = x + \sqrt{x} \iff [x \cdot f(x)]' = x + x^{\frac{1}{2}}$.</p>
+            <p>Lấy nguyên hàm hai vế: $x \cdot f(x) = \frac{x^2}{2} + \frac{2}{3}x^{\frac{3}{2}} + C$.</p>
+            <p>Từ $f(4) = \frac{23}{6} \Rightarrow 4 \cdot \frac{23}{6} = \frac{40}{3} + C \Rightarrow C = 2$.</p>
+            <p>Do đó $f(x) = \frac{x}{2} + \frac{2}{3}\sqrt{x} + \frac{2}{x}$.</p>
+            <p class="font-semibold text-blue-700">$$f(1) = \frac{1}{2} + \frac{2}{3} + 2 = \frac{19}{6}$$</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION V -->
+    <section class="mb-12">
+      <h3 class="text-xl font-bold text-blue-800 bg-blue-50 px-4 py-2 rounded-lg mb-6 border border-blue-100 flex items-center gap-2">
+        <span>🏠</span> PHẦN V. BÀI TẬP VỀ NHÀ
+      </h3>
+
+      <div class="space-y-6">
+        <!-- Câu 1 Về nhà -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900 mb-3 text-lg border-b pb-2 text-indigo-700">Câu 1: Tính các nguyên hàm sau</h4>
+          <div class="space-y-3 text-sm">
+            <div class="p-3 bg-slate-50 rounded-lg">
+              <p><strong>a)</strong> $\int (\cos x + 1)\,dx = \sin x + x + C$</p>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg">
+              <p><strong>b)</strong> $\int \left(\sin x + \frac{2}{x}\right)dx = -\cos x + 2\ln|x| + C$</p>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg">
+              <p><strong>c)</strong> $\int (\cos x - \sin 2x)\,dx = \sin x + \frac{1}{2}\cos 2x + C$</p>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg">
+              <p><strong>d)</strong> $\int \left(\frac{2x^2 - \frac{1}{x} + x}{\sqrt[3]{x}} - \frac{1}{\cos^2 x} - 2^x\right)dx$</p>
+              <div class="mt-2 text-slate-600">
+                Biến đổi lũy thừa phân thức: $\frac{2x^2 - x^{-1} + x}{x^{\frac{1}{3}}} = 2x^{\frac{5}{3}} - x^{-\frac{4}{3}} + x^{\frac{2}{3}}$
+              </div>
+              <p class="font-semibold text-emerald-700 mt-2">
+                $$= \frac{3}{4}x^2\sqrt[3]{x^2} + \frac{3}{\sqrt[3]{x}} + \frac{3}{5}x\sqrt[3]{x^2} - \tan x - \frac{2^x}{\ln 2} + C$$
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Câu 2 Về nhà -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 2: Nhận diện hàm số ban đầu</h4>
+          <p class="text-sm text-slate-600 mt-1">Cho $\int f(x)\,dx = \cos x - \sin 2x + C$. Khẳng định nào dưới đây đúng?</p>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm">
+            <p>Theo định nghĩa nguyên hàm: $f(x) = (\cos x - \sin 2x + C)' = -\sin x - 2\cos 2x$.</p>
+            <p class="font-semibold text-emerald-700 mt-1">$$\Rightarrow \text{Đáp án đúng: B. } f(x) = -\sin x - 2\cos 2x$$</p>
+          </div>
+        </div>
+
+        <!-- Câu 3 Về nhà -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 3: Tìm hàm số $f(x)$ biết đạo hàm</h4>
+          <p class="text-sm text-slate-600 mt-1">Cho hàm số $f(x)$ có đạo hàm $f'(x) = 2 + \cos x$ thỏa mãn $f(0) = 8$.</p>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm">
+            <p>Ta có: $f(x) = \int (2 + \cos x)\,dx = 2x + \sin x + C$.</p>
+            <p>Với $f(0) = 8 \Rightarrow 2(0) + \sin 0 + C = 8 \Rightarrow C = 8$.</p>
+            <p class="font-semibold text-emerald-700 mt-1">$$\Rightarrow f(x) = 2x + \sin x + 8$$</p>
+          </div>
+        </div>
+
+        <!-- Câu 4 Về nhà -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 4: Tìm hàm số $f(x)$</h4>
+          <p class="text-sm text-slate-600 mt-1">Cho hàm số $y = f(x)$ có $f'(x) = 8x^3 + \sin x, \forall x \in \mathbb{R}$ và $f(0) = 3$.</p>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm">
+            <p>Ta có: $f(x) = \int (8x^3 + \sin x)\,dx = 2x^4 - \cos x + C$.</p>
+            <p>Với $f(0) = 3 \Rightarrow 2(0)^4 - \cos 0 + C = 3 \Rightarrow -1 + C = 3 \Rightarrow C = 4$.</p>
+            <p class="font-semibold text-emerald-700 mt-1">$$\Rightarrow f(x) = 2x^4 - \cos x + 4$$</p>
+          </div>
+        </div>
+
+        <!-- Câu 5 Về nhà -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 5: Bài toán quả bóng bầu dục</h4>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm space-y-2">
+            <p>Kích thước quả bóng $28\,\text{cm}$ ứng với khoảng cách giữa hai giao điểm trục hoành: $x_1 = -4$ và $x_2 = 24$ (do $24 - (-4) = 28\,\text{cm}$).</p>
+            <p>Đường kính phần dày nhất bằng $17\,\text{cm}$, do tính đối xứng qua trục $Ox$ nên bán kính lớn nhất bằng $\frac{17}{2} = 8{,}5\,\text{cm}$. Đồ thị nằm dưới trục $Ox$ nên đỉnh parabol có tọa độ $(10; -8{,}5)$ hay $\left(10; -\frac{17}{2}\right)$.</p>
+            <p>Phương trình parabol: $f(x) = k(x + 4)(x - 24) = k(x^2 - 20x - 96)$.</p>
+            <p>Thay tọa độ đỉnh vào:</p>
+            $$f(10) = k(10 + 4)(10 - 24) = -196k = -\frac{17}{2} \implies k = \frac{17}{392}$$
+            $$\Rightarrow f(x) = \frac{17}{392}(x^2 - 20x - 96)$$
+            <p>Nguyên hàm của $f(x)$:</p>
+            $$F(x) = \int f(x)\,dx = \frac{17}{392}\left(\frac{x^3}{3} - 10x^2 - 96x\right) + C$$
+            <p>Có $F(0) = 1 \implies C = 1$.</p>
+            <p>Thay $x = -1$ để tính $F(-1)$:</p>
+            $$F(-1) = \frac{17}{392}\left(-\frac{1}{3} - 10 + 96\right) + 1 = \frac{17}{392} \cdot \frac{257}{3} + 1 = \frac{4369}{1176} + 1 = \frac{5545}{1176} \approx 4{,}72$$
+          </div>
+        </div>
+
+        <!-- Câu 6 Về nhà -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
+          <h4 class="font-bold text-slate-900">Câu 6: Tìm giá trị $f(-2)$</h4>
+          <div class="mt-3 bg-slate-50 p-4 rounded-lg text-sm space-y-2">
+            <p>Đạo hàm hai vế của $\int f(3 + x)\,dx = e^x + \ln(x^2 + 1) + C$ theo $x$:</p>
+            $$f(3 + x) = e^x + \frac{2x}{x^2 + 1}$$
+            <p>Thay $x = -5$ để có $3 + x = -2$:</p>
+            $$f(-2) = e^{-5} + \frac{2(-5)}{(-5)^2 + 1} = e^{-5} - \frac{5}{13} \approx -0{,}38$$
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center text-slate-400 text-xs mt-12 pt-6 border-t border-slate-200">
+      Biên soạn và trình bày chuẩn cấu trúc giải tích THPT – Hỗ trợ kết xuất tài liệu học tập.
+    </footer>
+  </div>
+</body>
+</html>
