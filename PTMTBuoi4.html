@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hướng Dẫn Chấm & Lời Giải Nhanh: Phương Trình Mặt Phẳng</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    mjx-container[jax="CHTML"][display="true"],
+    .MathJax_Display {
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      max-width: 100% !important;
+      padding: 3px 0 !important;
+      margin: 0.25em 0 !important;
+      -webkit-overflow-scrolling: touch;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; font-size: 13px !important; }
+      .solution-card { break-inside: avoid; border: 1px solid #cbd5e1 !important; box-shadow: none !important; margin-bottom: 12px !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col pb-16 sm:pb-0 text-sm" id="pageBody">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm no-print">
+    <div class="max-w-4xl mx-auto px-3 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="w-8 h-8 rounded-lg bg-indigo-600 text-white font-bold flex items-center justify-center text-xs shrink-0 shadow-sm">GV</span>
+        <div class="min-w-0">
+          <h1 class="text-sm font-bold text-slate-900 leading-tight truncate">Đáp Án & Hướng Dẫn Chấm: Mặt Phẳng (tt)</h1>
+          <p class="text-[11px] text-slate-500 truncate">Hệ Oxyz • Bản chuẩn cô đọng cho Giáo viên</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1.5 shrink-0">
+        <div class="relative">
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Tra bài tập..." 
+            class="w-32 sm:w-56 text-xs px-2.5 py-1.5 pl-7 pr-6 rounded-lg bg-slate-100 border border-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:bg-white transition"
+          >
+          <svg class="w-3.5 h-3.5 absolute left-2 top-2 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <button id="clearSearch" class="hidden absolute right-1.5 top-1 p-0.5 text-slate-400 hover:text-slate-600 text-xs">✕</button>
+        </div>
+        <button onclick="window.print()" class="px-2.5 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 text-xs font-semibold flex items-center gap-1 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+          <span class="hidden md:inline">In/PDF</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Nav Pills -->
+    <div class="max-w-4xl mx-auto px-3 sm:px-4 py-1.5 border-t border-slate-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-xs font-medium">
+      <button onclick="filterCategory('all')" class="cat-pill px-3 py-1 rounded-md bg-indigo-600 text-white font-semibold shrink-0" data-cat="all">Tất cả</button>
+      <a href="#phan-1" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 shrink-0">Phần I (Trang 1-3)</a>
+      <a href="#phan-2" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 shrink-0">Phần II: Tự Luận (Trang 3-4)</a>
+      <a href="#phan-3" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 shrink-0">Phần III: BTVN (Trang 4)</a>
+      <a href="#ly-thuyet" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 shrink-0">Công thức then chốt</a>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-3 sm:px-4 py-3 sm:py-6 flex-1 w-full space-y-6">
+
+    <section id="phan-1" class="space-y-3.5">
+      <div class="flex items-center gap-2 pb-1.5 border-b border-slate-300">
+        <span class="w-5 h-5 rounded bg-blue-600 text-white flex items-center justify-center font-bold text-xs">I</span>
+        <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wide">Phần I: Khám Phá, Ví Dụ & Vận Dụng (Trang 1 – 3)</h2>
+      </div>
+
+      <div class="space-y-3.5">
+
+        <!-- Khám phá 1 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-indigo-700">Khám Phá 1 (Trang 1)</span>
+            <span class="text-[11px] text-slate-400">Vị trí tương đối</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-indigo-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Cho $(\alpha): x - 2y + 3z + 1 = 0$ và $(\beta): 2x - 4y + 6z + 1 = 0$.<br>
+            a) Nhận xét về các VTPT. b) Kiểm tra $M(-1; 0; 0)$ có thuộc $(\alpha), (\beta)$? c) Giải thích $(\alpha) \parallel (\beta)$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>• <strong>a)</strong> $\vec{n}_\beta = 2(1; -2; 3) = 2\vec{n}_\alpha \Rightarrow \mathbf{\vec{n}_\alpha \parallel \vec{n}_\beta}$.</p>
+            <p>• <strong>b)</strong> Thay $M(-1; 0; 0) \Rightarrow \mathbf{M \in (\alpha)}$ và $\mathbf{M \notin (\beta)}$ (vì $-1 \neq 0$).</p>
+            <p>• <strong>c)</strong> Cùng phương VTPT và $M \in (\alpha)\setminus (\beta) \Rightarrow \mathbf{(\alpha) \parallel (\beta)}$.</p>
+          </div>
+        </article>
+
+        <!-- Ví dụ 8 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-indigo-700">Ví Dụ 8 (Trang 1)</span>
+            <span class="text-[11px] text-slate-400">Nhận diện song song</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-indigo-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> $(P): 4x + 3y + z + 5 = 0$ song song với mp nào?<br>
+            a) $(Q): 8x+6y+2z+9=0$; b) $(R): 8x+6y+2z+10=0$; c) $(S): 4x+2y+z+5=0$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>• Với $(Q) \Rightarrow \dfrac{8}{4} = \dfrac{6}{3} = \dfrac{2}{1} = 2 \neq \dfrac{9}{5} \Rightarrow \mathbf{(P) \parallel (Q)}$.</p>
+            <p>• Với $(R) \Rightarrow (P) \equiv (R)$; với $(S) \Rightarrow (P)$ cắt $(S)$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold rounded">
+              ✓ Đáp án: a) Mặt phẳng (Q)
+            </div>
+          </div>
+        </article>
+
+        <!-- Ví dụ 9 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-indigo-700">Ví Dụ 9 (Trang 1)</span>
+            <span class="text-[11px] text-slate-400">Qua M song song (P)</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-indigo-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Viết phương trình mp $(Q)$ đi qua $M(1; 2; 3)$ và song song với $(P): 2x + y + z + 12 = 0$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$(Q) \parallel (P) \Rightarrow (Q): 2x + y + z + D = 0$ ($D \neq 12$).</p>
+            <p>Qua $M(1; 2; 3) \Rightarrow 2(1) + 2 + 3 + D = 0 \Rightarrow D = -7$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-900 font-bold rounded mono">
+              (Q): 2x + y + z - 7 = 0
+            </div>
+          </div>
+        </article>
+
+        <!-- Vận dụng 4 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-indigo-700">Vận Dụng 4 (Trang 1)</span>
+            <span class="text-[11px] text-slate-400">Tấm pin mặt trời</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-indigo-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Tấm pin nằm trên $(P): 6x + 5y + z + 2 = 0$. Tấm pin khác trên $(Q)$ qua $M(1; 1; 1)$ và $(Q) \parallel (P)$. Viết phương trình $(Q)$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$(Q) \parallel (P) \Rightarrow \vec{n}_Q = (6; 5; 1)$. Qua $M(1; 1; 1)$:</p>
+            <p>$6(x - 1) + 5(y - 1) + 1(z - 1) = 0$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-900 font-bold rounded mono">
+              (Q): 6x + 5y + z - 12 = 0
+            </div>
+          </div>
+        </article>
+
+        <!-- Ví dụ 10 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-indigo-700">Ví Dụ 10 (Trang 2)</span>
+            <span class="text-[11px] text-slate-400">Chứng minh vuông góc</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-indigo-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Cho $(P): x - 4y + 3z + 2 = 0$, $(Q): 4x + y + 88 = 0$, $(R): x + y + z + 9 = 0$. Chứng minh $(P) \perp (Q)$ và $(P) \perp (R)$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$\vec{n}_P = (1; -4; 3), \; \vec{n}_Q = (4; 1; 0), \; \vec{n}_R = (1; 1; 1)$.</p>
+            <p>• $\vec{n}_P \cdot \vec{n}_Q = 1(4) - 4(1) + 3(0) = 0 \Rightarrow \mathbf{(P) \perp (Q)}$.</p>
+            <p>• $\vec{n}_P \cdot \vec{n}_R = 1(1) - 4(1) + 3(1) = 0 \Rightarrow \mathbf{(P) \perp (R)}$ (đpcm).</p>
+          </div>
+        </article>
+
+        <!-- Luyện tập 6 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-indigo-700">Luyện Tập 6 (Trang 2)</span>
+            <span class="text-[11px] text-slate-400">Tìm cặp mặt phẳng $\perp$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-indigo-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Tìm các cặp mp vuông góc trong: $(F): 3x + 2y + 5z + 3 = 0$, $(H): x - 4y + z + 23 = 0$, $(G): x - y + 3z + 24 = 0$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$\vec{n}_F = (3; 2; 5), \; \vec{n}_H = (1; -4; 1), \; \vec{n}_G = (1; -1; 3)$.</p>
+            <p>• $\vec{n}_F \cdot \vec{n}_H = 3(1) + 2(-4) + 5(1) = 0 \Rightarrow \mathbf{(F) \perp (H)}$.</p>
+            <p>• $\vec{n}_F \cdot \vec{n}_G = 16 \neq 0$; $\vec{n}_H \cdot \vec{n}_G = 8 \neq 0$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold rounded">
+              Kết luận: Cặp duy nhất là $(F) \perp (H)$
+            </div>
+          </div>
+        </article>
+
+        <!-- Vận dụng 5 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-indigo-700">Vận Dụng 5 (Trang 2)</span>
+            <span class="text-[11px] text-slate-400">Quỹ đạo bóng ném</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-indigo-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Nữ ném tại gốc $O(0;0;0)$, bóng rơi tại $K$ cách nam $3\text{m}$ ($Ox$) và cách nữ $5\text{m}$ ($Oy$). Quỹ đạo nằm trong $(P) \perp$ mặt đất $(Oxy)$. Viết phương trình $(P)$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>Điểm rơi $K(3; 5; 0)$, $\vec{k} = (0; 0; 1)$.</p>
+            <p>$\vec{n}_P = [\vec{OK}, \vec{k}] = (5; -3; 0)$. Mp qua $O(0; 0; 0)$:</p>
+            <div class="mt-1 px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-900 font-bold rounded mono">
+              (P): 5x - 3y = 0
+            </div>
+          </div>
+        </article>
+
+        <!-- Ví dụ 11 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-indigo-700">Ví Dụ 11 (Trang 3)</span>
+            <span class="text-[11px] text-slate-400">Khoảng cách từ $M$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-indigo-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Tính khoảng cách từ $M(1; 2; 3)$ đến:<br>
+            a) $(P): x + y + z + 12 = 0$; b) $(Q): 4x + 3y + 10 = 0$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>• <strong>a)</strong> $d(M, (P)) = \dfrac{|1 + 2 + 3 + 12|}{\sqrt{1^2 + 1^2 + 1^2}} = \dfrac{18}{\sqrt{3}} = \mathbf{6\sqrt{3}}$.</p>
+            <p>• <strong>b)</strong> $d(M, (Q)) = \dfrac{|4(1) + 3(2) + 10|}{\sqrt{4^2 + 3^2}} = \dfrac{20}{5} = \mathbf{4}$.</p>
+          </div>
+        </article>
+
+        <!-- Ví dụ 12 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-indigo-700">Ví Dụ 12 (Trang 3)</span>
+            <span class="text-[11px] text-slate-400">Chiều cao hình chóp</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-indigo-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Tính chiều cao hình chóp $S.ABC$ với $S(5; 0; 1), A(1; 1; 1), B(2; 3; 4), C(5; 2; 3)$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$\vec{n}_{(ABC)} = [\vec{AB}, \vec{AC}] = (1; 10; -7) \Rightarrow (ABC): x + 10y - 7z - 4 = 0$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-900 font-bold rounded">
+              $h = d(S, (ABC)) = \dfrac{|5 - 7 - 4|}{\sqrt{1^2 + 10^2 + (-7)^2}} = \dfrac{6}{\sqrt{150}} = \mathbf{\dfrac{\sqrt{6}}{5}}$
+            </div>
+          </div>
+        </article>
+
+        <!-- Ví dụ 13 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-indigo-700">Ví Dụ 13 (Trang 3)</span>
+            <span class="text-[11px] text-slate-400">Khoảng cách 2 mp song song</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-indigo-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Tính khoảng cách giữa $(P): 2x + y + 2z + 9 = 0$ và $(Q): 2x + y + 2z + 99 = 0$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <div class="px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-900 font-bold rounded">
+              $d((P), (Q)) = \dfrac{|99 - 9|}{\sqrt{2^2 + 1^2 + 2^2}} = \dfrac{90}{3} = \mathbf{30}$
+            </div>
+          </div>
+        </article>
+
+        <!-- Khám phá 7 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-indigo-700">Khám Phá 7 (Trang 3)</span>
+            <span class="text-[11px] text-slate-400">Khoảng cách & Chiều cao</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-indigo-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span><br>
+            a) Tính chiều cao chóp $O.MNP$ với $O(0; 0; 0), M(2; 1; 2), N(3; 3; 3), P(4; 5; 6)$.<br>
+            b) Tính khoảng cách giữa $(R): 8x + 6y + 70 = 0$ và $(S): 16x + 12y - 2 = 0$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>• <strong>a)</strong> $(MNP): 2x - y - 3 = 0 \Rightarrow h = d(O, (MNP)) = \dfrac{|-3|}{\sqrt{2^2 + (-1)^2}} = \mathbf{\dfrac{3\sqrt{5}}{5}}$.</p>
+            <p>• <strong>b)</strong> $(S) \Leftrightarrow 8x + 6y - 1 = 0 \Rightarrow d((R), (S)) = \dfrac{|70 - (-1)|}{\sqrt{8^2 + 6^2}} = \dfrac{71}{10} = \mathbf{7{,}1}$.</p>
+          </div>
+        </article>
+
+        <!-- Vận dụng 6 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-indigo-700">Vận Dụng 6 (Trang 3)</span>
+            <span class="text-[11px] text-slate-400">Chóp đều $S.ABCD$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-indigo-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Chóp tứ giác đều $S.ABCD$, đáy cạnh $a\sqrt{2}$, chiều cao $2a$, $O$ là tâm đáy. Tính khoảng cách từ $C$ đến $(SAB)$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$A(-a; 0; 0), B(0; a; 0), S(0; 0; 2a), C(a; 0; 0)$.</p>
+            <p>Đoạn chắn $(SAB): \dfrac{x}{-a} + \dfrac{y}{a} + \dfrac{z}{2a} = 1 \Leftrightarrow 2x - 2y - z + 2a = 0$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-900 font-bold rounded">
+              $d(C, (SAB)) = \dfrac{|2(a) + 2a|}{\sqrt{2^2 + (-2)^2 + (-1)^2}} = \mathbf{\dfrac{4a}{3}}$
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="phan-2" class="space-y-3.5">
+      <div class="flex items-center gap-2 pb-1.5 border-b border-slate-300">
+        <span class="w-5 h-5 rounded bg-amber-600 text-white flex items-center justify-center font-bold text-xs">II</span>
+        <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wide">Phần II: Bài Tập Tự Luận (Trang 3 – 4)</h2>
+      </div>
+
+      <div class="space-y-3.5">
+
+        <!-- Câu 1 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-amber-700">Câu 1 (Trang 3)</span>
+            <span class="text-[11px] text-slate-400">$d(O, (ABC))$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-amber-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Cho $A(1; 1; 4), B(2; 7; 9), C(0; 9; 13)$. Tính khoảng cách từ gốc $O$ đến mặt phẳng $(ABC)$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$\vec{n} = [\vec{AB}, \vec{AC}] = (14; -14; 14) \parallel (1; -1; 1)$.</p>
+            <p>$(ABC): x - y + z - 4 = 0$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-amber-50 border border-amber-200 text-amber-900 font-bold rounded">
+              $d(O, (ABC)) = \dfrac{|-4|}{\sqrt{1^2 + (-1)^2 + 1^2}} = \mathbf{\dfrac{4\sqrt{3}}{3}}$
+            </div>
+          </div>
+        </article>
+
+        <!-- Câu 2 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-amber-700">Câu 2 (Trang 3)</span>
+            <span class="text-[11px] text-slate-400">Hình hộp chữ nhật</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-amber-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Hình hộp chữ nhật $ABCD.A'B'C'D'$ có $AB = 10, BC = 20, AA' = 10$. Điểm $M \in AD$ sao cho $AM = 3MD$. Tính $d(M, (AB'C))$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$AD \parallel BC \Rightarrow d(M, (AB'C)) = d(B, (AB'C))$.</p>
+            <p>Tứ diện $B.AB'C$ vuông đỉnh $B$ ($BA=10, BB'=10, BC=20$):</p>
+            <p>$\dfrac{1}{d^2} = \dfrac{1}{10^2} + \dfrac{1}{10^2} + \dfrac{1}{20^2} = \dfrac{9}{400}$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-amber-50 border border-amber-200 text-amber-900 font-bold rounded">
+              $d = \sqrt{\dfrac{400}{9}} = \mathbf{\dfrac{20}{3}}$
+            </div>
+          </div>
+        </article>
+
+        <!-- Câu 3 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-amber-700">Câu 3 (Trang 3)</span>
+            <span class="text-[11px] text-slate-400">Qua 2 điểm $\perp (\alpha)$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-amber-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Mặt phẳng $(P)$ đi qua $A(0; 0; 3), B(-3; 0; 0)$ và vuông góc $(\alpha): 2x + y - z + 1 = 0$. Tính $d(O, (P))$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$\vec{n}_P = [\vec{u}_{AB}, \vec{n}_\alpha] = (-1; 3; 1) \Rightarrow (P): x - 3y - z + 3 = 0$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-amber-50 border border-amber-200 text-amber-900 font-bold rounded">
+              $d(O, (P)) = \dfrac{|3|}{\sqrt{1^2 + (-3)^2 + (-1)^2}} = \mathbf{\dfrac{3\sqrt{11}}{11}}$
+            </div>
+          </div>
+        </article>
+
+        <!-- Câu 4 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-amber-700">Câu 4 (Trang 3)</span>
+            <span class="text-[11px] text-slate-400">Song song và cách $k$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-amber-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Lập phương trình mặt phẳng song song với $(\beta): x + y - z + 3 = 0$ và cách $(\beta)$ một khoảng bằng $\sqrt{3}$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$(P): x + y - z + D = 0$. $d((P), (\beta)) = \dfrac{|D - 3|}{\sqrt{3}} = \sqrt{3} \Leftrightarrow |D - 3| = 3$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-amber-50 border border-amber-200 text-amber-900 font-bold rounded mono">
+              (P₁): x + y - z = 0 &nbsp;|&nbsp; (P₂): x + y - z + 6 = 0
+            </div>
+          </div>
+        </article>
+
+        <!-- Câu 5 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-amber-700">Câu 5 (Trang 3)</span>
+            <span class="text-[11px] text-slate-400">Chứa $OC$ và cách đều $A, B$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-amber-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Cho $A(4; 2; 1), B(0; 0; 3), C(2; 0; 1)$. Viết phương trình mặt phẳng chứa $OC$ và cách đều hai điểm $A, B$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$(P): Ax + By - 2Az = 0$. $d(A, (P)) = d(B, (P)) \Leftrightarrow |A + B| = 3|A|$.</p>
+            <p>• <strong>TH1 ($B = 2A$):</strong> Đi qua trung điểm $AB \Rightarrow \mathbf{x + 2y - 2z = 0}$.</p>
+            <p>• <strong>TH2 ($B = -4A$):</strong> Song song đoạn $AB \Rightarrow \mathbf{x - 4y - 2z = 0}$.</p>
+          </div>
+        </article>
+
+        <!-- Câu 6 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-amber-700">Câu 6 (THPT Trần Phú - VP)</span>
+            <span class="text-[11px] text-slate-400">Chóp chữ nhật</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-amber-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Chóp $S.ABCD$, đáy $ABCD$ là hình chữ nhật $AB = 2\sqrt{2}, BC = 2$, $SA \perp (ABCD)$, $(SC, \text{đáy}) = 60^\circ$. Tính $d(C, (SBD))$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$AC = 2\sqrt{3} \Rightarrow SA = AC \tan 60^\circ = 6$. $d(C, (SBD)) = d(A, (SBD))$.</p>
+            <p>Tam diện vuông $A.SBD$ ($AS=6, AB=2\sqrt{2}, AD=2$):</p>
+            <p>$\dfrac{1}{d^2} = \dfrac{1}{36} + \dfrac{1}{8} + \dfrac{1}{4} = \dfrac{29}{72}$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-amber-50 border border-amber-200 text-amber-900 font-bold rounded">
+              $d = \sqrt{\dfrac{72}{29}} = \dfrac{6\sqrt{2}}{\sqrt{29}} \approx \mathbf{1{,}58}$
+            </div>
+          </div>
+        </article>
+
+        <!-- Câu 7 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-amber-700">Câu 7 (THPT Kim Liên - HN)</span>
+            <span class="text-[11px] text-slate-400">Cực trị diện tích $\Delta DEI$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-amber-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Cho $(P)$ qua $A(0; 1; 2)$ và $\parallel (Oxy)$. $B, C$ là hình chiếu của $A$ lên $Oy, Oz$; $E$ là trung điểm $AB$; $I \in OC$. $\Delta ACD$ đều nằm trong $(P)$ ($x_D > 0$). Khi diện tích $\Delta DEI$ nhỏ nhất, tính độ dài $EI$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>• $(P): z = 2$; $A(0;1;2), B(0;1;0), C(0;0;2) \Rightarrow E(0; 1; 1)$; $I(0; 0; t)$ với $t \in [0; 2]$.</p>
+            <p>• $\Delta ACD$ đều cạnh $1$ trong $z=2$, $x_D > 0 \Rightarrow D\left(\dfrac{\sqrt{3}}{2}; \dfrac{1}{2}; 2\right)$.</p>
+            <p>• $S_{\Delta DEI} = \dfrac{1}{4}\sqrt{(2t - 3)^2 + 6} \ge \dfrac{\sqrt{6}}{4} \Rightarrow$ Min khi $t = \dfrac{3}{2} \Rightarrow I\left(0; 0; \dfrac{3}{2}\right)$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-amber-50 border border-amber-200 text-amber-900 font-bold rounded">
+              $EI = \sqrt{0^2 + (0 - 1)^2 + \left(\dfrac{3}{2} - 1\right)^2} = \mathbf{\dfrac{\sqrt{5}}{2}}$
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="phan-3" class="space-y-3.5">
+      <div class="flex items-center gap-2 pb-1.5 border-b border-slate-300">
+        <span class="w-5 h-5 rounded bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">III</span>
+        <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wide">Phần III: Bài Tập Về Nhà (Trang 4)</h2>
+      </div>
+
+      <div class="space-y-3.5">
+
+        <!-- BTVN Câu 1 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-emerald-700">BTVN 1 (Trang 4)</span>
+            <span class="text-[11px] text-slate-400">$(P) \perp (Q)$ & $d(M, (P))$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-emerald-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Cho $(P): x - y - 2z + 4 = 0$ và $(Q): x - y + z + 5 = 0$.<br>
+            a) Chứng minh $(P) \perp (Q)$. b) Tính khoảng cách từ $M(3; 1; -5)$ đến $(P)$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>• <strong>a)</strong> $\vec{n}_P \cdot \vec{n}_Q = 1(1) + (-1)(-1) + (-2)(1) = 0 \Rightarrow \mathbf{(P) \perp (Q)}$.</p>
+            <p>• <strong>b)</strong> Với $M(3; 1; -5)$:</p>
+            <div class="mt-1 px-2.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-900 font-bold rounded">
+              $d(M, (P)) = \dfrac{|3 - 1 - 2(-5) + 4|}{\sqrt{1^2 + (-1)^2 + (-2)^2}} = \dfrac{16}{\sqrt{6}} = \mathbf{\dfrac{8\sqrt{6}}{3}}$
+            </div>
+          </div>
+        </article>
+
+        <!-- BTVN Câu 2 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-emerald-700">BTVN 2 (Trang 4)</span>
+            <span class="text-[11px] text-slate-400">$(P) \parallel (Q)$ & $d((P), (Q))$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-emerald-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Cho $(P): 2x - 4y - 4z + 3 = 0$ và $(Q): x - 2y - 2z + 1 = 0$.<br>
+            a) Chứng minh $(P) \parallel (Q)$. b) Tính khoảng cách giữa $(P)$ và $(Q)$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>• <strong>a)</strong> $\dfrac{2}{1} = \dfrac{-4}{-2} = \dfrac{-4}{-2} = 2 \neq \dfrac{3}{1} \Rightarrow \mathbf{(P) \parallel (Q)}$.</p>
+            <p>• <strong>b)</strong> Nhân đôi $(Q): 2x - 4y - 4z + 2 = 0$:</p>
+            <div class="mt-1 px-2.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-900 font-bold rounded">
+              $d((P), (Q)) = \dfrac{|3 - 2|}{\sqrt{2^2 + (-4)^2 + (-4)^2}} = \mathbf{\dfrac{1}{6}}$
+            </div>
+          </div>
+        </article>
+
+        <!-- BTVN Câu 3 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-emerald-700">BTVN 3 (Trang 4)</span>
+            <span class="text-[11px] text-slate-400">Mái nhà kho (Hình 17)</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-emerald-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Mái nhà kho có $A(10; 0; 9), B(10; 20; 10), C(0; 20; 10), D(0; 0; 9), P(5; 0; 6)$.<br>
+            a) Lập pt hai mp tương ứng mỗi mái nhà. b) Tìm tọa độ vectơ $\vec{PQ}$ ($Q$ là đỉnh nóc sau).
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>• Mái trái qua $C, D, P$: $\vec{n}_1 = [\vec{DC}, \vec{DP}] \parallel (12; -1; 20)$</p>
+            <p class="font-bold text-slate-900 mono pl-2">$\Rightarrow 12x - y + 20z - 180 = 0$</p>
+            <p>• Mái phải qua $A, B, P$: $\vec{n}_2 = [\vec{AB}, \vec{AP}] \parallel (12; 1; -20)$</p>
+            <p class="font-bold text-slate-900 mono pl-2">$\Rightarrow 12x + y - 20z + 60 = 0$</p>
+            <p>• Điểm $Q$ trung điểm $BC \Rightarrow Q(5; 20; 10) \Rightarrow \mathbf{\vec{PQ} = (0; 20; 4)}$.</p>
+          </div>
+        </article>
+
+        <!-- BTVN Câu 4 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-emerald-700">BTVN 4 (Trang 4)</span>
+            <span class="text-[11px] text-slate-400">Chóp $S.OBCD$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-emerald-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Chóp $S.OBCD$ đáy hình chữ nhật: $B(2; 0; 0), D(0; 3; 0), S(0; 0; 4)$.<br>
+            a) Tọa độ các đỉnh đáy. b) Viết pt $(SBD)$. c) Tính $d(C, (SBD))$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>• <strong>a)</strong> $O(0; 0; 0), B(2; 0; 0), C(2; 3; 0), D(0; 3; 0)$.</p>
+            <p>• <strong>b)</strong> Đoạn chắn qua $B, D, S$: $\dfrac{x}{2} + \dfrac{y}{3} + \dfrac{z}{4} = 1$</p>
+            <p class="font-bold text-slate-900 mono pl-2">$\Rightarrow (SBD): 6x + 4y + 3z - 12 = 0$</p>
+            <div class="mt-1 px-2.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-900 font-bold rounded">
+              • <strong>c)</strong> $d(C, (SBD)) = \dfrac{|6(2) + 4(3) - 12|}{\sqrt{6^2 + 4^2 + 3^2}} = \mathbf{\dfrac{12\sqrt{61}}{61}}$
+            </div>
+          </div>
+        </article>
+
+        <!-- BTVN Câu 5 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-emerald-700">BTVN 5 (Trang 4)</span>
+            <span class="text-[11px] text-slate-400">Song song và $d = \frac{7}{3}$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-emerald-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Cho $(P): x + 2y + 2z - 10 = 0$. Viết phương trình mp $(Q) \parallel (P)$ biết khoảng cách giữa $(P)$ và $(Q)$ bằng $\dfrac{7}{3}$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$(Q) \parallel (P) \Rightarrow (Q): x + 2y + 2z + D = 0$.</p>
+            <p>$d((P), (Q)) = \dfrac{|D + 10|}{3} = \dfrac{7}{3} \Leftrightarrow |D + 10| = 7 \Leftrightarrow D \in \{-3; -17\}$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-900 font-bold rounded mono">
+              (Q₁): x + 2y + 2z - 3 = 0 &nbsp;|&nbsp; (Q₂): x + 2y + 2z - 17 = 0
+            </div>
+          </div>
+        </article>
+
+        <!-- BTVN Câu 6 -->
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
+            <span class="font-bold text-emerald-700">BTVN 6 (Nhóm 1, 2)</span>
+            <span class="text-[11px] text-slate-400">Qua $A, B$ và $d(O, (P)) = 2$</span>
+          </div>
+          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-emerald-500 rounded-r text-[11px] text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Cho $A(0; 1; 2), B(2; 1; 3)$. Viết phương trình mặt phẳng $(P)$ qua $A, B$ đồng thời khoảng cách từ gốc $O$ đến $(P)$ bằng $2$.
+          </div>
+          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
+            <p>$\vec{AB} = (2; 0; 1) \Rightarrow \vec{n} = (A; B; -2A) \Rightarrow (P): Ax + By - 2Az - B + 4A = 0$.</p>
+            <p>$d(O, (P)) = \dfrac{|4A - B|}{\sqrt{5A^2 + B^2}} = 2 \Leftrightarrow (2A + B)(2A + 3B) = 0$.</p>
+            <div class="mt-1 px-2.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-900 font-bold rounded mono">
+              (P₁): x - 2y - 2z + 6 = 0 &nbsp;|&nbsp; (P₂): 3x - 2y - 6z + 14 = 0
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="ly-thuyet" class="bg-slate-900 rounded-lg p-3.5 text-white shadow-md">
+      <div class="flex items-center gap-1.5 mb-2.5">
+        <span class="px-2 py-0.5 rounded bg-indigo-500 text-white text-[10px] font-bold uppercase">Ghi nhớ nhanh</span>
+        <h3 class="text-xs font-bold text-slate-200">Công thức then chốt Oxyz</h3>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs text-slate-300">
+        <div class="bg-white/5 p-2.5 rounded border border-white/10">
+          <span class="text-amber-300 font-bold block mb-1">Song song & Trùng</span>
+          <p>$\dfrac{A_1}{A_2} = \dfrac{B_1}{B_2} = \dfrac{C_1}{C_2} \neq \dfrac{D_1}{D_2} \Leftrightarrow \parallel$</p>
+          <p>$\dfrac{A_1}{A_2} = \dfrac{B_1}{B_2} = \dfrac{C_1}{C_2} = \dfrac{D_1}{D_2} \Leftrightarrow \equiv$</p>
+        </div>
+        <div class="bg-white/5 p-2.5 rounded border border-white/10">
+          <span class="text-sky-300 font-bold block mb-1">Vuông góc & Đoạn chắn</span>
+          <p>$\vec{n}_1 \cdot \vec{n}_2 = 0 \Leftrightarrow A_1A_2 + B_1B_2 + C_1C_2 = 0$</p>
+          <p>Đoạn chắn: $\dfrac{x}{a} + \dfrac{y}{b} + \dfrac{z}{c} = 1$</p>
+        </div>
+        <div class="bg-white/5 p-2.5 rounded border border-white/10">
+          <span class="text-emerald-300 font-bold block mb-1">Khoảng cách</span>
+          <p>$d(M, (P)) = \dfrac{|Ax_0 + By_0 + Cz_0 + D|}{\sqrt{A^2 + B^2 + C^2}}$</p>
+          <p>$d((P), (Q)) = \dfrac{|D_1 - D_2|}{\sqrt{A^2 + B^2 + C^2}}$ (cùng VTPT)</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mobile Bottom Action Bar -->
+  <nav class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur border-t border-slate-200 px-3 py-1.5 flex items-center justify-between no-print shadow-md">
+    <div class="flex items-center gap-1">
+      <button onclick="changeFontSize(-1)" class="w-7 h-7 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" title="Giảm cỡ chữ">A-</button>
+      <button onclick="changeFontSize(1)" class="w-7 h-7 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" title="Tăng cỡ chữ">A+</button>
+      <span id="resultCount" class="text-[11px] text-slate-500 font-medium ml-1"></span>
+    </div>
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-2.5 py-1 rounded bg-indigo-600 text-white text-xs font-semibold flex items-center gap-1 shadow-sm">
+      <span>↑ Đầu trang</span>
+    </button>
+  </nav>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const clearSearch = document.getElementById('clearSearch');
+    const cards = document.querySelectorAll('.solution-card');
+    const resultCount = document.getElementById('resultCount');
+    let currentCategory = 'all';
+
+    function updateVisibility() {
+      const term = searchInput.value.toLowerCase().trim();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        const matchesSearch = term === '' || text.includes(term);
+        const matchesCategory = currentCategory === 'all' || card.closest('section')?.id === currentCategory;
+
+        if (matchesSearch && matchesCategory) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (term !== '') {
+        clearSearch.classList.remove('hidden');
+        if (resultCount) resultCount.textContent = `${visible} kết quả`;
+      } else {
+        clearSearch.classList.add('hidden');
+        if (resultCount) resultCount.textContent = '';
+      }
+    }
+
+    searchInput.addEventListener('input', updateVisibility);
+
+    clearSearch.addEventListener('click', () => {
+      searchInput.value = '';
+      updateVisibility();
+      searchInput.focus();
+    });
+
+    function filterCategory(catId) {
+      currentCategory = catId;
+      document.querySelectorAll('.cat-pill').forEach(pill => {
+        if (pill.dataset.cat === catId) {
+          pill.classList.remove('bg-slate-100', 'text-slate-700');
+          pill.classList.add('bg-indigo-600', 'text-white', 'font-semibold');
+        } else {
+          pill.classList.remove('bg-indigo-600', 'text-white', 'font-semibold');
+          pill.classList.add('bg-slate-100', 'text-slate-700');
+        }
+      });
+      updateVisibility();
+    }
+
+    let currentScale = 1;
+    function changeFontSize(delta) {
+      currentScale = Math.min(Math.max(currentScale + delta * 0.08, 0.85), 1.25);
+      const root = document.getElementById('pageBody');
+      root.style.fontSize = `${currentScale * 14}px`;
+    }
+  </script>
+</body>
+</html>
