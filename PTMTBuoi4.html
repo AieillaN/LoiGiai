@@ -429,20 +429,72 @@
         </article>
 
         <!-- Câu 7 -->
-        <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
-          <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
-            <span class="font-bold text-amber-700">Câu 7 (THPT Kim Liên - HN)</span>
+        <article class="solution-card bg-white rounded-lg p-3 sm:p-4 border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-2 pb-1.5 border-b border-slate-100">
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-amber-700 text-sm">Câu 7 (THPT Kim Liên - Hà Nội 2023)</span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] bg-red-100 text-red-700 font-semibold">Vận dụng cao</span>
+            </div>
             <span class="text-[11px] text-slate-400">Cực trị diện tích $\Delta DEI$</span>
           </div>
-          <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-amber-500 rounded-r text-[11px] text-slate-600 leading-snug">
-            <span class="font-semibold text-slate-800">Đề bài:</span> Cho $(P)$ qua $A(0; 1; 2)$ và $\parallel (Oxy)$. $B, C$ là hình chiếu của $A$ lên $Oy, Oz$; $E$ là trung điểm $AB$; $I \in OC$. $\Delta ACD$ đều nằm trong $(P)$ ($x_D > 0$). Khi diện tích $\Delta DEI$ nhỏ nhất, tính độ dài $EI$.
+          
+          <div class="mb-3 px-3 py-2 bg-slate-50 border-l-2 border-amber-500 rounded-r text-xs text-slate-600 leading-snug">
+            <span class="font-semibold text-slate-800">Đề bài:</span> Trong không gian $Oxyz$, cho mặt phẳng $(P)$ đi qua điểm $A(0; 1; 2)$ và song song với mặt phẳng $(Oxy)$. Gọi $B, C$ lần lượt là hình chiếu của $A$ lên các trục $Oy, Oz$; $E$ là trung điểm đoạn $AB$ và $I$ là điểm di động trên đoạn $OC$. Tam giác đều $ACD$ nằm trong mặt phẳng $(P)$ đồng thời điểm $D$ có hoành độ dương. Khi diện tích tam giác $DEI$ đạt giá trị nhỏ nhất, hãy tính độ dài đoạn thẳng $EI$.
           </div>
-          <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
-            <p>• $(P): z = 2$; $A(0;1;2), B(0;1;0), C(0;0;2) \Rightarrow E(0; 1; 1)$; $I(0; 0; t)$ với $t \in [0; 2]$.</p>
-            <p>• $\Delta ACD$ đều cạnh $1$ trong $z=2$, $x_D > 0 \Rightarrow D\left(\dfrac{\sqrt{3}}{2}; \dfrac{1}{2}; 2\right)$.</p>
-            <p>• $S_{\Delta DEI} = \dfrac{1}{4}\sqrt{(2t - 3)^2 + 6} \ge \dfrac{\sqrt{6}}{4} \Rightarrow$ Min khi $t = \dfrac{3}{2} \Rightarrow I\left(0; 0; \dfrac{3}{2}\right)$.</p>
-            <div class="mt-1 px-2.5 py-1 bg-amber-50 border border-amber-200 text-amber-900 font-bold rounded">
-              $EI = \sqrt{0^2 + (0 - 1)^2 + \left(\dfrac{3}{2} - 1\right)^2} = \mathbf{\dfrac{\sqrt{5}}{2}}$
+
+          <div class="space-y-2.5 text-xs text-slate-700 leading-relaxed">
+            <!-- Bước 1 -->
+            <div class="p-2 rounded bg-slate-50/80 border border-slate-100">
+              <p class="font-bold text-indigo-700 mb-1">Bước 1: Xác định tọa độ các điểm $B, C, E, I$ và mặt phẳng $(P)$</p>
+              <ul class="list-disc pl-4 space-y-0.5">
+                <li>$(P) \parallel (Oxy): z = 0$ và qua $A(0; 1; 2) \Rightarrow \mathbf{(P): z = 2}$.</li>
+                <li>Hình chiếu của $A(0; 1; 2)$ lên trục $Oy$ là $\mathbf{B(0; 1; 0)}$.</li>
+                <li>Hình chiếu của $A(0; 1; 2)$ lên trục $Oz$ là $\mathbf{C(0; 0; 2)} \in (P)$.</li>
+                <li>$E$ là trung điểm đoạn $AB \Rightarrow E\left(0; \dfrac{1+1}{2}; \dfrac{2+0}{2}\right) \Rightarrow \mathbf{E(0; 1; 1)}$.</li>
+                <li>$I$ di động trên đoạn $OC$ ($O(0;0;0)$ đến $C(0;0;2)$) $\Rightarrow \mathbf{I(0; 0; t)}$ với $\mathbf{t \in [0; 2]}$.</li>
+              </ul>
+            </div>
+
+            <!-- Bước 2 -->
+            <div class="p-2 rounded bg-slate-50/80 border border-slate-100">
+              <p class="font-bold text-indigo-700 mb-1">Bước 2: Tìm tọa độ điểm $D$ của tam giác đều $ACD$</p>
+              <ul class="list-disc pl-4 space-y-0.5">
+                <li>$A(0; 1; 2)$ và $C(0; 0; 2) \Rightarrow AC = \sqrt{0^2 + (1-0)^2 + (2-2)^2} = 1$.</li>
+                <li>$\Delta ACD$ đều nằm trong mặt phẳng $(P): z = 2 \Rightarrow z_D = 2$ và chiều cao $h = \dfrac{AC\sqrt{3}}{2} = \dfrac{\sqrt{3}}{2}$.</li>
+                <li>Gọi $M$ là trung điểm $AC \Rightarrow M\left(0; \dfrac{1}{2}; 2\right)$. Vì $AC$ song song trục $Oy$ nên đường trung trực của $AC$ trong $(P)$ sẽ song song với trục $Ox$.</li>
+                <li>Do điểm $D$ có hoành độ dương ($x_D > 0$) $\Rightarrow x_D = x_M + h = \dfrac{\sqrt{3}}{2}; \; y_D = y_M = \dfrac{1}{2}$.</li>
+                <li>Suy ra: $\mathbf{D\left(\dfrac{\sqrt{3}}{2}; \dfrac{1}{2}; 2\right)}$.</li>
+              </ul>
+            </div>
+
+            <!-- Bước 3 -->
+            <div class="p-2 rounded bg-slate-50/80 border border-slate-100">
+              <p class="font-bold text-indigo-700 mb-1">Bước 3: Lập hàm diện tích tam giác $DEI$ theo tham số $t$</p>
+              <p>Với $D\left(\dfrac{\sqrt{3}}{2}; \dfrac{1}{2}; 2\right), E(0; 1; 1), I(0; 0; t)$:</p>
+              <p class="pl-2">• $\vec{ED} = \left(\dfrac{\sqrt{3}}{2}; -\dfrac{1}{2}; 1\right)$ và $\vec{EI} = (0; -1; t - 1)$.</p>
+              <p class="pl-2">• Tích có hướng:
+                $$[\vec{ED}, \vec{EI}] = \left(\dfrac{3 - t}{2}; \; \dfrac{\sqrt{3}(1 - t)}{2}; \; -\dfrac{\sqrt{3}}{2}\right)$$
+              </p>
+              <p class="pl-2">• Bình phương độ dài tích có hướng:
+                $$\big|[\vec{ED}, \vec{EI}]\big|^2 = \frac{(3 - t)^2}{4} + \frac{3(1 - t)^2}{4} + \frac{3}{4} = \frac{4t^2 - 12t + 15}{4} = \frac{(2t - 3)^2 + 6}{4}$$
+              </p>
+              <p class="pl-2">• Diện tích tam giác $DEI$:
+                $$S_{\Delta DEI} = \frac{1}{2}\big|[\vec{ED}, \vec{EI}]\big| = \frac{1}{4}\sqrt{(2t - 3)^2 + 6}$$
+              </p>
+            </div>
+
+            <!-- Bước 4 -->
+            <div class="p-2 rounded bg-slate-50/80 border border-slate-100">
+              <p class="font-bold text-indigo-700 mb-1">Bước 4: Tìm giá trị nhỏ nhất của diện tích và tính độ dài $EI$</p>
+              <p>• Do $(2t - 3)^2 \ge 0$ nên $S_{\Delta DEI} \ge \dfrac{\sqrt{6}}{4}$.</p>
+              <p>• Đẳng thức xảy ra khi $2t - 3 = 0 \Leftrightarrow \mathbf{t = \dfrac{3}{2}}$ (thỏa mãn điều kiện $t \in [0; 2]$).</p>
+              <p>• Khi đó tọa độ $I\left(0; 0; \dfrac{3}{2}\right) \Rightarrow \vec{EI} = \left(0; -1; \dfrac{1}{2}\right)$.</p>
+            </div>
+
+            <!-- Đáp số đóng khung -->
+            <div class="mt-2 p-2.5 bg-amber-50 border border-amber-300 text-amber-950 font-bold rounded flex items-center justify-between">
+              <span>Độ dài $EI$ khi diện tích đạt Min:</span>
+              <span class="text-sm font-extrabold text-amber-800 mono">EI = \sqrt{0^2 + (-1)^2 + \left(\dfrac{1}{2}\right)^2} = \dfrac{\sqrt{5}}{2}</span>
             </div>
           </div>
         </article>
