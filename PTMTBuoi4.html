@@ -344,17 +344,17 @@
         <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
           <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
             <span class="font-bold text-amber-700">Câu 2 (Trang 3)</span>
-            <span class="text-[11px] text-slate-400">Hình hộp chữ nhật</span>
+            <span class="text-[11px] text-slate-400">Tọa độ hóa $Oxyz$</span>
           </div>
           <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-amber-500 rounded-r text-[11px] text-slate-600 leading-snug">
             <span class="font-semibold text-slate-800">Đề bài:</span> Hình hộp chữ nhật $ABCD.A'B'C'D'$ có $AB = 10, BC = 20, AA' = 10$. Điểm $M \in AD$ sao cho $AM = 3MD$. Tính $d(M, (AB'C))$.
           </div>
           <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
-            <p>$AD \parallel BC \Rightarrow d(M, (AB'C)) = d(B, (AB'C))$.</p>
-            <p>Tứ diện $B.AB'C$ vuông đỉnh $B$ ($BA=10, BB'=10, BC=20$):</p>
-            <p>$\dfrac{1}{d^2} = \dfrac{1}{10^2} + \dfrac{1}{10^2} + \dfrac{1}{20^2} = \dfrac{9}{400}$.</p>
+            <p>• Chọn hệ trục tại $B(0; 0; 0)$: $A(10; 0; 0)$, $C(0; 20; 0)$, $B'(0; 0; 10)$.</p>
+            <p>• Đoạn chắn $(AB'C): \dfrac{x}{10} + \dfrac{y}{20} + \dfrac{z}{10} = 1 \Leftrightarrow 2x + y + 2z - 20 = 0$.</p>
+            <p>• Đỉnh $D(10; 20; 0) \Rightarrow M(10; 15; 0)$ (do $\vec{AM} = \dfrac{3}{4}\vec{AD}$).</p>
             <div class="mt-1 px-2.5 py-1 bg-amber-50 border border-amber-200 text-amber-900 font-bold rounded">
-              $d = \sqrt{\dfrac{400}{9}} = \mathbf{\dfrac{20}{3}}$
+              $d(M, (AB'C)) = \dfrac{|2(10) + 15 + 2(0) - 20|}{\sqrt{2^2 + 1^2 + 2^2}} = \dfrac{15}{3} = \mathbf{5}$
             </div>
           </div>
         </article>
@@ -413,17 +413,17 @@
         <article class="solution-card bg-white rounded-lg p-3 sm:p-3.5 border border-slate-200 shadow-sm">
           <div class="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-slate-100">
             <span class="font-bold text-amber-700">Câu 6 (THPT Trần Phú - VP)</span>
-            <span class="text-[11px] text-slate-400">Chóp chữ nhật</span>
+            <span class="text-[11px] text-slate-400">Tọa độ hóa $Oxyz$ (Hình vẽ)</span>
           </div>
           <div class="mb-2 px-2.5 py-1.5 bg-slate-50 border-l-2 border-amber-500 rounded-r text-[11px] text-slate-600 leading-snug">
             <span class="font-semibold text-slate-800">Đề bài:</span> Chóp $S.ABCD$, đáy $ABCD$ là hình chữ nhật $AB = 2\sqrt{2}, BC = 2$, $SA \perp (ABCD)$, $(SC, \text{đáy}) = 60^\circ$. Tính $d(C, (SBD))$.
           </div>
           <div class="space-y-1 text-xs text-slate-700 leading-relaxed">
-            <p>$AC = 2\sqrt{3} \Rightarrow SA = AC \tan 60^\circ = 6$. $d(C, (SBD)) = d(A, (SBD))$.</p>
-            <p>Tam diện vuông $A.SBD$ ($AS=6, AB=2\sqrt{2}, AD=2$):</p>
-            <p>$\dfrac{1}{d^2} = \dfrac{1}{36} + \dfrac{1}{8} + \dfrac{1}{4} = \dfrac{29}{72}$.</p>
+            <p>• Gắn hệ trục tại gốc $A(0; 0; 0)$: $B(2\sqrt{2}; 0; 0)$, $D(0; 2; 0)$, $C(2\sqrt{2}; 2; 0)$.</p>
+            <p>• $AC = \sqrt{8 + 4} = 2\sqrt{3} \Rightarrow SA = AC \tan 60^\circ = 6 \Rightarrow S(0; 0; 6)$.</p>
+            <p>• Đoạn chắn $(SBD): \dfrac{x}{2\sqrt{2}} + \dfrac{y}{2} + \dfrac{z}{6} = 1 \Leftrightarrow 3x + 3\sqrt{2}y + \sqrt{2}z - 6\sqrt{2} = 0$.</p>
             <div class="mt-1 px-2.5 py-1 bg-amber-50 border border-amber-200 text-amber-900 font-bold rounded">
-              $d = \sqrt{\dfrac{72}{29}} = \dfrac{6\sqrt{2}}{\sqrt{29}} \approx \mathbf{1{,}58}$
+              $d(C, (SBD)) = \dfrac{|3(2\sqrt{2}) + 3\sqrt{2}(2) + 0 - 6\sqrt{2}|}{\sqrt{3^2 + (3\sqrt{2})^2 + (\sqrt{2})^2}} = \dfrac{6\sqrt{2}}{\sqrt{29}} \approx \mathbf{1{,}58}$
             </div>
           </div>
         </article>
