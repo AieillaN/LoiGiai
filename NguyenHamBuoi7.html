@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lời Giải Chi Tiết: Bài 2 – Tích Phân (Đề A)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- KaTeX CDN for Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+        });"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif;
+        }
+
+        /* Tối ưu thanh cuộn ngang công thức cho màn hình nhỏ */
+        .math-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 0.35rem 0;
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 transparent;
+        }
+
+        .math-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+        .math-scroll::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 9999px;
+        }
+
+        /* Ẩn scrollbar cho thanh menu vuốt ngang */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background-color: #ffffff;
+                color: #000000;
+            }
+            .card-item {
+                border: 1px solid #cbd5e1 !important;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen text-[15px] antialiased">
+
+    <!-- Thanh điều hướng ghim đầu trang tối ưu cho điện thoại -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm no-print">
+        <div class="w-full max-w-xl mx-auto px-3.5 py-2.5 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
+                <span class="text-xs font-bold text-blue-900 uppercase tracking-wide">Giải tích 12 • Đề A</span>
+            </div>
+            <button onclick="window.print()" class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-lg active:scale-95 transition">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                In / PDF
+            </button>
+        </div>
+
+        <!-- Menu mục lục vuốt ngang tiện lợi bằng 1 ngón tay -->
+        <nav class="w-full max-w-xl mx-auto px-3 pb-2 pt-0.5 overflow-x-auto no-scrollbar flex items-center gap-1.5 text-xs whitespace-nowrap">
+            <a href="#phan1" class="px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 font-semibold border border-blue-200 active:bg-blue-100">I. Hình thang cong</a>
+            <a href="#dinhnghia" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-medium active:bg-slate-200">II. Tích phân</a>
+            <a href="#thucte" class="px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 font-medium border border-amber-200 active:bg-amber-100">Ứng dụng thực tế</a>
+            <a href="#vdcao" class="px-2.5 py-1 rounded-full bg-rose-50 text-rose-800 font-medium border border-rose-200 active:bg-rose-100">Vận dụng cao</a>
+            <a href="#btvn" class="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-800 font-medium border border-indigo-200 active:bg-indigo-100">BTVN (Câu 1-7)</a>
+        </nav>
+    </header>
+
+    <!-- Bố cục 1 cột duy nhất cho toàn bộ nội dung -->
+    <main class="w-full max-w-xl mx-auto px-3.5 py-4 space-y-6">
+
+        <!-- Banner tiêu đề -->
+        <div class="bg-gradient-to-br from-blue-900 to-indigo-900 text-white rounded-2xl p-4 sm:p-5 shadow-sm space-y-2">
+            <span class="inline-block px-2 py-0.5 rounded text-[11px] font-bold bg-blue-500/30 text-blue-200 border border-blue-400/30">
+                SƯ PHẠM CHUẨN MỰC
+            </span>
+            <h1 class="text-xl sm:text-2xl font-bold tracking-tight">
+                BÀI 2 – TÍCH PHÂN (ĐỀ A)
+            </h1>
+            <p class="text-xs text-blue-100/90 leading-relaxed">
+                Hướng dẫn giải chi tiết, chuẩn sách giáo khoa. Tối ưu giao diện thẻ đơn giản, dễ đọc trên mọi thiết bị di động.
+            </p>
+        </div>
+
+        <!-- ================= PHẦN I: HÌNH THANG CONG ================= -->
+        <section id="phan1" class="space-y-4">
+            <div class="flex items-center gap-2 border-b-2 border-blue-600 pb-1.5">
+                <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">I</span>
+                <h2 class="text-base font-bold text-slate-900 uppercase">Hình Thang Cong</h2>
+            </div>
+
+            <!-- Khung lý thuyết tóm tắt -->
+            <div class="bg-blue-50/80 border-l-4 border-blue-600 p-3 rounded-r-xl text-xs sm:text-sm text-slate-800 space-y-1">
+                <p class="font-bold text-blue-900">Quy tắc tính diện tích:</p>
+                <p>Cho $y = f(x) \ge 0$ liên tục trên $[a; b]$. Diện tích hình thang cong giới hạn bởi đồ thị $f(x)$, trục hoành và hai đường thẳng $x = a, x = b$ là:</p>
+                <div class="math-scroll text-center font-bold text-blue-950">$$S = F(b) - F(a)$$</div>
+                <p class="text-slate-600 italic">(với $F(x)$ là một nguyên hàm của $f(x)$, thường chọn $C = 0$)</p>
+            </div>
+
+            <!-- Ví dụ 1 (Trang 1) -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-800">Ví dụ 1 (Trang 1)</span>
+                    <span class="text-xs text-slate-500 font-medium">$y = x^2$</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Tính diện tích hình thang cong giới hạn bởi $y = f(x) = x^2$, trục hoành và $x = 0; x = 2$.
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-1.5 border border-slate-100">
+                    <p>• Hàm số $y = x^2$ liên tục và không âm trên đoạn $[0; 2]$.</p>
+                    <p>• Một nguyên hàm của $f(x) = x^2$ là $F(x) = \frac{x^3}{3}$.</p>
+                    <div class="math-scroll">
+                        $$S = F(2) - F(0) = \frac{2^3}{3} - \frac{0^3}{3} = \frac{8}{3}\text{ (đvdt)}$$
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: $S = \frac{8}{3}$
+                    </span>
+                </div>
+            </div>
+
+            <!-- Bài 1a (Trang 1) -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-700">Bài 1a (Trang 1)</span>
+                    <span class="text-xs text-slate-500 font-medium">$y = \frac{1}{x}$</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Tính diện tích giới hạn bởi $y = \frac{1}{x}$, trục hoành và hai đường thẳng $x = 1; x = 3$.
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-1.5 border border-slate-100">
+                    <p>• Với mọi $x \in [1; 3]$ thì $y = \frac{1}{x} > 0$ và liên tục.</p>
+                    <p>• Một nguyên hàm của $\frac{1}{x}$ là $F(x) = \ln x$ (vì $x > 0$).</p>
+                    <div class="math-scroll">
+                        $$S = F(3) - F(1) = \ln 3 - \ln 1 = \ln 3\text{ (đvdt)}$$
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: $S = \ln 3$
+                    </span>
+                </div>
+            </div>
+
+            <!-- Bài 1b (Trang 1) -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-700">Bài 1b (Trang 1)</span>
+                    <span class="text-xs text-slate-500 font-medium">$y = 2 - x^2$</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Tính diện tích giới hạn bởi $y = 2 - x^2$, trục hoành và hai đường thẳng $x = -1; x = 1$.
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-1.5 border border-slate-100">
+                    <p>• Trên đoạn $[-1; 1]$, ta có $2 - x^2 \ge 1 > 0$.</p>
+                    <p>• Một nguyên hàm của $f(x)$ là $F(x) = 2x - \frac{x^3}{3}$.</p>
+                    <div class="math-scroll">
+                        $$S = F(1) - F(-1) = \left(2 - \frac{1}{3}\right) - \left(-2 + \frac{1}{3}\right) = \frac{5}{3} - \left(-\frac{5}{3}\right) = \frac{10}{3}$$
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: $S = \frac{10}{3}$
+                    </span>
+                </div>
+            </div>
+
+            <!-- Bài 1c (Trang 2) -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-700">Bài 1c (Trang 2)</span>
+                    <span class="text-xs text-slate-500 font-medium">$y = e^x$</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Tính diện tích giới hạn bởi $y = e^x$, trục hoành, trục tung ($x = 0$) và đường thẳng $x = 1$.
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-1.5 border border-slate-100">
+                    <p>• Hàm số $y = e^x > 0$ liên tục trên $[0; 1]$.</p>
+                    <p>• Một nguyên hàm là $F(x) = e^x$.</p>
+                    <div class="math-scroll">
+                        $$S = F(1) - F(0) = e^1 - e^0 = e - 1\text{ (đvdt)}$$
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: $S = e - 1$
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN II: TÍNH TÍCH PHÂN & TÍNH CHẤT ================= -->
+        <section id="dinhnghia" class="space-y-4">
+            <div class="flex items-center gap-2 border-b-2 border-indigo-600 pb-1.5">
+                <span class="w-6 h-6 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center">II</span>
+                <h2 class="text-base font-bold text-slate-900 uppercase">Định Nghĩa & Tính Chất (Trang 2)</h2>
+            </div>
+
+            <!-- Ví dụ 1 MH 2021 -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-50 text-indigo-800 border border-indigo-200">Ví dụ 1 (Đề minh họa 2021)</span>
+                <p class="text-sm font-semibold text-slate-800">Tính $\int_1^2 x^3 dx$.</p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700">
+                    <div class="math-scroll">$$\int_1^2 x^3 dx = \left.\frac{x^4}{4}\right\vert_1^2 = \frac{2^4}{4} - \frac{1^4}{4} = \frac{16 - 1}{4} = \mathbf{\frac{15}{4}}$$</div>
+                </div>
+            </div>
+
+            <!-- Bài 1: Tính các tích phân (Trang 2) -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center justify-between border-b pb-2">
+                    <span class="text-xs font-bold uppercase text-slate-700">Bài 1: Rèn luyện tính tích phân (a → e)</span>
+                    <span class="text-xs text-slate-400">Trang 2</span>
+                </div>
+
+                <div class="space-y-3 text-xs sm:text-sm text-slate-700">
+                    <!-- 1a -->
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <span class="font-bold text-blue-700">a) $\int_1^2 x^2 dx$:</span>
+                        <div class="math-scroll mt-1">$$\int_1^2 x^2 dx = \left.\frac{x^3}{3}\right\vert_1^2 = \frac{8 - 1}{3} = \mathbf{\frac{7}{3}}$$</div>
+                    </div>
+
+                    <!-- 1b -->
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <span class="font-bold text-blue-700">b) $\int_1^e \frac{1}{t}dt$:</span>
+                        <div class="math-scroll mt-1">$$\int_1^e \frac{1}{t}dt = \left.\ln|t|\right\vert_1^e = \ln e - \ln 1 = 1 - 0 = \mathbf{1}$$</div>
+                    </div>
+
+                    <!-- 1c -->
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <span class="font-bold text-blue-700">c) $\int_{\frac{\pi}{2}}^{-\frac{\pi}{2}} \cos x dx$:</span>
+                        <div class="math-scroll mt-1">$$\int_{\frac{\pi}{2}}^{-\frac{\pi}{2}} \cos x dx = \left.\sin x\right\vert_{\frac{\pi}{2}}^{-\frac{\pi}{2}} = \sin\left(-\frac{\pi}{2}\right) - \sin\left(\frac{\pi}{2}\right) = -1 - 1 = \mathbf{-2}$$</div>
+                    </div>
+
+                    <!-- 1d -->
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <span class="font-bold text-blue-700">d) $\int_1^4 \frac{1}{x\sqrt{x}} dx$:</span>
+                        <p class="text-slate-500 mt-0.5">Biến đổi $x\sqrt{x} = x^{\frac{3}{2}} \implies \frac{1}{x\sqrt{x}} = x^{-\frac{3}{2}}$.</p>
+                        <div class="math-scroll mt-1">$$\int_1^4 x^{-\frac{3}{2}} dx = \left.\left(-2x^{-\frac{1}{2}}\right)\right\vert_1^4 = \left.\left(-\frac{2}{\sqrt{x}}\right)\right\vert_1^4 = -\frac{2}{2} - (-2) = \mathbf{1}$$</div>
+                    </div>
+
+                    <!-- 1e -->
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <span class="font-bold text-blue-700">e) $\int_0^1 3e \cdot 4^x dx$:</span>
+                        <div class="math-scroll mt-1">$$3e \int_0^1 4^x dx = 3e\left.\left(\frac{4^x}{\ln 4}\right)\right\vert_0^1 = 3e\left(\frac{4 - 1}{2\ln 2}\right) = \mathbf{\frac{9e}{2\ln 2}}$$</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tính chất tích phân (Ví dụ 1 & Ví dụ 2) -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-50 text-indigo-800 border border-indigo-200">Tính chất tích phân</span>
+                
+                <!-- Ví dụ 1 -->
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-2 border border-slate-100">
+                    <p class="font-bold text-slate-900">Ví dụ 1: Cho $\int_0^3 f(x)dx = 5$ và $\int_0^3 g(x)dx = 2$.</p>
+                    <p>• a) $\int_0^3 [f(x) + g(x)]dx = 5 + 2 = \mathbf{7}$.</p>
+                    <p>• b) $\int_0^3 [2f(x) - 3g(x)]dx = 2(5) - 3(2) = 10 - 6 = \mathbf{4}$.</p>
+                    <p>• c) $\int_0^3 [x - 2f(x)]dx = \left.\frac{x^2}{2}\right\vert_0^3 - 2(5) = \frac{9}{2} - 10 = \mathbf{-\frac{11}{2}}$.</p>
+                </div>
+
+                <!-- Ví dụ 2 -->
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-1.5 border border-slate-100">
+                    <p class="font-bold text-slate-900">Ví dụ 2: Cho $\int_{-2}^2 f(x)dx = 1$, $\int_{-2}^4 f(t)dt = -4$. Tính $\int_2^4 f(y)dy$.</p>
+                    <p class="text-slate-600">Áp dụng tính chất độc lập biến và nối cận tích phân:</p>
+                    <div class="math-scroll">$$\int_2^4 f(y)dy = \int_{-2}^4 f(x)dx - \int_{-2}^2 f(x)dx = -4 - 1 = \mathbf{-5}$$</div>
+                </div>
+            </div>
+
+            <!-- Bài 1 & Bài 2 Trang 3 -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-700">Rèn luyện tích phân (Trang 3)</span>
+                
+                <div class="p-2.5 bg-slate-50 rounded-lg text-xs sm:text-sm text-slate-700 space-y-1 border border-slate-100">
+                    <p class="font-bold text-slate-900">Bài 1 (Minh họa 2020):</p>
+                    <p>Cho $\int_1^2 f(x)dx = -2$ và $\int_2^3 f(x)dx = 1$.</p>
+                    <div class="math-scroll">$$\int_1^3 f(x)dx = \int_1^2 f(x)dx + \int_2^3 f(x)dx = -2 + 1 = \mathbf{-1}$$</div>
+                </div>
+
+                <div class="p-2.5 bg-slate-50 rounded-lg text-xs sm:text-sm text-slate-700 space-y-2 border border-slate-100">
+                    <p class="font-bold text-slate-900">Bài 2: Tính các tích phân</p>
+                    <p>• a) $\int_0^1 (x^6 - 4x^3 + 3x^2)dx = \left.\left(\frac{x^7}{7} - x^4 + x^3\right)\right\vert_0^1 = \mathbf{\frac{1}{7}}$</p>
+                    <p>• b) $\int_1^2 \frac{1}{x^4}dx = \left.\left(-\frac{1}{3x^3}\right)\right\vert_1^2 = -\frac{1}{24} - \left(-\frac{1}{3}\right) = \mathbf{\frac{7}{24}}$</p>
+                    <p>• c) $\int_0^{\frac{\pi}{2}} (4\sin x + 3\cos x)dx = \left.(-4\cos x + 3\sin x)\right\vert_0^{\frac{\pi}{2}} = 3 - (-4) = \mathbf{7}$</p>
+                    <p>• d) $\int_{-1}^2 (3x+1)(x+3)dx = \int_{-1}^2 (3x^2 + 10x + 3)dx = \left.(x^3 + 5x^2 + 3x)\right\vert_{-1}^2 = 34 - 1 = \mathbf{33}$</p>
+                    <p>• e) $\int_1^3 \frac{x+2}{x}dx = \int_1^3 \left(1 + \frac{2}{x}\right)dx = \left.(x + 2\ln|x|)\right\vert_1^3 = \mathbf{2 + 2\ln 3}$</p>
+                    <p>• f) $\int_1^2 e^x\left(1 - \frac{e^{-x}}{x}\right)dx = \int_1^2 \left(e^x - \frac{1}{x}\right)dx = \left.(e^x - \ln|x|)\right\vert_1^2 = \mathbf{e^2 - e - \ln 2}$</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN III: ỨNG DỤNG THỰC TẾ ================= -->
+        <section id="thucte" class="space-y-4">
+            <div class="flex items-center gap-2 border-b-2 border-amber-600 pb-1.5">
+                <span class="w-6 h-6 rounded-full bg-amber-600 text-white text-xs font-bold flex items-center justify-center">III</span>
+                <h2 class="text-base font-bold text-slate-900 uppercase">Ứng Dụng Chuyển Động & Kinh Tế</h2>
+            </div>
+
+            <!-- Bài 3: Hãm phanh -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-900">Vật lý • Bài 3</span>
+                    <span class="text-xs text-slate-500">Quãng đường hãm phanh</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Xe đang chạy $20\text{ m/s}$ thì hãm phanh với $v(t) = 20 - 5t\text{ (m/s)}$. Kể từ khi hãm phanh đến khi dừng, xe đi được bao nhiêu mét?
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-2 border border-slate-100">
+                    <p>• Bước 1: Khi xe dừng hẳn thì vận tốc bằng $0$:</p>
+                    <div class="math-scroll">$$v(t) = 0 \iff 20 - 5t = 0 \iff t = 4\text{ (giây)}$$</div>
+                    <p>• Bước 2: Quãng đường xe đi được là tích phân vận tốc từ $t = 0$ đến $t = 4$:</p>
+                    <div class="math-scroll">$$s = \int_0^4 (20 - 5t)dt = \left.\left(20t - \frac{5t^2}{2}\right)\right\vert_0^4 = 80 - 40 = 40\text{ (m)}$$</div>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: $40\text{ m}$
+                    </span>
+                </div>
+            </div>
+
+            <!-- Bài 4: Xuất phát -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-900">Vật lý • Bài 4</span>
+                    <span class="text-xs text-slate-500">$v(t) = 2t - 0{,}03t^2$</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Ô tô xuất phát với vận tốc $v(t) = 2t - 0{,}03t^2\text{ (m/s)}$ với $0 \le t \le 10$.
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-2 border border-slate-100">
+                    <p><strong>a) Quãng đường xe đi được:</strong></p>
+                    <p>• Sau $5\text{ s}$:</p>
+                    <div class="math-scroll">$$s(5) = \int_0^5 (2t - 0{,}03t^2)dt = \left.\left(t^2 - 0{,}01t^3\right)\right\vert_0^5 = 25 - 1{,}25 = \mathbf{23{,}75\text{ m}}$$</div>
+                    <p>• Sau $10\text{ s}$:</p>
+                    <div class="math-scroll">$$s(10) = \int_0^{10} (2t - 0{,}03t^2)dt = \left.\left(t^2 - 0{,}01t^3\right)\right\vert_0^{10} = 100 - 10 = \mathbf{90\text{ m}}$$</div>
+                    <p><strong>b) Vận tốc trung bình trong 10 giây đầu:</strong></p>
+                    <div class="math-scroll">$$v_{\text{tb}} = \frac{s(10)}{\Delta t} = \frac{90}{10} = \mathbf{9\text{ m/s}}$$</div>
+                </div>
+            </div>
+
+            <!-- Bài 5: Chi phí sản xuất -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-100 text-indigo-900">Kinh tế • Bài 5</span>
+                    <span class="text-xs text-slate-500">Chi phí cận biên $C'(x)$</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Biết chi phí cận biên $C'(x) = 5 - 0{,}06x + 0{,}00072x^2$ và chi phí cố định $C(0) = 30$ triệu đồng. Tính tổng chi phí khi sản xuất 100 tấn.
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-2 border border-slate-100">
+                    <p>• Mối quan hệ tích phân: $C(100) - C(0) = \int_0^{100} C'(x)dx$.</p>
+                    <div class="math-scroll">
+                        $$\int_0^{100} (5 - 0{,}06x + 0{,}00072x^2)dx = \left.\left(5x - 0{,}03x^2 + 0{,}00024x^3\right)\right\vert_0^{100}$$
+                        $$= 500 - 300 + 240 = 440\text{ (triệu đồng)}$$
+                    </div>
+                    <p>• Tổng chi phí sản xuất 100 tấn là:</p>
+                    <div class="math-scroll font-bold text-blue-900">$$C(100) = C(0) + 440 = 30 + 440 = 470\text{ (triệu đồng)}$$</div>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: $470\text{ triệu đồng}$
+                    </span>
+                </div>
+            </div>
+
+            <!-- Bài 6: Lợi nhuận bán hàng -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-100 text-indigo-900">Kinh tế • Bài 6</span>
+                    <span class="text-xs text-slate-500">Lợi nhuận cận biên $P'(x)$</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Lợi nhuận cận biên $P'(x) = 16 - 0{,}02x$. Nếu không bán được thì lỗ 25 triệu ($P(0) = -25$). Tính lợi nhuận khi bán 90 tấn.
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-2 border border-slate-100">
+                    <p>• Ta có: $P(90) - P(0) = \int_0^{90} (16 - 0{,}02x)dx$.</p>
+                    <div class="math-scroll">
+                        $$\int_0^{90} (16 - 0{,}02x)dx = \left.\left(16x - 0{,}01x^2\right)\right\vert_0^{90} = 1440 - 81 = 1359\text{ (triệu)}$$
+                    </div>
+                    <p>• Lợi nhuận thu được khi bán 90 tấn:</p>
+                    <div class="math-scroll font-bold text-blue-900">$$P(90) = P(0) + 1359 = -25 + 1359 = 1334\text{ (triệu đồng)}$$</div>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: $1334\text{ triệu đồng}$
+                    </span>
+                </div>
+            </div>
+
+            <!-- Bài 7: Cổng Parabol Bách Khoa -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-purple-100 text-purple-900">Thực tế • Bài 7</span>
+                    <span class="text-xs text-slate-500">Cổng ĐH Bách Khoa Hà Nội</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Cổng hình parabol có chiều rộng $8\text{ m}$, chiều cao $12{,}5\text{ m}$. Tính diện tích cổng.
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-2 border border-slate-100">
+                    <p>• Chọn hệ trục tọa độ $Oxy$ với đỉnh parabol tại $I(0; 12{,}5)$, cắt đất tại hai điểm $A(-4; 0)$ và $B(4; 0)$.</p>
+                    <p>• Phương trình parabol có dạng: $y = -ax^2 + 12{,}5$.</p>
+                    <p>• Đi qua $B(4; 0) \implies 0 = -a(4^2) + 12{,}5 \implies a = \frac{12{,}5}{16} = \frac{25}{32}$.</p>
+                    <div class="math-scroll">
+                        $$S = \int_{-4}^4 \left(12{,}5 - \frac{25}{32}x^2\right)dx = 2\left.\left(12{,}5x - \frac{25}{96}x^3\right)\right\vert_0^4 = \mathbf{\frac{200}{3} \approx 66{,}67\text{ m}^2}$$
+                    </div>
+                    <p class="text-[12px] text-slate-500 italic bg-amber-50/70 p-2 rounded border border-amber-200">
+                        💡 Công thức tính nhanh Archimedes: $S = \frac{2}{3} \times \text{rộng} \times \text{cao} = \frac{2}{3} \times 8 \times 12{,}5 = \frac{200}{3}\text{ m}^2$.
+                    </p>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: $\frac{200}{3}\text{ m}^2$
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN IV: VẬN DỤNG CAO (BÀI 8, 9, 10) ================= -->
+        <section id="vdcao" class="space-y-4">
+            <div class="flex items-center gap-2 border-b-2 border-rose-600 pb-1.5">
+                <span class="w-6 h-6 rounded-full bg-rose-600 text-white text-xs font-bold flex items-center justify-center">IV</span>
+                <h2 class="text-base font-bold text-slate-900 uppercase">Vận Dụng Cao (Bài 8, 9, 10)</h2>
+            </div>
+
+            <!-- Bài 8 -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-rose-100 text-rose-900">Bài 8 (Trang 4)</span>
+                    <span class="text-xs text-slate-500">Cực trị hàm ẩn</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Cho $f'(x) = \frac{x^2 - x + 1}{xf(x)}$ trên $(0; +\infty)$ và $f(1) = 1$. Tìm số điểm cực trị của $g(x) = f^2(x) - 2\ln x - \frac{1}{3}x^3 + \frac{1}{2}x^2 + 5x$.
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-2 border border-slate-100">
+                    <p>• Bước 1: Nhân chéo tách biến:</p>
+                    <div class="math-scroll">$$f(x)f'(x) = \frac{x^2 - x + 1}{x} = x - 1 + \frac{1}{x}$$</div>
+                    <p>• Bước 2: Lấy nguyên hàm hai vế:</p>
+                    <div class="math-scroll">$$\int f(x)f'(x)dx = \int \left(x - 1 + \frac{1}{x}\right)dx \implies \frac{1}{2}f^2(x) = \frac{x^2}{2} - x + \ln x + C$$</div>
+                    <p>Do $f(1) = 1 \implies \frac{1}{2} = -\frac{1}{2} + C \implies C = 1$. Suy ra:</p>
+                    <div class="math-scroll font-bold text-blue-900">$$f^2(x) = x^2 - 2x + 2\ln x + 2$$</div>
+                    <p>• Bước 3: Thay $f^2(x)$ vào biểu thức của $g(x)$:</p>
+                    <div class="math-scroll">$$g(x) = (x^2 - 2x + 2\ln x + 2) - 2\ln x - \frac{1}{3}x^3 + \frac{1}{2}x^2 + 5x = -\frac{1}{3}x^3 + \frac{3}{2}x^2 + 3x + 2$$</div>
+                    <p>• Bước 4: Khảo sát cực trị $g'(x) = -x^2 + 3x + 3 = 0$. Vì hệ số $ac = -3 < 0$, phương trình luôn có 2 nghiệm trái dấu $x_1 < 0 < x_2$.</p>
+                    <p>Vì tập xác định $x \in (0; +\infty)$, chỉ có nghiệm dương $x_2 = \frac{3 + \sqrt{21}}{2}$ thỏa mãn và $g'(x)$ đổi dấu qua điểm này.</p>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: Có đúng 1 điểm cực trị
+                    </span>
+                </div>
+            </div>
+
+            <!-- Bài 9 & 10: Đẳng thức đạo hàm cấp hai -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-rose-100 text-rose-900">Bài 9 & Bài 10 (Trang 4)</span>
+                    <span class="text-xs text-slate-500">Đạo hàm cấp hai $f''(x)$</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Cho hàm số $y = f(x)$ thỏa $[xf'(x)]^2 + 1 = x^2[1 - f(x)f''(x)]$ với mọi $x > 0$ và $f(1) = f'(1) = 1$.
+                </p>
+
+                <!-- Biến đổi chìa khóa sư phạm -->
+                <div class="bg-indigo-50/80 p-3 rounded-lg text-xs sm:text-sm text-slate-800 space-y-1.5 border border-indigo-200">
+                    <p class="font-bold text-indigo-950">🔑 Phương pháp biến đổi mấu chốt:</p>
+                    <div class="math-scroll">
+                        $$x^2[f'(x)]^2 + 1 = x^2 - x^2 f(x)f''(x) \iff x^2\left([f'(x)]^2 + f(x)f''(x)\right) = x^2 - 1$$
+                        $$\iff [f'(x)]^2 + f(x)f''(x) = 1 - \frac{1}{x^2}$$
+                    </div>
+                    <p>Nhận xét rằng: $[f(x)f'(x)]' = [f'(x)]^2 + f(x)f''(x)$.</p>
+                    <p>Lấy nguyên hàm hai vế theo $x$:</p>
+                    <div class="math-scroll">$$f(x)f'(x) = \int \left(1 - \frac{1}{x^2}\right)dx = x + \frac{1}{x} + C_1$$</div>
+                    <p>Do $f(1) = 1, f'(1) = 1 \implies 1 = 1 + 1 + C_1 \implies C_1 = -1$. Do đó:</p>
+                    <div class="math-scroll">$$f(x)f'(x) = x - 1 + \frac{1}{x}$$</div>
+                    <p>Lấy nguyên hàm lần thứ hai: $\frac{1}{2}f^2(x) = \frac{x^2}{2} - x + \ln x + C_2$. Vì $f(1) = 1 \implies C_2 = 1$.</p>
+                    <div class="math-scroll font-bold text-indigo-900">$$\implies f^2(x) = x^2 - 2x + 2\ln x + 2$$</div>
+                </div>
+
+                <!-- Lời giải cụ thể cho Bài 9 -->
+                <div class="p-3 bg-slate-50 rounded-lg text-xs sm:text-sm space-y-1.5 border border-slate-200">
+                    <p class="font-bold text-slate-900">Giải Bài 9: Tính $\int_1^4 [f^2(x) - 2\ln x]dx$</p>
+                    <p>Thay $f^2(x) - 2\ln x = x^2 - 2x + 2$ vào tích phân:</p>
+                    <div class="math-scroll">$$\int_1^4 (x^2 - 2x + 2)dx = \left.\left(\frac{x^3}{3} - x^2 + 2x\right)\right\vert_1^4 = \left(\frac{64}{3} - 16 + 8\right) - \left(\frac{1}{3} - 1 + 2\right) = \mathbf{12}$$</div>
+                    <p class="text-right font-bold text-emerald-800">Đáp số Bài 9: $12$</p>
+                </div>
+
+                <!-- Lời giải cụ thể cho Bài 10 -->
+                <div class="p-3 bg-slate-50 rounded-lg text-xs sm:text-sm space-y-1.5 border border-slate-200">
+                    <p class="font-bold text-slate-900">Giải Bài 10: Tìm số điểm cực trị của $g(x) = f^2(x) - 2x^2 + 4x$</p>
+                    <p>Ta có: $g(x) = (x^2 - 2x + 2\ln x + 2) - 2x^2 + 4x = -x^2 + 2x + 2\ln x + 2$.</p>
+                    <div class="math-scroll">$$g'(x) = -2x + 2 + \frac{2}{x} = \frac{-2x^2 + 2x + 2}{x} = \frac{-2(x^2 - x - 1)}{x}$$</div>
+                    <p>Phương trình $x^2 - x - 1 = 0$ có 1 nghiệm dương duy nhất trên $(0; +\infty)$ là $x = \frac{1 + \sqrt{5}}{2}$. Đạo hàm đổi dấu từ dương sang âm qua nghiệm này.</p>
+                    <p class="text-right font-bold text-emerald-800">Đáp số Bài 10: 1 điểm cực trị</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PHẦN V: BÀI TẬP VỀ NHÀ ================= -->
+        <section id="btvn" class="space-y-4">
+            <div class="flex items-center gap-2 border-b-2 border-indigo-700 pb-1.5">
+                <span class="w-6 h-6 rounded-full bg-indigo-700 text-white text-xs font-bold flex items-center justify-center">V</span>
+                <h2 class="text-base font-bold text-slate-900 uppercase">Bài Tập Về Nhà – Đề A (Trang 4)</h2>
+            </div>
+
+            <!-- Câu 1 BTVN -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-50 text-indigo-900 border border-indigo-200">Câu 1: Tính các tích phân (a → g)</span>
+                
+                <div class="space-y-2.5 text-xs sm:text-sm text-slate-700">
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong class="text-slate-900">a) $\int_0^2 (2x + 1)dx$:</strong>
+                        <div class="math-scroll mt-0.5">$$\left.\left(x^2 + x\right)\right\vert_0^2 = (4 + 2) - 0 = \mathbf{6}$$</div>
+                    </div>
+
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong class="text-slate-900">b) $\int_1^e \left(\frac{1}{x} - \frac{1}{x^2}\right)dx$:</strong>
+                        <div class="math-scroll mt-0.5">$$\left.\left(\ln|x| + \frac{1}{x}\right)\right\vert_1^e = \left(1 + \frac{1}{e}\right) - (0 + 1) = \mathbf{\frac{1}{e}}$$</div>
+                    </div>
+
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong class="text-slate-900">c) $\int_1^3 \frac{x+2}{x}dx$:</strong>
+                        <div class="math-scroll mt-0.5">$$\int_1^3 \left(1 + \frac{2}{x}\right)dx = \left.(x + 2\ln|x|)\right\vert_1^3 = (3 + 2\ln 3) - (1 + 0) = \mathbf{2 + 2\ln 3}$$</div>
+                    </div>
+
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong class="text-slate-900">d) $\int_0^1 e^{3x+1}dx$:</strong>
+                        <div class="math-scroll mt-0.5">$$\left.\left(\frac{1}{3}e^{3x+1}\right)\right\vert_0^1 = \frac{e^4 - e^1}{3} = \mathbf{\frac{e^4 - e}{3}}$$</div>
+                    </div>
+
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong class="text-slate-900">e) $\int_0^1 \frac{e^x}{2^x}dx = \int_0^1 \left(\frac{e}{2}\right)^x dx$:</strong>
+                        <div class="math-scroll mt-0.5">$$\left.\left(\frac{(e/2)^x}{\ln(e/2)}\right)\right\vert_0^1 = \frac{\frac{e}{2} - 1}{\ln e - \ln 2} = \mathbf{\frac{e - 2}{2(1 - \ln 2)}}$$</div>
+                    </div>
+
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong class="text-slate-900">f) $\int_{\frac{\pi}{3}}^{\frac{\pi}{2}} (2\sin x + 3\cos x + x)dx$:</strong>
+                        <div class="math-scroll mt-0.5">$$\left.\left(-2\cos x + 3\sin x + \frac{x^2}{2}\right)\right\vert_{\frac{\pi}{3}}^{\frac{\pi}{2}} = \left(0 + 3 + \frac{\pi^2}{8}\right) - \left(-1 + \frac{3\sqrt{3}}{2} + \frac{\pi^2}{18}\right) = \mathbf{4 - \frac{3\sqrt{3}}{2} + \frac{5\pi^2}{72}}$$</div>
+                    </div>
+
+                    <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-100">
+                        <strong class="text-slate-900">g) $\int_0^{\frac{\pi}{2}} \sin^2\frac{x}{4}\cos^2\frac{x}{4}dx$:</strong>
+                        <p class="text-slate-500 mt-1">Sử dụng công thức nhân đôi: $\sin\frac{x}{4}\cos\frac{x}{4} = \frac{1}{2}\sin\frac{x}{2} \implies \sin^2\frac{x}{4}\cos^2\frac{x}{4} = \frac{1}{4}\sin^2\frac{x}{2} = \frac{1 - \cos x}{8}$.</p>
+                        <div class="math-scroll mt-1">$$\int_0^{\frac{\pi}{2}} \frac{1 - \cos x}{8} dx = \left.\frac{1}{8}(x - \sin x)\right\vert_0^{\frac{\pi}{2}} = \frac{1}{8}\left(\frac{\pi}{2} - 1\right) = \mathbf{\frac{\pi - 2}{16}}$$</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Câu 2 BTVN -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-800">Câu 2 (Minh họa 2023)</span>
+                <p class="text-sm font-semibold text-slate-800">Nếu $\int_{-1}^4 f(x)dx = 2$ và $\int_{-1}^4 g(x)dx = 3$ thì $\int_{-1}^4 [f(x) + g(x)]dx$ bằng bao nhiêu?</p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700">
+                    <div class="math-scroll">$$\int_{-1}^4 [f(x) + g(x)]dx = \int_{-1}^4 f(x)dx + \int_{-1}^4 g(x)dx = 2 + 3 = \mathbf{5}$$</div>
+                </div>
+            </div>
+
+            <!-- Câu 3 BTVN -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-800">Câu 3 (Minh họa 2023)</span>
+                <p class="text-sm font-semibold text-slate-800">Nếu $\int_0^2 f(x)dx = 4$ thì $\int_0^2 \left[\frac{1}{2}f(x) - 2\right]dx$ bằng bao nhiêu?</p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700">
+                    <div class="math-scroll">$$\int_0^2 \left[\frac{1}{2}f(x) - 2\right]dx = \frac{1}{2}\int_0^2 f(x)dx - \int_0^2 2dx = \frac{1}{2}(4) - 2(2) = 2 - 4 = \mathbf{-2}$$</div>
+                </div>
+            </div>
+
+            <!-- Câu 4 BTVN -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-800">Câu 4: Tìm số giá trị nguyên $m$</span>
+                <p class="text-sm font-semibold text-slate-800">Cho $I = \int_0^1 (4x - 2m^2)dx$. Có bao nhiêu giá trị nguyên của $m$ để $I + 6 > 0$?</p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-1.5">
+                    <p>• Bước 1: Tính tích phân $I$:</p>
+                    <div class="math-scroll">$$I = \left.\left(2x^2 - 2m^2 x\right)\right\vert_0^1 = 2 - 2m^2$$</div>
+                    <p>• Bước 2: Bất phương trình:</p>
+                    <div class="math-scroll">$$I + 6 > 0 \iff (2 - 2m^2) + 6 > 0 \iff 8 - 2m^2 > 0 \iff m^2 < 4 \iff -2 < m < 2$$</div>
+                    <p>Do $m \in \mathbb{Z} \implies m \in \{-1; 0; 1\}$ (có 3 giá trị nguyên thỏa mãn).</p>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: 3 giá trị
+                    </span>
+                </div>
+            </div>
+
+            <!-- Câu 5 BTVN -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-purple-100 text-purple-900">Câu 5: Cửa nhà Parabol</span>
+                    <span class="text-xs text-slate-500">Chi phí thi công</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Cửa parabol cao $2{,}25\text{ m}$, rộng $3\text{ m}$. Đơn giá thuê $1\,500\,000\text{ đ/m}^2$. Tính số tiền bác Năm phải trả.
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-2 border border-slate-100">
+                    <p>• Diện tích vòm cửa parabol:</p>
+                    <div class="math-scroll">$$S = \frac{2}{3} \times \text{rộng} \times \text{cao} = \frac{2}{3} \times 3 \times 2{,}25 = 4{,}5\text{ m}^2$$</div>
+                    <p>• Chi phí thi công:</p>
+                    <div class="math-scroll font-bold text-blue-900">$$T = 4{,}5 \times 1\,500\,000 = 6\,750\,000\text{ (đồng)}$$</div>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: $6\,750\,000\text{ đồng}$
+                    </span>
+                </div>
+            </div>
+
+            <!-- Câu 6 BTVN -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-100 text-indigo-900">Câu 6 (Nhóm 4, 5, 6)</span>
+                    <span class="text-xs text-slate-500">Xác định hàm $f(x)$</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Cho $f(x) = x^3 + ax^2 + bx + c$ cắt $Ox$ tại $(-1; 0)$, cắt $Oy$ tại $(0; 4)$ và đạt cực tiểu tại $x = 2$. Tính $\int_2^9 f(x)dx$.
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-2 border border-slate-100">
+                    <p>1. Cắt $Oy$ tại $(0; 4) \implies f(0) = c = 4$.</p>
+                    <p>2. Cắt $Ox$ tại $(-1; 0) \implies f(-1) = (-1)^3 + a(-1)^2 + b(-1) + 4 = 0 \iff a - b = -3$.</p>
+                    <p>3. Đạt cực tiểu tại $x = 2 \implies f'(2) = 0$.
+                        <br>Ta có $f'(x) = 3x^2 + 2ax + b \implies f'(2) = 12 + 4a + b = 0 \iff 4a + b = -12$.</p>
+                    <p>4. Giải hệ phương trình:</p>
+                    <div class="math-scroll">$$\begin{cases} a - b = -3 \\ 4a + b = -12 \end{cases} \iff \begin{cases} a = -3 \\ b = 0 \end{cases} \implies f(x) = x^3 - 3x^2 + 4$$</div>
+                    <p>5. Tính tích phân:</p>
+                    <div class="math-scroll">$$\int_2^9 (x^3 - 3x^2 + 4)dx = \left.\left(\frac{x^4}{4} - x^3 + 4x\right)\right\vert_2^9 = \left(\frac{6561}{4} - 729 + 36\right) - (4 - 8 + 8) = \mathbf{\frac{3773}{4} = 943{,}25}$$</div>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: $\frac{3773}{4} = 943{,}25$
+                    </span>
+                </div>
+            </div>
+
+            <!-- Câu 7 BTVN -->
+            <div class="card-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-100 text-indigo-900">Câu 7 (Nhóm 1, 2, 3)</span>
+                    <span class="text-xs text-slate-500">Khoảng cách cực trị $x_B - x_A = 3$</span>
+                </div>
+                <p class="text-sm font-semibold text-slate-800">
+                    Cho $f(x) = x^3 + ax^2 + bx + c$ có $A$ (cực đại), $B$ (cực tiểu) với $x_B - x_A = 3$. Đồ thị cắt $Ox$ tại $x = 2$, cắt $Oy$ tại $y = 10$. Tính $\int_2^9 f(x)dx$.
+                </p>
+                <div class="bg-slate-50 p-3 rounded-lg text-xs sm:text-sm text-slate-700 space-y-2 border border-slate-100">
+                    <p>1. Cắt $Oy$ tại $y = 10 \implies c = 10$.</p>
+                    <p>2. Cắt $Ox$ tại $x = 2 \implies 2^3 + 4a + 2b + 10 = 0 \iff 4a + 2b = -18 \iff b = -2a - 9$.</p>
+                    <p>3. Vì hệ số $x^3$ là $1 > 0$, hàm số đạt cực đại tại nghiệm nhỏ hơn ($x_A$) và cực tiểu tại nghiệm lớn hơn ($x_B$).
+                        <br>Phương trình $f'(x) = 3x^2 + 2ax + b = 0$ có 2 nghiệm phân biệt thỏa $(x_B - x_A)^2 = 9$.</p>
+                    <p>Theo định lý Viète: $x_A + x_B = -\frac{2a}{3};\ x_A x_B = \frac{b}{3}$. Do đó:</p>
+                    <div class="math-scroll">
+                        $$(x_B - x_A)^2 = (x_A + x_B)^2 - 4x_A x_B = \frac{4a^2}{9} - \frac{4b}{3} = 9 \iff 4a^2 - 12b = 81$$
+                    </div>
+                    <p>Thế $b = -2a - 9$ vào:</p>
+                    <div class="math-scroll">$$4a^2 - 12(-2a - 9) = 81 \iff 4a^2 + 24a + 27 = 0 \iff a = -\frac{3}{2} \text{ hoặc } a = -\frac{9}{2}$$</div>
+
+                    <div class="p-2.5 bg-white rounded border border-slate-200 space-y-1">
+                        <strong class="text-blue-900">• Trường hợp 1: $a = -\frac{3}{2} \implies b = -6$</strong>
+                        <p class="text-slate-600">$f'(x) = 3x^2 - 3x - 6 = 0 \iff x_A = -1, x_B = 2$ (thỏa mãn $x_B - x_A = 3$).</p>
+                        <p>Hàm số: $f(x) = x^3 - \frac{3}{2}x^2 - 6x + 10$.</p>
+                        <div class="math-scroll">$$\int_2^9 \left(x^3 - \frac{3}{2}x^2 - 6x + 10\right)dx = \left.\left(\frac{x^4}{4} - \frac{x^3}{2} - 3x^2 + 10x\right)\right\vert_2^9 = \mathbf{\frac{4459}{4} = 1114{,}75}$$</div>
+                    </div>
+
+                    <div class="p-2.5 bg-white rounded border border-slate-200 space-y-1">
+                        <strong class="text-blue-900">• Trường hợp 2: $a = -\frac{9}{2} \implies b = 0$</strong>
+                        <p class="text-slate-600">$f'(x) = 3x^2 - 9x = 0 \iff x_A = 0, x_B = 3$ (thỏa mãn $x_B - x_A = 3$).</p>
+                        <p>Hàm số: $f(x) = x^3 - \frac{9}{2}x^2 + 10$.</p>
+                        <div class="math-scroll">$$\int_2^9 \left(x^3 - \frac{9}{2}x^2 + 10\right)dx = \left.\left(\frac{x^4}{4} - \frac{3x^3}{2} + 10x\right)\right\vert_2^9 = \mathbf{\frac{2499}{4} = 624{,}75}$$</div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="inline-block text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                        Đáp số: $1114{,}75$ hoặc $624{,}75$
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer chân trang -->
+        <footer class="pt-4 pb-10 text-center text-xs text-slate-500 border-t border-slate-200 no-print">
+            <p>Tài liệu giảng dạy môn Toán 12 • Bản xem trước chuẩn hóa di động</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
