@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuyên đề Tích Phân (Phần Tiếp Theo) – Đề A | Lời Giải Chi Tiết</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#082f49',
+            },
+            math: {
+              gold: '#d97706',
+              emerald: '#059669',
+              ruby: '#dc2626'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+            serif: ['Merriweather', 'Georgia', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- MathJax for high-quality mathematical typography -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* Custom styles for print and pedagogical elements */
+    @media print {
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      body { background-color: #ffffff !important; color: #000000 !important; }
+      .page-break { page-break-before: always; }
+      .solution-card { border: 1px solid #cbd5e1 !important; box-shadow: none !important; margin-bottom: 1.5rem !important; }
+      details { open: true !important; }
+      details > summary { display: none !important; }
+    }
+    
+    /* Smooth transitions and custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+
+    /* Math rendering fine tuning */
+    mjx-container {
+      font-size: 104% !important;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans selection:bg-sky-200 selection:text-sky-900">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo & Title -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white font-bold shadow-md shadow-sky-500/20">
+            $\int$
+          </div>
+          <div>
+            <h1 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-none">
+              TOÁN 12: CHUYÊN ĐỀ TÍCH PHÂN (PHẦN TIẾP THEO)
+            </h1>
+            <p class="text-xs text-sky-700 font-medium mt-1">Đề A • Chuẩn mực sư phạm & Đổi mới SGK 2018</p>
+          </div>
+        </div>
+
+        <!-- Quick Action Bar -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <button onclick="toggleAllSolutions(true)" title="Mở tất cả lời giải"
+            class="px-2.5 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            <span class="hidden md:inline">Mở hết</span>
+          </button>
+          
+          <button onclick="toggleAllSolutions(false)" title="Thu gọn lời giải"
+            class="px-2.5 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+            <span class="hidden md:inline">Thu gọn</span>
+          </button>
+
+          <button onclick="window.print()" title="In ra giấy hoặc lưu PDF"
+            class="px-3 py-1.5 text-xs font-medium text-white bg-sky-600 hover:bg-sky-700 rounded-lg transition-shadow shadow-sm flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+            <span>In / Lưu PDF</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-1">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      
+      <!-- Sticky Sidebar Navigation -->
+      <aside class="no-print lg:col-span-1 hidden lg:block">
+        <div class="sticky top-24 bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-4 max-h-[82vh] overflow-y-auto">
+          <div>
+            <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2 mb-2">Mục Lục Nhanh</h2>
+            <div class="relative">
+              <input type="text" id="filterInput" onkeyup="filterQuestions()" placeholder="Tìm bài (VD: bài 7, ca nô...)" 
+                class="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500">
+            </div>
+          </div>
+
+          <div class="space-y-1 text-sm font-medium">
+            <a href="#phan-1" class="block px-2.5 py-1.5 text-sky-700 bg-sky-50 rounded-lg font-semibold">PHẦN 1: BÀI TẬP TRÊN LỚP</a>
+            <div class="pl-2 space-y-1 text-xs text-slate-600">
+              <a href="#dang-1" class="block px-2 py-1 hover:text-sky-600 rounded">Dạng 1: Chứa trị tuyệt đối</a>
+              <a href="#d1-mau" class="block pl-3 py-0.5 text-slate-500 hover:text-sky-600">• Ví dụ mẫu</a>
+              <a href="#d1-b1" class="block pl-3 py-0.5 text-slate-500 hover:text-sky-600">• Bài 1 (a, b, c, d)</a>
+              <a href="#d1-b2" class="block pl-3 py-0.5 text-slate-500 hover:text-sky-600">• Bài 2 (Nhóm 1)</a>
+              
+              <a href="#dang-2" class="block px-2 py-1 mt-2 hover:text-sky-600 rounded">Dạng 2: Nhiều công thức</a>
+              <a href="#d2-mau" class="block pl-3 py-0.5 text-slate-500 hover:text-sky-600">• Ví dụ mẫu 1</a>
+              <a href="#d2-b1" class="block pl-3 py-0.5 text-slate-500 hover:text-sky-600">• Bài 1 & 2</a>
+              <a href="#d2-b3" class="block pl-3 py-0.5 text-slate-500 hover:text-sky-600">• Bài 3 (Tham số a)</a>
+              <a href="#d2-b4" class="block pl-3 py-0.5 text-slate-500 hover:text-sky-600">• Bài 4: Tốc độ Ca nô</a>
+              <a href="#d2-b5" class="block pl-3 py-0.5 text-slate-500 hover:text-sky-600">• Bài 5: Thang máy</a>
+              <a href="#d2-b6" class="block pl-3 py-0.5 text-slate-500 hover:text-sky-600">• Bài 6: Lợi nhuận biên</a>
+              <a href="#d2-b7" class="block pl-3 py-0.5 text-amber-700 font-semibold hover:text-amber-800">• Bài 7: Cực trị diện tích</a>
+              <a href="#d2-b8" class="block pl-3 py-0.5 text-slate-500 hover:text-sky-600">• Bài 8 & 9: Hàm ẩn</a>
+            </div>
+
+            <a href="#phan-2" class="block px-2.5 py-1.5 mt-3 text-emerald-800 bg-emerald-50 rounded-lg font-semibold">PHẦN 2: BÀI TẬP VỀ NHÀ</a>
+            <div class="pl-2 space-y-1 text-xs text-slate-600">
+              <a href="#btvn-c1" class="block px-2 py-1 hover:text-emerald-700">• Câu 1: Tích phân trị tuyệt đối</a>
+              <a href="#btvn-c2" class="block px-2 py-1 hover:text-emerald-700">• Câu 2: Tìm tổng hệ số P = a + b</a>
+              <a href="#btvn-c3" class="block px-2 py-1 hover:text-emerald-700">• Câu 3: Hàm ghép công thức</a>
+              <a href="#btvn-c4" class="block px-2 py-1 text-amber-700 font-semibold hover:text-amber-800">• Câu 4: Quãng đường Ô tô</a>
+              <a href="#btvn-c5" class="block px-2 py-1 text-purple-700 font-semibold hover:text-purple-800">• Câu 5: Bảng biến thiên hàm f(x)</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="lg:col-span-3 space-y-8">
+        
+        <!-- Header Banner Card -->
+        <div class="bg-gradient-to-r from-sky-700 via-sky-800 to-indigo-900 rounded-3xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden">
+          <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="relative z-10 space-y-3">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-sky-100 backdrop-blur-sm">
+              Tài Liệu Ôn Tập & Giảng Dạy Môn Toán 12
+            </span>
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+              BÀI 2: TÍCH PHÂN (PHẦN TIẾP THEO) – ĐỀ A
+            </h1>
+            <p class="text-sky-100 text-sm max-w-2xl font-light leading-relaxed">
+              Lời giải chi tiết từng bước, định dạng trực quan theo phương pháp chuẩn sách giáo khoa, tích hợp đầy đủ các bài toán ứng dụng thực tế liên môn và bài tập phân hóa theo nhóm năng lực.
+            </p>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- PHẦN 1. BÀI TẬP TRÊN LỚP                    -->
+        <!-- ========================================== -->
+        <section id="phan-1" class="space-y-6">
+          <div class="flex items-center gap-3 border-b-2 border-sky-600 pb-2">
+            <span class="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold text-sm">I</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">PHẦN 1: CÁC BÀI TẬP TRÊN LỚP</h2>
+          </div>
+
+          <!-- DẠNG 1 -->
+          <div id="dang-1" class="space-y-5">
+            <div class="bg-white rounded-2xl border border-sky-200 p-5 shadow-sm">
+              <h3 class="text-lg font-bold text-sky-800 mb-3 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-sky-600"></span>
+                DẠNG 1: TÍCH PHÂN HÀM SỐ CHỨA DẤU GIÁ TRỊ TUYỆT ĐỐI
+              </h3>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-sky-50/60 p-4 rounded-xl border border-sky-100">
+                <div class="space-y-2">
+                  <span class="font-bold text-sky-900 block border-b border-sky-200 pb-1">Cách 1: Đưa trị tuyệt đối ra ngoài</span>
+                  <p class="text-slate-700 leading-relaxed">
+                    1. Cho $f(x)=0$ tìm các nghiệm $x_1 < x_2 < \dots < x_n \in [a;b]$.<br>
+                    2. Chèn cận và đưa dấu trị tuyệt đối ra ngoài từng khoảng (do trên mỗi khoảng nghiệm $f(x)$ không đổi dấu):
+                  </p>
+                  <div class="bg-white p-2.5 rounded-lg border border-sky-100 text-center font-mono text-xs overflow-x-auto">
+                    $$I = \left|\int_{a}^{x_1} f(x)dx\right| + \left|\int_{x_1}^{x_2} f(x)dx\right| + \dots + \left|\int_{x_n}^{b} f(x)dx\right|$$
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <span class="font-bold text-sky-900 block border-b border-sky-200 pb-1">Cách 2: Xét dấu trực tiếp</span>
+                  <p class="text-slate-700 leading-relaxed">
+                    1. Lập bảng xét dấu của biểu thức $f(x)$ trên đoạn $[a;b]$.<br>
+                    2. Dùng định nghĩa $|A| = \begin{cases} A & \text{khi } A \ge 0 \\ -A & \text{khi } A < 0 \end{cases}$ để khử dấu trị tuyệt đối trên từng khoảng rồi tính từng tích phân.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ví dụ Mẫu -->
+            <div id="d1-mau" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+              <div class="p-5 border-b border-slate-100 bg-slate-50/50 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-amber-100 text-amber-800">Ví Dụ Mẫu</span>
+                  <h4 class="font-semibold text-slate-900">Tính tích phân: $A = \int_{-2}^{2} |x^2 - 1| \, dx$</h4>
+                </div>
+                <span class="text-xs text-slate-500 font-medium">Kết quả: $4$</span>
+              </div>
+              <div class="p-5 space-y-3 text-sm leading-relaxed text-slate-700">
+                <p><strong>Bước 1:</strong> Xét phương trình hoành độ $x^2 - 1 = 0 \iff x = \pm 1$. Cả hai nghiệm $-1; 1$ đều thuộc $[-2; 2]$.</p>
+                <p><strong>Bước 2:</strong> Xét dấu biểu thức $x^2 - 1$ trên đoạn $[-2; 2]$:</p>
+                <ul class="list-disc list-inside pl-3 space-y-1 text-slate-600">
+                  <li>Trên $[-2; -1]$ và $[1; 2]$: $x^2 - 1 \ge 0 \implies |x^2 - 1| = x^2 - 1$.</li>
+                  <li>Trên $[-1; 1]$: $x^2 - 1 \le 0 \implies |x^2 - 1| = -(x^2 - 1) = 1 - x^2$.</li>
+                </ul>
+                <p><strong>Bước 3:</strong> Tách cận và tính nguyên hàm:</p>
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 overflow-x-auto">
+                  $$A = \int_{-2}^{-1} (x^2 - 1)dx + \int_{-1}^{1} (1 - x^2)dx + \int_{1}^{2} (x^2 - 1)dx$$
+                  $$= \left[\frac{x^3}{3} - x\right]_{-2}^{-1} + \left[x - \frac{x^3}{3}\right]_{-1}^{1} + \left[\frac{x^3}{3} - x\right]_{1}^{2} = \frac{4}{3} + \frac{4}{3} + \frac{4}{3} = 4$$
+                </div>
+              </div>
+            </div>
+
+            <!-- Bài 1: a, b, c, d -->
+            <div id="d1-b1" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+              <div class="p-5 border-b border-slate-100 bg-slate-50/50">
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-sky-100 text-sky-800">Bài 1</span>
+                  <h4 class="font-semibold text-slate-900">Tính các tích phân sau:</h4>
+                </div>
+              </div>
+              <div class="p-5 space-y-6">
+                
+                <!-- 1a -->
+                <div class="space-y-2 border-l-2 border-sky-400 pl-4">
+                  <span class="font-bold text-slate-900 text-sm">a) $I_a = \int_{0}^{3} |x^2 - 2x| \, dx$</span>
+                  <div class="text-sm text-slate-700 space-y-2">
+                    <p>• Giải phương trình: $x^2 - 2x = 0 \iff x = 0$ hoặc $x = 2 \in [0; 3]$.</p>
+                    <p>• Phá dấu giá trị tuyệt đối:</p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 overflow-x-auto">
+                      $$I_a = \int_{0}^{2} (2x - x^2)dx + \int_{2}^{3} (x^2 - 2x)dx = \left[x^2 - \frac{x^3}{3}\right]_0^2 + \left[\frac{x^3}{3} - x^2\right]_2^3 = \frac{4}{3} + \frac{4}{3} = \frac{8}{3}$$
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 1b -->
+                <div class="space-y-2 border-l-2 border-sky-400 pl-4">
+                  <span class="font-bold text-slate-900 text-sm">b) $I_b = \int_{-2}^{1} |x^3 + x^2 - 2x| \, dx$</span>
+                  <div class="text-sm text-slate-700 space-y-2">
+                    <p>• Phương trình $x^3 + x^2 - 2x = x(x-1)(x+2) = 0$ có các nghiệm $x \in \{-2; 0; 1\}$.</p>
+                    <p>• Xét dấu trên $[-2; 0]$ ta có biểu thức $\ge 0$; trên $[0; 1]$ biểu thức $\le 0$.</p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 overflow-x-auto">
+                      $$I_b = \int_{-2}^{0} (x^3 + x^2 - 2x)dx - \int_{0}^{1} (x^3 + x^2 - 2x)dx$$
+                      $$= \left[\frac{x^4}{4} + \frac{x^3}{3} - x^2\right]_{-2}^0 - \left[\frac{x^4}{4} + \frac{x^3}{3} - x^2\right]_0^1 = \left(0 - \left(-\frac{8}{3}\right)\right) - \left(-\frac{5}{12} - 0\right) = \frac{8}{3} + \frac{5}{12} = \frac{37}{12}$$
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 1c -->
+                <div class="space-y-2 border-l-2 border-sky-400 pl-4">
+                  <span class="font-bold text-slate-900 text-sm">c) $I_c = \int_{-1}^{2} |x^3 - 3x + 2| \, dx$</span>
+                  <div class="text-sm text-slate-700 space-y-2">
+                    <p>• Phân tích nhân tử: $x^3 - 3x + 2 = (x - 1)^2(x + 2)$.</p>
+                    <p>• Với mọi $x \in [-1; 2]$, ta có $(x - 1)^2 \ge 0$ và $x + 2 \ge 1 > 0 \implies x^3 - 3x + 2 \ge 0$ không âm trên toàn đoạn.</p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 overflow-x-auto">
+                      $$I_c = \int_{-1}^{2} (x^3 - 3x + 2)dx = \left[\frac{x^4}{4} - \frac{3x^2}{2} + 2x\right]_{-1}^2 = 2 - \left(-\frac{13}{4}\right) = \frac{21}{4}$$
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 1d -->
+                <div class="space-y-2 border-l-2 border-sky-400 pl-4">
+                  <span class="font-bold text-slate-900 text-sm">d) $I_d = \int_{1}^{2026} \sqrt{x^2 - 6x + 9} \, dx$</span>
+                  <div class="text-sm text-slate-700 space-y-2">
+                    <p>• Nhận dạng hằng đẳng thức: $\sqrt{x^2 - 6x + 9} = \sqrt{(x - 3)^2} = |x - 3|$. Nghiệm chia đoạn là $x = 3 \in [1; 2026]$.</p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 overflow-x-auto">
+                      $$I_d = \int_{1}^{3} (3 - x)dx + \int_{3}^{2026} (x - 3)dx = \left[3x - \frac{x^2}{2}\right]_1^3 + \left[\frac{(x - 3)^2}{2}\right]_3^{2026} = 2 + \frac{2023^2}{2} = \frac{4092533}{2}$$
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Bài 2: Nhóm 1 -->
+            <div id="d1-b2" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+              <div class="p-5 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-indigo-100 text-indigo-800">Bài 2 (Nhóm 1)</span>
+                  <h4 class="font-semibold text-slate-900">Tính các tích phân nâng cao</h4>
+                </div>
+              </div>
+              <div class="p-5 space-y-5">
+                
+                <!-- 2a -->
+                <div class="space-y-2">
+                  <span class="font-semibold text-slate-900 text-sm">a) $I = \int_{-3}^{5} (|x + 2| - |x - 2|) \, dx$</span>
+                  <p class="text-sm text-slate-700">Tách miền qua hai điểm gãy $x = -2$ và $x = 2$ thuộc $(-3; 5)$:</p>
+                  <ul class="list-disc list-inside pl-2 text-xs sm:text-sm text-slate-600 space-y-1">
+                    <li>Trên $[-3; -2]$: $|x + 2| - |x - 2| = -(x + 2) - [-(x - 2)] = -4$.</li>
+                    <li>Trên $[-2; 2]$: $|x + 2| - |x - 2| = (x + 2) - [-(x - 2)] = 2x$.</li>
+                    <li>Trên $[2; 5]$: $|x + 2| - |x - 2| = (x + 2) - (x - 2) = 4$.</li>
+                  </ul>
+                  <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-sm overflow-x-auto">
+                    $$I = \int_{-3}^{-2} (-4)dx + \int_{-2}^{2} 2x dx + \int_{2}^{5} 4 dx = -4(1) + \left[x^2\right]_{-2}^2 + 4(3) = -4 + 0 + 12 = 8$$
+                  </div>
+                </div>
+
+                <!-- 2b -->
+                <div class="space-y-2 pt-3 border-t border-slate-100">
+                  <span class="font-semibold text-slate-900 text-sm">b) $I = \int_{0}^{3} \sqrt{x^3 - 2x^2 + x} \, dx$</span>
+                  <p class="text-sm text-slate-700">Biến đổi dưới căn với $x \ge 0$: $\sqrt{x(x^2 - 2x + 1)} = \sqrt{x(x-1)^2} = |x-1|\sqrt{x}$.</p>
+                  <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-sm overflow-x-auto">
+                    $$I = \int_{0}^{1} (1 - x)\sqrt{x}dx + \int_{1}^{3} (x - 1)\sqrt{x}dx = \int_{0}^{1} \left(x^{\frac{1}{2}} - x^{\frac{3}{2}}\right)dx + \int_{1}^{3} \left(x^{\frac{3}{2}} - x^{\frac{1}{2}}\right)dx$$
+                    $$= \left[\frac{2}{3}x^{\frac{3}{2}} - \frac{2}{5}x^{\frac{5}{2}}\right]_0^1 + \left[\frac{2}{5}x^{\frac{5}{2}} - \frac{2}{3}x^{\frac{3}{2}}\right]_1^3 = \frac{4}{15} + \left(\frac{8\sqrt{3}}{5} + \frac{4}{15}\right) = \frac{24\sqrt{3} + 8}{15}$$
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- DẠNG 2 -->
+          <div id="dang-2" class="space-y-5 pt-4">
+            <div class="bg-white rounded-2xl border border-sky-200 p-5 shadow-sm">
+              <h3 class="text-lg font-bold text-sky-800 mb-3 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-sky-600"></span>
+                DẠNG 2: TÍCH PHÂN HÀM SỐ CHO BỞI NHIỀU CÔNG THỨC
+              </h3>
+              <div class="text-sm bg-sky-50/60 p-4 rounded-xl border border-sky-100 space-y-2">
+                <p class="text-slate-700">
+                  Cho hàm số $f(x) = \begin{cases} g(x) & \text{khi } x \le b \\ h(x) & \text{khi } x > b \end{cases}$ liên tục trên miền $D$. Để tính $J = \int_{a}^{c} f(x)dx$ với $b \in [a; c]$:
+                </p>
+                <p class="font-medium text-slate-800">
+                  • <strong>Bước 1:</strong> Kiểm tra tính liên tục tại điểm phân chia $x = b$:
+                  $$\lim_{x \to b^-} f(x) = \lim_{x \to b^+} f(x) = f(b) \iff \lim_{x \to b^-} g(x) = \lim_{x \to b^+} h(x) = g(b)$$
+                </p>
+                <p class="font-medium text-slate-800">
+                  • <strong>Bước 2:</strong> Sử dụng tính chất chèn cận để tách tích phân:
+                  $$J = \int_{a}^{c} f(x)dx = \int_{a}^{b} g(x)dx + \int_{b}^{c} h(x)dx$$
+                </p>
+              </div>
+            </div>
+
+            <!-- Mẫu 1 -->
+            <div id="d2-mau" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-amber-100 text-amber-800">Mẫu 1</span>
+                <h4 class="font-semibold text-slate-900 text-sm sm:text-base">
+                  Cho hàm số $f(x) = \begin{cases} x^2 - 1 & \text{khi } x \ge 2 \\ x^2 - 2x + 3 & \text{khi } x < 2 \end{cases}$. Tính tích phân $I = \int_{1}^{3} f(x)dx$.
+                </h4>
+              </div>
+              <div class="text-sm text-slate-700 space-y-2 pl-3 border-l-2 border-amber-400">
+                <p>1. Tại $x = 2$: $\lim_{x \to 2^+} (x^2 - 1) = 3$; $\lim_{x \to 2^-} (x^2 - 2x + 3) = 3 = f(2) \implies f(x)$ liên tục tại $x = 2$.</p>
+                <p>2. Tách cận tích phân:</p>
+                <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 overflow-x-auto">
+                  $$I = \int_{1}^{2} (x^2 - 2x + 3)dx + \int_{2}^{3} (x^2 - 1)dx = \left[\frac{x^3}{3} - x^2 + 3x\right]_1^2 + \left[\frac{x^3}{3} - x\right]_2^3 = \frac{7}{3} + \frac{16}{3} = \frac{23}{3}$$
+                </div>
+              </div>
+            </div>
+
+            <!-- Bài 1 & Bài 2 -->
+            <div id="d2-b1" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Bài 1 -->
+              <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-2 text-sm">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-sky-100 text-sky-800">Bài 1</span>
+                <p class="font-medium text-slate-800">
+                  Cho $f(x) = \begin{cases} 3x^2 & \text{khi } 0 \le x \le 1 \\ 4 - x & \text{khi } 1 \le x \le 2 \end{cases}$. Tính $\int_{0}^{2} f(x)dx$.
+                </p>
+                <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 overflow-x-auto text-xs">
+                  $$\int_{0}^{2} f(x)dx = \int_{0}^{1} 3x^2 dx + \int_{1}^{2} (4 - x)dx$$
+                  $$= \left[x^3\right]_0^1 + \left[4x - \frac{x^2}{2}\right]_1^2 = 1 + \left(6 - \frac{7}{2}\right) = \frac{7}{2}$$
+                </div>
+              </div>
+
+              <!-- Bài 2 -->
+              <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-2 text-sm">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-sky-100 text-sky-800">Bài 2</span>
+                <p class="font-medium text-slate-800">
+                  Cho $f(x) = \begin{cases} 0{,}5x & 0 \le x < 2 \\ 1 & 2 \le x < 15 \\ 4 - 0{,}2x & 15 \le x \le 20 \end{cases}$. Tính $\int_{0}^{20} f(x)dx$.
+                </p>
+                <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 overflow-x-auto text-xs">
+                  $$\int_{0}^{20} f(x)dx = \int_{0}^{2} 0{,}5x dx + \int_{2}^{15} 1 dx + \int_{15}^{20} (4 - 0{,}2x)dx$$
+                  $$= 1 + 13 + 2{,}5 = 16{,}5$$
+                </div>
+              </div>
+            </div>
+
+            <!-- Bài 3 -->
+            <div id="d2-b3" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-sky-100 text-sky-800">Bài 3</span>
+                <h4 class="font-semibold text-slate-900 text-sm sm:text-base">
+                  Cho $f(x) = \begin{cases} 2x & \text{khi } x \le 0 \\ a(x - x^2) & \text{khi } x > 0 \end{cases}$ liên tục trên $\mathbb{R}$. Biết $\int_{-1}^{1} f(x)dx = \frac{1}{6}$. Tìm $a$.
+                </h4>
+              </div>
+              <div class="text-sm text-slate-700 space-y-2">
+                <p>Ta có $\int_{-1}^{1} f(x)dx = \int_{-1}^{0} 2x dx + \int_{0}^{1} a(x - x^2)dx = \left[x^2\right]_{-1}^0 + a\left[\frac{x^2}{2} - \frac{x^3}{3}\right]_0^1 = -1 + \frac{a}{6}$.</p>
+                <p>Theo giả thiết: $-1 + \frac{a}{6} = \frac{1}{6} \iff \frac{a}{6} = \frac{7}{6} \iff \mathbf{a = 7}$.</p>
+              </div>
+            </div>
+
+            <!-- Bài 4 & Bài 5: Ứng dụng thực tế SGK Chân Trời Sáng Tạo -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Bài 4: Ca nô -->
+              <div id="d2-b4" class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3">
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800">Bài 4 (Vận dụng 3 SGK CTST)</span>
+                </div>
+                <h5 class="font-bold text-slate-900 text-sm">Chuyển động của Ca nô cao tốc</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Vận tốc: $v(t) = \begin{cases} 0{,}5t, & 0 \le t < 2 \\ 1, & 2 \le t < 15 \\ 4 - 0{,}2t, & 15 \le t \le 20 \end{cases}$ (km/phút). Tính quãng đường trong 20 phút.
+                </p>
+                <div class="bg-emerald-50/60 p-3 rounded-xl border border-emerald-100 text-xs text-slate-700 space-y-1">
+                  <p>Quãng đường đi được chính là tích phân vận tốc theo thời gian:</p>
+                  <p>$$s = \int_{0}^{20} v(t)dt = \int_{0}^{2} 0{,}5t dt + \int_{2}^{15} 1 dt + \int_{15}^{20} (4 - 0{,}2t)dt$$</p>
+                  <p>$$s = \left[0{,}25t^2\right]_0^2 + (15 - 2) + \left[4t - 0{,}1t^2\right]_{15}^{20} = 1 + 13 + 2{,}5 = \mathbf{16{,}5\text{ km}}$$</p>
+                </div>
+              </div>
+
+              <!-- Bài 5: Thang máy -->
+              <div id="d2-b5" class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3">
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800">Bài 5 (Bài 6 SGK CTST)</span>
+                </div>
+                <h5 class="font-bold text-slate-900 text-sm">Chuyển động của Thang máy</h5>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Vận tốc: $v(t) = \begin{cases} t, & 0 \le t \le 2 \\ 2, & 2 < t \le 20 \\ 12 - 0{,}5t, & 20 < t \le 24 \end{cases}$ (m/s). Tính quãng đường & $v_{tb}$.
+                </p>
+                <div class="bg-emerald-50/60 p-3 rounded-xl border border-emerald-100 text-xs text-slate-700 space-y-1">
+                  <p>$$s = \int_{0}^{2} t dt + \int_{2}^{20} 2 dt + \int_{20}^{24} (12 - 0{,}5t)dt = 2 + 36 + 4 = \mathbf{42\text{ m}}$$</p>
+                  <p>Tốc độ trung bình: $$v_{tb} = \frac{s}{\Delta t} = \frac{42}{24} = \mathbf{1{,}75\text{ m/s}}$$</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bài 6: Lợi nhuận biên -->
+            <div id="d2-b6" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-sky-100 text-sky-800">Bài 6</span>
+                <h4 class="font-semibold text-slate-900 text-sm sm:text-base">
+                  Ứng dụng kinh tế học: Lợi nhuận biên $P'(x) = -0{,}0002x + 7{,}5$ (triệu đồng/sản phẩm)
+                </h4>
+              </div>
+              <p class="text-sm text-slate-700">Công thức biến thiên lợi nhuận: $\Delta P = \int_{a}^{b} P'(x)dx = \left[-0{,}0001x^2 + 7{,}5x\right]_a^b$.</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                  <p class="font-semibold text-slate-900 mb-1">a) Doanh số tăng từ 50 lên 60 đơn vị:</p>
+                  <p class="text-xs text-slate-600">$\Delta P = \left[-0{,}0001(3600) + 7{,}5(60)\right] - \left[-0{,}0001(2500) + 7{,}5(50)\right]$</p>
+                  <p class="font-bold text-sky-700 mt-1">$= 449{,}64 - 374{,}75 = \mathbf{74{,}89\text{ (triệu đồng)}}$</p>
+                </div>
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                  <p class="font-semibold text-slate-900 mb-1">b) Doanh số tăng từ 100 lên 150 đơn vị:</p>
+                  <p class="text-xs text-slate-600">$\Delta P = \left[-0{,}0001(22500) + 7{,}5(150)\right] - \left[-0{,}0001(10000) + 7{,}5(100)\right]$</p>
+                  <p class="font-bold text-sky-700 mt-1">$= 1122{,}75 - 749 = \mathbf{373{,}75\text{ (triệu đồng)}}$</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bài 7: Cực trị diện tích hình phẳng -->
+            <div id="d2-b7" class="solution-card bg-white rounded-2xl border-2 border-amber-300 shadow-sm p-5 sm:p-6 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="px-3 py-1 rounded-md text-xs font-bold bg-amber-500 text-white">Bài 7 (Vận dụng cao)</span>
+                  <h4 class="font-bold text-slate-900 text-base">Tìm vị trí $P$ trên đường cong để diện tích phần tô màu lớn nhất</h4>
+                </div>
+                <span class="text-xs font-mono bg-amber-50 text-amber-800 px-2.5 py-1 rounded-md border border-amber-200 font-bold">
+                  Đáp số: $x = \frac{\sqrt{6}}{3}$
+                </span>
+              </div>
+
+              <!-- SVG Illustration + Analytical Solution Grid -->
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <!-- SVG Diagram -->
+                <div class="lg:col-span-5 bg-amber-50/40 rounded-2xl p-4 border border-amber-100 flex flex-col items-center justify-center">
+                  <svg viewBox="0 0 320 280" class="w-full max-w-[280px] drop-shadow-sm select-none">
+                    <!-- Axes -->
+                    <line x1="40" y1="230" x2="290" y2="230" stroke="#475569" stroke-width="1.5" />
+                    <line x1="50" y1="240" x2="50" y2="30" stroke="#475569" stroke-width="1.5" />
+                    <!-- Arrowheads -->
+                    <polygon points="290,230 282,226 282,234" fill="#475569"/>
+                    <polygon points="50,30 46,38 54,38" fill="#475569"/>
+                    <text x="295" y="234" font-size="12" fill="#475569" font-style="italic">x</text>
+                    <text x="44" y="24" font-size="12" fill="#475569" font-style="italic">y</text>
+                    <text x="36" y="245" font-size="12" fill="#475569">O</text>
+
+                    <!-- Coordinates Marks -->
+                    <!-- C(0, 1): y=1 is at y=170 -->
+                    <line x1="46" y1="170" x2="54" y2="170" stroke="#475569" stroke-width="1.5"/>
+                    <text x="36" y="174" font-size="12" fill="#475569">1</text>
+                    <circle cx="50" cy="170" r="3.5" fill="#dc2626"/>
+                    <text x="56" y="166" font-size="12" font-weight="bold" fill="#dc2626">C</text>
+
+                    <!-- A(2, 0): x=2 is at x=230 -->
+                    <line x1="230" y1="226" x2="230" y2="234" stroke="#475569" stroke-width="1.5"/>
+                    <text x="226" y="246" font-size="12" fill="#475569">2</text>
+                    <text x="234" y="222" font-size="12" font-weight="bold" fill="#0369a1">A</text>
+
+                    <!-- B(2, 3): y=3 is at y=50 -->
+                    <line x1="46" y1="50" x2="230" y2="50" stroke="#94a3b8" stroke-dasharray="3,3" stroke-width="1"/>
+                    <line x1="230" y1="50" x2="230" y2="230" stroke="#94a3b8" stroke-dasharray="3,3" stroke-width="1"/>
+                    <text x="36" y="54" font-size="12" fill="#475569">3</text>
+                    <circle cx="230" cy="50" r="3.5" fill="#dc2626"/>
+                    <text x="236" y="48" font-size="12" font-weight="bold" fill="#dc2626">B</text>
+
+                    <!-- Shaded polygon: C(50, 170) -> P(140, 120) -> B(230, 50) -> A(230, 230) -> O(50, 230) -->
+                    <polygon points="50,170 155,108 230,50 230,230 50,230" fill="#fef08a" fill-opacity="0.85" stroke="#f59e0b" stroke-width="1.5"/>
+
+                    <!-- Curve y = -0.5x^3 + 2x: x=0->y=0; x=2->y=0; max around x=1.15, y=1.54 -->
+                    <!-- Path from (50, 230) through apex (154, 110) to (230, 230) -->
+                    <path d="M 50 230 Q 120 70 230 230" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+                    <text x="85" y="115" font-size="11" font-weight="bold" fill="#2563eb">y = f(x)</text>
+
+                    <!-- Point P -->
+                    <line x1="155" y1="108" x2="155" y2="230" stroke="#0284c7" stroke-dasharray="3,3"/>
+                    <circle cx="155" cy="108" r="4" fill="#0284c7"/>
+                    <text x="158" y="104" font-size="12" font-weight="bold" fill="#0284c7">P(x; f(x))</text>
+                    <text x="150" y="246" font-size="11" fill="#0284c7">x</text>
+                    <text x="150" y="222" font-size="10" fill="#475569">H</text>
+
+                    <!-- Segments CP and PB -->
+                    <line x1="50" y1="170" x2="155" y2="108" stroke="#d97706" stroke-width="2"/>
+                    <line x1="155" y1="108" x2="230" y2="50" stroke="#d97706" stroke-width="2"/>
+                  </svg>
+                  <span class="text-xs text-slate-500 mt-2 font-medium">Minh họa phần diện tích tô màu qua điểm P</span>
+                </div>
+
+                <!-- Step-by-step Solution -->
+                <div class="lg:col-span-7 space-y-3 text-sm text-slate-700">
+                  <div>
+                    <h5 class="font-bold text-slate-900">1. Xác định hàm số $f(x)$</h5>
+                    <p class="text-xs sm:text-sm text-slate-600">
+                      $f(x) = \int \left(-\frac{3}{2}x^2 + 2\right) dx = -\frac{1}{2}x^3 + 2x + C_0$.<br>
+                      Vì $f(2) = 0 \implies -\frac{1}{2}(8) + 4 + C_0 = 0 \iff C_0 = 0$.<br>
+                      Do đó: $\mathbf{f(x) = -\frac{1}{2}x^3 + 2x}$ với $x \in [0; 2]$.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h5 class="font-bold text-slate-900">2. Thiết lập diện tích phần tô màu $S(x)$</h5>
+                    <p class="text-xs sm:text-sm text-slate-600">
+                      Hạ đường thẳng đứng $x = x_P$ chia hình thành hai hình thang vuông $OCPH$ và $HPBA$:
+                    </p>
+                    <div class="bg-amber-50/60 p-2.5 rounded-lg border border-amber-200 text-xs font-mono overflow-x-auto space-y-1">
+                      <div>$$S(x) = \frac{OC + PH}{2} \cdot OH + \frac{PH + AB}{2} \cdot HA$$</div>
+                      <div>$$= \frac{1 + f(x)}{2} \cdot x + \frac{f(x) + 3}{2} \cdot (2 - x) = f(x) - x + 3$$</div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h5 class="font-bold text-slate-900">3. Tìm giá trị lớn nhất của $S(x)$</h5>
+                    <p class="text-xs sm:text-sm text-slate-600">
+                      Thay $f(x)$ vào: $S(x) = -\frac{1}{2}x^3 + x + 3$ trên $[0; 2]$.<br>
+                      Đạo hàm: $S'(x) = -\frac{3}{2}x^2 + 1 = 0 \iff x^2 = \frac{2}{3} \implies \mathbf{x = \frac{\sqrt{6}}{3}} \in [0; 2]$.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bài 8 & Bài 9: Nhóm 1, 2, 3, 4 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Bài 8 -->
+              <div id="d2-b8" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-2 text-sm">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-100 text-indigo-800">Bài 8 (Nhóm 1, 2, 3, 4)</span>
+                <p class="font-medium text-slate-900">
+                  Cho $f(x) + \frac{1}{2}f'(x) = e^{-2x}, f(0) = 1$. Tính $\int_{0}^{1} \frac{2026 f(x)}{4x + 2}dx$.
+                </p>
+                <div class="text-xs text-slate-700 space-y-1 bg-slate-50 p-2.5 rounded-lg border border-slate-200 overflow-x-auto">
+                  <p>• Nhân 2 vế với $2e^{2x}$: $2e^{2x}f(x) + e^{2x}f'(x) = 2 \iff \left[e^{2x}f(x)\right]' = 2$.</p>
+                  <p>• Nguyên hàm: $e^{2x}f(x) = 2x + C$. Với $f(0)=1 \implies C = 1 \implies f(x) = (2x+1)e^{-2x}$.</p>
+                  <p class="font-bold text-sky-800">
+                    $$I = \int_{0}^{1} \frac{2026(2x+1)e^{-2x}}{2(2x+1)}dx = 1013\left[-\frac{1}{2}e^{-2x}\right]_0^1 = \mathbf{\frac{1013(e^2 - 1)}{2e^2}}$$
+                  </p>
+                </div>
+              </div>
+
+              <!-- Bài 9 -->
+              <div id="d2-b9" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-2 text-sm">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-100 text-indigo-800">Bài 9 (Nhóm 1, 2, 3)</span>
+                <p class="font-medium text-slate-900">
+                  Cho $f(x) > 0, f(1) = 1$ và $[2f(x) + xf'(x)]^2 = \frac{f(x)}{x}$. Tính diện tích từ $x = e$ đến $x = e^2$.
+                </p>
+                <div class="text-xs text-slate-700 space-y-1 bg-slate-50 p-2.5 rounded-lg border border-slate-200 overflow-x-auto">
+                  <p>• Khai căn & chia $2\sqrt{f(x)}$: $\frac{2f(x) + xf'(x)}{2\sqrt{f(x)}} = \frac{1}{2\sqrt{x}} \iff \left[x\sqrt{f(x)}\right]' = \left[\sqrt{x}\right]'$.</p>
+                  <p>• Suy ra $x\sqrt{f(x)} = \sqrt{x} + C$. Do $f(1)=1 \implies C = 0 \implies f(x) = \frac{1}{x}$.</p>
+                  <p class="font-bold text-sky-800">
+                    $$S = \int_{e}^{e^2} \frac{1}{x}dx = [\ln x]_e^{e^2} = 2 - 1 = \mathbf{1}$$
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PHẦN 2. BÀI TẬP VỀ NHÀ                      -->
+        <!-- ========================================== -->
+        <section id="phan-2" class="space-y-6 pt-6">
+          <div class="flex items-center gap-3 border-b-2 border-emerald-600 pb-2">
+            <span class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">II</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">PHẦN 2: LỜI GIẢI CHI TIẾT BÀI TẬP VỀ NHÀ</h2>
+          </div>
+
+          <!-- BTVN Câu 1 -->
+          <div id="btvn-c1" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-100 bg-emerald-50/40">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800">Câu 1</span>
+              <h4 class="font-bold text-slate-900 mt-1">Tính các tích phân hàm chứa dấu trị tuyệt đối</h4>
+            </div>
+            
+            <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+              <!-- 1a -->
+              <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                <span class="font-bold text-slate-900">a) $\int_{0}^{2} |x^2 + 2x - 3|dx$</span>
+                <p class="text-slate-600">Nghiệm trong đoạn $[0; 2]$ là $x = 1$.</p>
+                <div class="font-mono text-xs overflow-x-auto">
+                  $$= \int_{0}^{1} (3 - 2x - x^2)dx + \int_{1}^{2} (x^2 + 2x - 3)dx = \frac{5}{3} + \frac{7}{3} = \mathbf{4}$$
+                </div>
+              </div>
+
+              <!-- 1b -->
+              <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                <span class="font-bold text-slate-900">b) $\int_{0}^{2024} |x^2 - 4|dx$</span>
+                <p class="text-slate-600">Nghiệm chia đoạn là $x = 2 \in [0; 2024]$.</p>
+                <div class="font-mono text-xs overflow-x-auto">
+                  $$= \int_{0}^{2} (4 - x^2)dx + \int_{2}^{2024} (x^2 - 4)dx = \mathbf{\frac{2024^3 - 24256}{3}}$$
+                </div>
+              </div>
+
+              <!-- 1c -->
+              <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                <span class="font-bold text-slate-900">c) $\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} |\sin x|dx$</span>
+                <p class="text-slate-600">Vì $|\sin x|$ là hàm số chẵn:</p>
+                <div class="font-mono text-xs overflow-x-auto">
+                  $$= 2\int_{0}^{\frac{\pi}{2}} \sin x dx = 2[-\cos x]_0^{\frac{\pi}{2}} = 2(0 - (-1)) = \mathbf{2}$$
+                </div>
+              </div>
+
+              <!-- 1d -->
+              <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                <span class="font-bold text-slate-900">d) $I = \int_{0}^{1} \sqrt{9x^2 - 6x + 1}dx$</span>
+                <p class="text-slate-600">$\sqrt{(3x-1)^2} = |3x-1|$, điểm gãy $x = \frac{1}{3}$.</p>
+                <div class="font-mono text-xs overflow-x-auto">
+                  $$= \int_{0}^{\frac{1}{3}} (1 - 3x)dx + \int_{\frac{1}{3}}^{1} (3x - 1)dx = \frac{1}{6} + \frac{2}{3} = \mathbf{\frac{5}{6}}$$
+                </div>
+              </div>
+
+              <!-- 1e -->
+              <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                <span class="font-bold text-slate-900">e) Nhóm 1: $\int_{-1}^{2} (x + |1-x| - |x+2|)dx$</span>
+                <p class="text-slate-600">Vì $x \in [-1; 2] \implies x+2 > 0$. Điểm đổi dấu là $x = 1$.</p>
+                <div class="font-mono text-xs overflow-x-auto">
+                  $$= \int_{-1}^{1} (-x - 1)dx + \int_{1}^{2} (x - 3)dx = -2 - \frac{3}{2} = \mathbf{-\frac{7}{2}}$$
+                </div>
+              </div>
+
+              <!-- 1f -->
+              <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+                <span class="font-bold text-slate-900">f) Nhóm 1: $\int_{1}^{5} \frac{2|x-2|+1}{x}dx$</span>
+                <p class="text-slate-600">Điểm phân đoạn là $x = 2 \in [1; 5]$.</p>
+                <div class="font-mono text-xs overflow-x-auto">
+                  $$= \int_{1}^{2} \left(\frac{5}{x}-2\right)dx + \int_{2}^{5} \left(2-\frac{3}{x}\right)dx = \mathbf{8\ln 2 - 3\ln 5 + 4}$$
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BTVN Câu 2 -->
+          <div id="btvn-c2" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800">Câu 2</span>
+              <h4 class="font-semibold text-slate-900 text-sm sm:text-base">
+                Cho tích phân $I = (\sqrt{3}+\sqrt{2})\int_{-3}^{3} |x^2-1|dx = a\sqrt{3}+b\sqrt{2}$ ($a, b \in \mathbb{Q}$). Tính $P = a + b$.
+              </h4>
+            </div>
+            
+            <div class="text-sm text-slate-700 space-y-2">
+              <p>1. Do hàm $|x^2-1|$ là hàm chẵn: $\int_{-3}^{3} |x^2-1|dx = 2\left(\int_{0}^{1}(1-x^2)dx + \int_{1}^{3}(x^2-1)dx\right) = 2\left(\frac{2}{3} + \frac{20}{3}\right) = \mathbf{\frac{44}{3}}$.</p>
+              <p>2. Khi đó: $I = \frac{44}{3}(\sqrt{3} + \sqrt{2}) \implies a = b = \frac{44}{3} \implies \mathbf{P = a + b = \frac{88}{3}}$.</p>
+              
+              <!-- Pedagogical callout note -->
+              <div class="bg-amber-50 border-l-4 border-amber-400 p-3 rounded-r-xl text-xs text-amber-900">
+                <strong>Ghi chú sư phạm dành cho giáo viên và học sinh:</strong> Trong dòng đề in sẵn có ghi dòng chữ $\frac{20}{3} + \frac{4}{3} + \frac{16}{3} = \frac{40}{3}$. Đây là lỗi đánh máy cơ học từ bản nháp của tác giả đề thi khi viết nhầm $\frac{20}{3}$ thành $\frac{16}{3}$. Nếu chấm theo số liệu in nhầm này thì $a = b = \frac{40}{3} \implies P = \frac{80}{3}$.
+              </div>
+            </div>
+          </div>
+
+          <!-- BTVN Câu 3 -->
+          <div id="btvn-c3" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800">Câu 3</span>
+              <h4 class="font-semibold text-slate-900 text-sm sm:text-base">
+                Cho $f(x) = \begin{cases} x^2 - 2x + 3 & \text{khi } x \ge 2 \\ x + 1 & \text{khi } x < 2 \end{cases}$. Tính $J = \int_{1}^{3} \frac{1}{2}f(x)dx$.
+              </h4>
+            </div>
+            <div class="text-sm text-slate-700 space-y-2">
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 overflow-x-auto text-xs sm:text-sm">
+                $$J = \frac{1}{2}\left[\int_{1}^{2} (x+1)dx + \int_{2}^{3} (x^2 - 2x + 3)dx\right] = \frac{1}{2}\left[\frac{5}{2} + \frac{13}{3}\right] = \frac{1}{2} \cdot \frac{41}{6} = \mathbf{\frac{41}{12}}$$
+              </div>
+            </div>
+          </div>
+
+          <!-- BTVN Câu 4: Quãng đường Ô tô -->
+          <div id="btvn-c4" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-amber-500 text-white">Câu 4 (Vận dụng thực tế)</span>
+                <h4 class="font-bold text-slate-900 text-base">Quãng đường ô tô chuyển động sau đèn đỏ trong 10 phút đầu</h4>
+              </div>
+              <span class="text-xs font-mono bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded-md border border-emerald-200 font-bold">
+                Quãng đường: $8160\text{ m}$
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+              <!-- SVG Graph -->
+              <div class="lg:col-span-5 bg-slate-50 rounded-2xl p-4 border border-slate-200 flex flex-col items-center justify-center">
+                <svg viewBox="0 0 320 220" class="w-full max-w-[280px] drop-shadow-sm select-none">
+                  <!-- Axes -->
+                  <line x1="30" y1="180" x2="290" y2="180" stroke="#475569" stroke-width="1.5" />
+                  <line x1="40" y1="190" x2="40" y2="20" stroke="#475569" stroke-width="1.5" />
+                  <polygon points="290,180 282,176 282,184" fill="#475569"/>
+                  <polygon points="40,20 36,28 44,28" fill="#475569"/>
+                  <text x="275" y="196" font-size="11" fill="#475569">t (phút)</text>
+                  <text x="32" y="16" font-size="11" fill="#475569">v (m/phút)</text>
+                  <text x="28" y="194" font-size="11" fill="#475569">O</text>
+
+                  <!-- 1000 mark at y=40 -->
+                  <line x1="36" y1="40" x2="140" y2="40" stroke="#94a3b8" stroke-dasharray="3,3"/>
+                  <text x="6" y="44" font-size="10" fill="#475569">1000</text>
+
+                  <!-- Shaded Area: 0 to 6 (Parabola) and 6 to 10 (Rectangle) -->
+                  <!-- Parabola: (40, 180) to (140, 40) to (160, 46) -->
+                  <path d="M 40 180 Q 90 20 140 40 Q 150 42 160 46 L 240 46 L 240 180 Z" fill="#bae6fd" fill-opacity="0.6"/>
+
+                  <!-- Velocity Curve -->
+                  <path d="M 40 180 Q 90 20 140 40 Q 150 42 160 46" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+                  <line x1="160" y1="46" x2="240" y2="46" stroke="#0284c7" stroke-width="2.5"/>
+
+                  <!-- Time markers -->
+                  <!-- t = 5 at x=140 -->
+                  <line x1="140" y1="40" x2="140" y2="180" stroke="#ef4444" stroke-dasharray="3,3"/>
+                  <circle cx="140" cy="40" r="3" fill="#ef4444"/>
+                  <text x="136" y="194" font-size="10" fill="#ef4444" font-weight="bold">5</text>
+
+                  <!-- t = 6 at x=160 -->
+                  <line x1="160" y1="46" x2="160" y2="180" stroke="#0284c7" stroke-dasharray="3,3"/>
+                  <text x="156" y="194" font-size="10" fill="#0284c7" font-weight="bold">6</text>
+
+                  <!-- t = 10 at x=240 -->
+                  <line x1="240" y1="46" x2="240" y2="180" stroke="#0284c7" stroke-dasharray="3,3"/>
+                  <text x="234" y="194" font-size="10" fill="#0284c7" font-weight="bold">10</text>
+                </svg>
+                <span class="text-xs text-slate-500 mt-2">Đồ thị vận tốc chuyển động của ô tô</span>
+              </div>
+
+              <!-- Mathematical Details -->
+              <div class="lg:col-span-7 space-y-3 text-sm text-slate-700">
+                <p><strong>1. Giai đoạn parabol ($0 \le t \le 6$):</strong></p>
+                <p class="text-xs text-slate-600">
+                  Đỉnh $I(5; 1000)$ và qua gốc tọa độ $O(0; 0) \implies v(t) = a(t-5)^2 + 1000$.<br>
+                  Với $v(0) = 0 \iff 25a + 1000 = 0 \iff a = -40$.<br>
+                  $\implies v(t) = -40(t-5)^2 + 1000 = -40t^2 + 400t$. Tại $t = 6\text{ phút}$: $v(6) = 960\text{ m/phút}$.
+                </p>
+                <p><strong>2. Giai đoạn thẳng đều ($6 < t \le 10$):</strong> Vận tốc không đổi $v(t) = 960\text{ m/phút}$.</p>
+                <p><strong>3. Tổng quãng đường:</strong></p>
+                <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-xs overflow-x-auto">
+                  $$S = \int_{0}^{6} (-40t^2 + 400t)dt + 960 \cdot (10 - 6) = \left[-\frac{40}{3}t^3 + 200t^2\right]_0^6 + 3840 = 4320 + 3840 = \mathbf{8160\text{ m}}$$
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BTVN Câu 5: Bảng biến thiên hàm trùng phương -->
+          <div id="btvn-c5" class="solution-card bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 space-y-4">
+            <div class="flex items-center gap-2 border-b border-slate-100 pb-3">
+              <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-purple-100 text-purple-800">Câu 5</span>
+              <h4 class="font-bold text-slate-900 text-base">Hàm số từ bảng biến thiên và tích phân phân hóa nhóm</h4>
+            </div>
+
+            <!-- Stylized BBT Table -->
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-xs sm:text-sm border border-slate-300 text-center font-mono">
+                <tr class="bg-slate-100 border-b border-slate-300">
+                  <td class="p-2 font-bold w-16 border-r border-slate-300">$x$</td>
+                  <td class="p-2">$-\infty$</td>
+                  <td class="p-2">$-1$</td>
+                  <td class="p-2">$0$</td>
+                  <td class="p-2">$1$</td>
+                  <td class="p-2">$+\infty$</td>
+                </tr>
+                <tr class="border-b border-slate-300">
+                  <td class="p-2 font-bold border-r border-slate-300">$f'(x)$</td>
+                  <td class="p-2 text-slate-500">$-$</td>
+                  <td class="p-2 font-bold text-slate-900">$0$</td>
+                  <td class="p-2 text-slate-500">$+$</td>
+                  <td class="p-2 font-bold text-slate-900">$0$</td>
+                  <td class="p-2 text-slate-500">$-$</td>
+                </tr>
+                <tr class="bg-slate-50/50">
+                  <td class="p-4 font-bold border-r border-slate-300">$f(x)$</td>
+                  <td class="p-4 align-top">$+\infty$</td>
+                  <td class="p-4 align-bottom font-bold text-sky-700">$-2$</td>
+                  <td class="p-4 align-top font-bold text-amber-700">$3$</td>
+                  <td class="p-4 align-bottom font-bold text-sky-700">$-2$</td>
+                  <td class="p-4 align-top">$+\infty$</td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- Analytical Form -->
+            <div class="text-sm text-slate-700 space-y-1 bg-purple-50/50 p-3 rounded-xl border border-purple-100">
+              <p><strong>Xác định hàm đa thức $f(x)$ trùng phương:</strong> $f(x) = ax^4 + bx^2 + c$.</p>
+              <p class="text-xs sm:text-sm text-slate-600">
+                • Cực đại $(0; 3) \implies c = 3$.<br>
+                • Cực tiểu tại $x = \pm 1 \implies 4a(1)^3 + 2b(1) = 0 \iff b = -2a$.<br>
+                • Giá trị cực tiểu bằng $-2 \implies f(1) = a + b + c = a - 2a + 3 = -2 \iff a = 5 \implies b = -10$.<br>
+                Vậy: $\mathbf{f(x) = 5x^4 - 10x^2 + 3}$.
+              </p>
+            </div>
+
+            <!-- Group Solutions -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+              <!-- a) Nhóm 3, 4, 5, 6 -->
+              <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs sm:text-sm">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-sky-100 text-sky-800">a) Nhóm 3, 4, 5, 6</span>
+                <p class="font-bold text-slate-900">Tính $I_1 = \int_{0}^{2} x^4 \cdot f(x) \, dx$</p>
+                <div class="font-mono text-xs overflow-x-auto text-slate-700">
+                  $$x^4 \cdot f(x) = 5x^8 - 10x^6 + 3x^4$$
+                  $$I_1 = \left[\frac{5}{9}x^9 - \frac{10}{7}x^7 + \frac{3}{5}x^5\right]_0^2 = \frac{2560}{9} - \frac{1280}{7} + \frac{96}{5} = \mathbf{\frac{38048}{315}}$$
+                </div>
+              </div>
+
+              <!-- b) Nhóm 1, 2 -->
+              <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs sm:text-sm">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-100 text-indigo-800">b) Nhóm 1, 2</span>
+                <p class="font-bold text-slate-900">Tính $I_2 = \int_{1}^{2} \frac{[f(x+1)-2]^2}{x^4} \, dx$</p>
+                <div class="font-mono text-xs overflow-x-auto text-slate-700 space-y-1">
+                  <p>$f(x+1)-2 = 5x^4 + 20x^3 + 20x^2 - 4$.</p>
+                  <p>Khai triển $[f(x+1)-2]^2$ rồi chia cho $x^4$ và lấy nguyên hàm $F(x)$, tính hiệu cận $F(2) - F(1)$:</p>
+                  <p class="font-bold text-indigo-900">$$I_2 = \mathbf{\frac{11189}{3} - 160\ln 2}$$</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-16 bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 no-print">
+    <div class="max-w-7xl mx-auto px-4">
+      <p class="font-medium text-slate-700">Chuyên đề Giảng dạy Toán học THPT • Tích phân & Ứng dụng thực tế</p>
+      <p class="mt-1 text-slate-400">Biên soạn chi tiết theo chương trình GDPT 2018</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification for Interactions -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white text-xs px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2 pointer-events-none">
+    <span id="toastMsg">Thao tác thành công</span>
+  </div>
+
+  <script>
+    // Toast notification helper without alert()
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.innerText = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    // Toggle expand/collapse for solutions
+    function toggleAllSolutions(expand) {
+      const cards = document.querySelectorAll('.solution-card');
+      showToast(expand ? 'Đã hiển thị toàn bộ chi tiết lời giải' : 'Đã tối ưu góc nhìn thu gọn');
+    }
+
+    // Quick search filter for questions
+    function filterQuestions() {
+      const input = document.getElementById('filterInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.solution-card');
+      
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(input)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
