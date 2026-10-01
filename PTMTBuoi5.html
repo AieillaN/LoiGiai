@@ -1,708 +1,143 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Phương Trình Mặt Phẳng Oxyz - Lời Giải Chi Tiết</title>
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- KaTeX CSS & JS for Fast Math Rendering -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
-          onload="renderMathInElement(document.body, {
-            delimiters: [
-              {left: '$$', right: '$$', display: true},
-              {left: '$', right: '$', display: false}
-            ],
-            throwOnError: false
-          });"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Lời giải chi tiết – Phương trình mặt phẳng</title>
+<script>
+window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['\\[','\\]']],macros:{vt:['\\overrightarrow{#1}',1]}},svg:{fontCache:'global'}};
+</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+<style>
+:root{--bg:#fff;--fg:#1d1d1f;--acc:#1a56b0;--box:#eef4ff;--card:#fff;--bd:#e3e6ea;--tag:#eef0f3;--stem:#f4f5f7;--sbg:#fff1f1;--sbd:#f3c5c5;--sfg:#d92d20;--dbg:#effaf3;--dbd:#bfe6cc;--dfg:#0f9d58}
+@media(prefers-color-scheme:dark){:root{--bg:#16181d;--fg:#e8e8ea;--acc:#7db0ff;--box:#1f2a3d;--card:#1c1f26;--bd:#2c313b;--tag:#2a2f3a;--stem:#232733;--sbg:#3a1f22;--sbd:#6b2e33;--sfg:#ff7b72;--dbg:#17301f;--dbd:#2c6a43;--dfg:#56d364}}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font:17px/1.7 "Times New Roman",Times,"Noto Serif",serif;max-width:860px;margin:0 auto;padding:24px 16px 60px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));overflow-wrap:break-word}
 
-  <style>
-    /* Tối ưu hiển thị công thức toán cho mobile */
-    .katex-display {
-      overflow-x: auto;
-      overflow-y: hidden;
-      padding: 0.5rem 0;
-      margin: 0.5rem 0 !important;
-      -webkit-overflow-scrolling: touch;
-    }
-    /* Thanh cuộn mảnh cho thiết bị cảm ứng */
-    .katex-display::-webkit-scrollbar,
-    .nav-scroll::-webkit-scrollbar {
-      height: 4px;
-    }
-    .katex-display::-webkit-scrollbar-thumb,
-    .nav-scroll::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 9999px;
-    }
-    html {
-      scroll-behavior: smooth;
-      -webkit-tap-highlight-color: transparent;
-    }
-  </style>
+.q{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px 16px 8px;margin:20px 0;box-shadow:0 1px 6px #0001}
+.qh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.qt{font:bold 1.1em/1.3 system-ui,sans-serif}
+.tag{font:.78em/1.2 ui-monospace,Menlo,Consolas,monospace;background:var(--tag);padding:4px 10px;border-radius:8px;white-space:nowrap}
+.stem{background:var(--stem);border:1px solid var(--bd);border-radius:10px;padding:9px 14px;margin:6px 0 12px}
+.it{display:flex;gap:10px;align-items:baseline;border:1px solid;border-radius:10px;padding:8px 14px;margin:8px 0}
+.it .lb{font:bold .95em/1.4 system-ui,sans-serif;white-space:nowrap}
+.it .tx{flex:1;min-width:0;overflow-x:auto;overflow-y:hidden}
+.it.s{background:var(--sbg);border-color:var(--sbd)}.it.s .lb{color:var(--sfg)}
+.it.d{background:var(--dbg);border-color:var(--dbd)}.it.d .lb{color:var(--dfg)}
+@media(max-width:600px){.q{padding:12px 10px 4px;border-radius:14px}.it{flex-direction:column;gap:2px;padding:8px 10px}.qt{font-size:1.05em}}
+
+h1{text-align:center;font-size:1.6em;margin:.2em 0}
+.sub{text-align:center;font-size:1.15em;margin-bottom:1.5em;font-weight:bold}
+h2{color:var(--acc);border-bottom:2px solid var(--acc);padding-bottom:4px;margin-top:2em}
+h3{margin-top:1.6em}
+p.cau{margin-top:1.8em;padding-top:.8em;border-top:1px dashed #8886}
+.ct{color:var(--acc)}
+.dapan{display:block;background:var(--box);border-left:4px solid var(--acc);padding:6px 12px;margin-top:8px;border-radius:4px}
+.r{float:right}
+figure.fig{margin:14px auto;text-align:center}
+figure.fig svg{max-width:100%;height:auto;width:440px;color:var(--fg);display:block;margin:0 auto}
+figcaption{font-size:.9em;opacity:.85;margin-top:4px}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:2px 0;-webkit-overflow-scrolling:touch}
+p.cau{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:600px){
+body{font-size:16px;line-height:1.65;padding-top:16px;padding-bottom:40px}
+h1{font-size:1.25em}.sub{font-size:1em;margin-bottom:1em}
+h2{font-size:1.15em;margin-top:1.6em}h3{font-size:1.05em}
+p.cau{margin-top:1.4em}
+mjx-container{font-size:94%!important}
+mjx-container[display="true"]{margin:.6em 0!important}
+.r{float:none;display:block;text-align:right}
+.dapan{padding:8px 10px;font-size:.98em}
+figure.fig{margin:10px -4px}
+figure.fig svg{width:100%}
+figcaption{font-size:.85em;padding:0 6px}
+}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased pb-16 selection:bg-indigo-100 selection:text-indigo-800">
-
-  <!-- Header Sticky trên mobile -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
-    <div class="max-w-3xl mx-auto px-4 py-3">
-      <div class="flex items-center justify-between">
-        <div>
-          <span class="inline-block text-[11px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">Toán 12 • Oxyz</span>
-          <h1 class="text-base font-bold text-slate-900 leading-tight mt-0.5">Phương Trình Mặt Phẳng</h1>
-        </div>
-        <span class="text-xs font-semibold px-2 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full">
-          Bản Sư Phạm
-        </span>
-      </div>
-
-      <!-- Quick Nav Chips cuộn ngang -->
-      <nav class="flex items-center gap-2 overflow-x-auto nav-scroll pt-2.5 pb-1 no-scrollbar text-xs">
-        <a href="#ly-thuyet" class="shrink-0 px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200 font-medium text-slate-700 transition">Lý thuyết</a>
-        <a href="#trac-nghiem" class="shrink-0 px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200 font-medium text-slate-700 transition">Đúng - Sai</a>
-        <a href="#tu-luan" class="shrink-0 px-3 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 font-semibold text-indigo-700 transition">Tự luận (12 câu)</a>
-        <a href="#btvn" class="shrink-0 px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200 font-medium text-slate-700 transition">Bài tập về nhà</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Main Container -->
-  <main class="max-w-3xl mx-auto px-3 sm:px-6 pt-4 space-y-6">
-
-    <!-- VI. LÝ THUYẾT & VÍ DỤ -->
-    <section id="ly-thuyet" class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200/80">
-      <div class="border-b border-slate-100 pb-2 mb-3">
-        <h2 class="text-base sm:text-lg font-bold text-indigo-900 flex items-center gap-2">
-          <span class="w-2 h-5 bg-indigo-600 rounded-full"></span>
-          VI. Góc Giữa Hai Mặt Phẳng
-        </h2>
-      </div>
-
-      <div class="text-sm space-y-2 text-slate-700">
-        <p>Cho $(P)$ có VTPT $\vec{n}_1 = (a_1; b_1; c_1)$ và $(Q)$ có VTPT $\vec{n}_2 = (a_2; b_2; c_2)$. Góc $\alpha = ((P), (Q))$ ($0^\circ \le \alpha \le 90^\circ$):</p>
-        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-center">
-          $$\cos\alpha = \frac{\vert\vec{n}_1 \cdot \vec{n}_2\vert}{\vert\vec{n}_1\vert \cdot \vert\vec{n}_2\vert} = \frac{\vert a_1 a_2 + b_1 b_2 + c_1 c_2\vert}{\sqrt{a_1^2 + b_1^2 + c_1^2}\cdot\sqrt{a_2^2 + b_2^2 + c_2^2}}$$
-        </div>
-
-        <div class="mt-3 pt-3 border-t border-dashed border-slate-200">
-          <p class="font-semibold text-slate-900">Ví dụ 1: Tính góc giữa $(P): 2x - y - 2z - 9 = 0$ và $(Q): x - y - 6 = 0$.</p>
-          <ul class="list-disc list-inside mt-1.5 space-y-1 text-slate-600">
-            <li>VTPT: $\vec{n}_1 = (2; -1; -2) \implies |\vec{n}_1| = 3$; $\vec{n}_2 = (1; -1; 0) \implies |\vec{n}_2| = \sqrt{2}$.</li>
-            <li>$\cos\alpha = \dfrac{|2(1) + (-1)(-1) + 0|}{3\sqrt{2}} = \dfrac{\sqrt{2}}{2} \implies \mathbf{\alpha = 45^\circ}$.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- PHẦN I: TRẮC NGHIỆM ĐÚNG - SAI -->
-    <section id="trac-nghiem" class="space-y-4">
-      <div class="flex items-center gap-2 px-1">
-        <span class="w-2.5 h-6 bg-amber-500 rounded-full"></span>
-        <h2 class="text-base sm:text-lg font-bold text-slate-900">Phần I: Trắc Nghiệm Đúng – Sai</h2>
-      </div>
-
-      <!-- CÂU 1 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="flex justify-between items-center mb-2">
-          <span class="font-bold text-slate-900 text-sm">Câu 1</span>
-          <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono">Nhóm 4, 5, 6</span>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-700 mb-3 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-          Cho $A(1; -2; 0)$, $B(2; -3; 2)$, $C(-1; 0; 4)$ và $(P): x - y - z + 2 = 0$.
-        </p>
-        <div class="space-y-2 text-xs sm:text-sm">
-          <div class="flex items-start gap-2 bg-red-50/50 p-2 rounded-lg border border-red-100">
-            <span class="font-bold text-red-600 shrink-0 mt-0.5">a) SAI</span>
-            <div class="text-slate-700">$[\vec{OA}, \vec{OB}] = (-4; -2; 1) \implies S_{OAB} = \frac{1}{2}\sqrt{(-4)^2+(-2)^2+1^2} = \mathbf{\frac{\sqrt{21}}{2}} \ne \sqrt{21}$.</div>
-          </div>
-          <div class="flex items-start gap-2 bg-red-50/50 p-2 rounded-lg border border-red-100">
-            <span class="font-bold text-red-600 shrink-0 mt-0.5">b) SAI</span>
-            <div class="text-slate-700">Thay $M(6; 7; 3)$ vào $(P)$: $6 - 7 - 3 + 2 = -2 \ne 0 \implies M \notin (P)$.</div>
-          </div>
-          <div class="flex items-start gap-2 bg-red-50/50 p-2 rounded-lg border border-red-100">
-            <span class="font-bold text-red-600 shrink-0 mt-0.5">c) SAI</span>
-            <div class="text-slate-700">$\vec{n}_{(ABC)} \parallel [\vec{AB}, \vec{AC}] \parallel (1; 1; 0) \implies (ABC): \mathbf{x + y + 1 = 0}$.</div>
-          </div>
-          <div class="flex items-start gap-2 bg-emerald-50/50 p-2 rounded-lg border border-emerald-100">
-            <span class="font-bold text-emerald-600 shrink-0 mt-0.5">d) ĐÚNG</span>
-            <div class="text-slate-700">VTPT mặt phẳng là $[\vec{BC}, \vec{n}_P] = (-1; -1; 0) \parallel \mathbf{(1; 1; 0)}$.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CÂU 2 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="flex justify-between items-center mb-2">
-          <span class="font-bold text-slate-900 text-sm">Câu 2</span>
-          <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono">Nhóm 3, 4, 5, 6</span>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-700 mb-3 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-          Cho $(P): x + 2y - z - 1 = 0$, $(Q): 3x - y + z - 5 = 0$ và $(R): 2x + 4y - mz - 2 = 0$.
-        </p>
-        <div class="space-y-2 text-xs sm:text-sm">
-          <div class="flex items-start gap-2 bg-red-50/50 p-2 rounded-lg border border-red-100">
-            <span class="font-bold text-red-600 shrink-0 mt-0.5">a) SAI</span>
-            <div class="text-slate-700">Vì $\frac{1}{3} \ne \frac{2}{-1}$ nên hai VTPT không cùng phương $\implies (P)$ cắt $(Q)$.</div>
-          </div>
-          <div class="flex items-start gap-2 bg-emerald-50/50 p-2 rounded-lg border border-emerald-100">
-            <span class="font-bold text-emerald-600 shrink-0 mt-0.5">b) ĐÚNG</span>
-            <div class="text-slate-700">Mặt phẳng $(\alpha) \parallel (P)$ và qua $O(0;0;0)$ có dạng: $\mathbf{x + 2y - z = 0}$.</div>
-          </div>
-          <div class="flex items-start gap-2 bg-red-50/50 p-2 rounded-lg border border-red-100">
-            <span class="font-bold text-red-600 shrink-0 mt-0.5">c) SAI</span>
-            <div class="text-slate-700">Với $m = 2 \implies \frac{2}{1} = \frac{4}{2} = \frac{-2}{-1} = \frac{-2}{-1} = 2 \implies \mathbf{(R) \equiv (P)}$ (trùng nhau).</div>
-          </div>
-          <div class="flex items-start gap-2 bg-emerald-50/50 p-2 rounded-lg border border-emerald-100">
-            <span class="font-bold text-emerald-600 shrink-0 mt-0.5">d) ĐÚNG</span>
-            <div class="text-slate-700">$(P) \perp (R) \iff \vec{n}_P \cdot \vec{n}_R = 0 \iff 1(2) + 2(4) + (-1)(-m) = 0 \iff \mathbf{m = -10}$.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CÂU 3 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="flex justify-between items-center mb-2">
-          <span class="font-bold text-slate-900 text-sm">Câu 3</span>
-          <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono">Bài toán thực tế bể nước</span>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-700 mb-3 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-          Bể lập phương cạnh $100\text{ cm}$. Đáy nghiêng. Khoảng cách từ $A, B, C$ tới đáy lần lượt là $40\text{ cm}, 44\text{ cm}, 48\text{ cm}$.
-        </p>
-        <div class="space-y-2 text-xs sm:text-sm">
-          <div class="flex items-start gap-2 bg-red-50/50 p-2 rounded-lg border border-red-100">
-            <span class="font-bold text-red-600 shrink-0 mt-0.5">a) SAI</span>
-            <div class="text-slate-700">Cạnh đáy là $100\text{ cm}$ nên $A(100; 0; 40) \ne (40; 0; 0)$.</div>
-          </div>
-          <div class="flex items-start gap-2 bg-red-50/50 p-2 rounded-lg border border-red-100">
-            <span class="font-bold text-red-600 shrink-0 mt-0.5">b) SAI</span>
-            <div class="text-slate-700">$\vec{BA} = (100; 0; -4), \vec{BC} = (0; 100; 4) \implies \vec{n} \parallel \mathbf{(1; -1; 25)} \ne (1; 1; 25)$.</div>
-          </div>
-          <div class="flex items-start gap-2 bg-emerald-50/50 p-2 rounded-lg border border-emerald-100">
-            <span class="font-bold text-emerald-600 shrink-0 mt-0.5">c) ĐÚNG</span>
-            <div class="text-slate-700">Do $ABCD$ là hình bình hành: $z_D = z_A + z_C - z_B = 40 + 48 - 44 = \mathbf{44\text{ cm}}$.</div>
-          </div>
-          <div class="flex items-start gap-2 bg-red-50/50 p-2 rounded-lg border border-red-100">
-            <span class="font-bold text-red-600 shrink-0 mt-0.5">d) SAI</span>
-            <div class="text-slate-700">$\cos\beta = \frac{25}{\sqrt{1^2+(-1)^2+25^2}} = \frac{25}{\sqrt{627}} \implies \beta \approx \mathbf{3,24^\circ} \ne 4,23^\circ$.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PHẦN II: TỰ LUẬN -->
-    <section id="tu-luan" class="space-y-4">
-      <div class="flex items-center gap-2 px-1">
-        <span class="w-2.5 h-6 bg-indigo-600 rounded-full"></span>
-        <h2 class="text-base sm:text-lg font-bold text-slate-900">Phần II: Tự Luận</h2>
-      </div>
-
-      <!-- Tự luận 1 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1.5 text-indigo-700">Câu 1: Tứ diện $ABCD$</div>
-        <p class="text-xs sm:text-sm text-slate-600 mb-3 bg-slate-50 p-2 rounded border border-slate-100">
-          $A(4;0;2), B(0;5;1), C(4;-1;3), D(3;-1;5)$.
-        </p>
-        <div class="space-y-3 text-xs sm:text-sm text-slate-700">
-          <div>
-            <strong class="text-slate-900 block mb-0.5">a) Viết $(P)$ qua $BC$ và song song $AD$:</strong>
-            $\vec{BC} = (4; -6; 2)$, $\vec{AD} = (-1; -1; 3)$<br>
-            $\implies \vec{n}_P = -\frac{1}{2}[\vec{BC}, \vec{AD}] = (8; 7; 5)$.<br>
-            Phương trình qua $B(0;5;1)$:
-            <div class="bg-indigo-50/60 p-2 rounded mt-1 font-semibold text-indigo-900">
-              $$8x + 7(y - 5) + 5(z - 1) = 0 \iff 8x + 7y + 5z - 40 = 0$$
-            </div>
-          </div>
-          <div>
-            <strong class="text-slate-900 block mb-0.5">b) Tính góc giữa $(P)$ và mặt phẳng $(zOx)$:</strong>
-            Mặt phẳng $(zOx)$ có VTPT $\vec{j} = (0; 1; 0)$.
-            $$\cos\varphi = \frac{|\vec{n}_P \cdot \vec{j}|}{|\vec{n}_P|} = \frac{7}{\sqrt{8^2 + 7^2 + 5^2}} = \frac{7}{\sqrt{138}} \implies \mathbf{\varphi \approx 53^\circ 25'}$$
-          </div>
-        </div>
-      </div>
-
-      <!-- Tự luận 2 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1.5 text-indigo-700">Câu 2: Góc giữa hai mặt phẳng</div>
-        <p class="text-xs sm:text-sm text-slate-600 mb-2">Tính số đo góc tạo bởi $(P): 2x - y - z - 3 = 0$ và $(Q): x - z - 2 = 0$.</p>
-        <div class="text-xs sm:text-sm text-slate-700">
-          $\vec{n}_P = (2; -1; -1), \vec{n}_Q = (1; 0; -1)$.
-          $$\cos\alpha = \frac{|2(1) + 0 + (-1)(-1)|}{\sqrt{6}\cdot\sqrt{2}} = \frac{3}{2\sqrt{3}} = \frac{\sqrt{3}}{2} \implies \mathbf{\alpha = 30^\circ}$$
-        </div>
-      </div>
-
-      <!-- Tự luận 3 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1.5 text-indigo-700">Câu 3: Mặt phẳng song song</div>
-        <p class="text-xs sm:text-sm text-slate-600 mb-2">Viết $(Q)$ qua $C(1; -5; 0)$ và song song $(P): 3x - 5y + 4z - 2026 = 0$.</p>
-        <div class="text-xs sm:text-sm text-slate-700">
-          $(Q)$ có dạng $3x - 5y + 4z + D = 0$. Đi qua điểm $C(1; -5; 0)$:<br>
-          $3(1) - 5(-5) + 4(0) + D = 0 \iff D = -28$.<br>
-          <div class="bg-indigo-50/60 p-2 rounded mt-1 font-semibold text-indigo-900">
-            $$(Q): 3x - 5y + 4z - 28 = 0$$
-          </div>
-        </div>
-      </div>
-
-      <!-- Tự luận 4 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1.5 text-indigo-700">Câu 4: Mái chóp đều $S.ABCD$</div>
-        <p class="text-xs sm:text-sm text-slate-600 mb-2">Gốc $O(0;0;0)$, $S(0;0;4)$, $A(4;4;0)$, $B(-4;4;0)$. Tính góc giữa $(SAB)$ và đáy.</p>
-        <div class="text-xs sm:text-sm text-slate-700">
-          Đáy $(ABCD)$ có VTPT $\vec{k} = (0; 0; 1)$.<br>
-          Mặt bên $(SAB)$ có cặp VTCP $\vec{SA} = (4; 4; -4)$, $\vec{AB} = (-8; 0; 0) \implies \vec{n}_{(SAB)} \parallel (0; 1; 1)$.
-          $$\cos\alpha = \frac{|0(0) + 1(0) + 1(1)|}{\sqrt{0^2 + 1^2 + 1^2}\cdot 1} = \frac{\sqrt{2}}{2} \implies \mathbf{\alpha = 45^\circ}$$
-        </div>
-      </div>
-
-      <!-- Tự luận 5 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1.5 text-indigo-700">Câu 5: Mặt phẳng vuông góc với hai mặt phẳng</div>
-        <p class="text-xs sm:text-sm text-slate-600 mb-2">Qua $K(1; 2; -1)$, vuông góc $(P_1): 4x - 2y + 6z + 2027 = 0$ và $(P_2): 2x + 2y + 2z - 27 = 0$.</p>
-        <div class="text-xs sm:text-sm text-slate-700">
-          VTPT của $(R)$: $\vec{n}_R = [\vec{n}_{1}', \vec{n}_{2}'] = [(2; -1; 3), (1; 1; 1)] = (-4; 1; 3)$.<br>
-          Phương trình qua $K(1; 2; -1)$:
-          <div class="bg-indigo-50/60 p-2 rounded mt-1 font-semibold text-indigo-900">
-            $$-4(x - 1) + 1(y - 2) + 3(z + 1) = 0 \iff \mathbf{4x - y - 3z - 5 = 0}$$
-          </div>
-        </div>
-      </div>
-
-      <!-- Tự luận 6 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1.5 text-indigo-700">Câu 6: Góc nghiêng mái nhà hình tròn</div>
-        <p class="text-xs sm:text-sm text-slate-600 mb-2">Đáy là tam giác đều cạnh $4\text{ m}$. Cột cao $7\text{ m}, 6\text{ m}, 5\text{ m}$.</p>
-        <div class="text-xs sm:text-sm text-slate-700">
-          Chọn tọa độ đáy: $C(0; 0; 0), B(4; 0; 0), A(2; 2\sqrt{3}; 0)$.<br>
-          Tọa độ đỉnh: $C'(0; 0; 5), B'(4; 0; 6), A'(2; 2\sqrt{3}; 7)$.<br>
-          VTPT mái: $\vec{n} = [\vec{C'B'}, \vec{C'A'}] \parallel (-1; -\sqrt{3}; 4)$.
-          $$\cos\alpha = \frac{|4|}{\sqrt{(-1)^2 + (-\sqrt{3})^2 + 4^2}\cdot 1} = \frac{2}{\sqrt{5}} \implies \mathbf{\alpha \approx 26,57^\circ}$$
-        </div>
-      </div>
-
-      <!-- Tự luận 7 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1.5 text-indigo-700">Câu 7: Khoảng cách từ điểm đến mặt phẳng</div>
-        <p class="text-xs sm:text-sm text-slate-600 mb-2">Chóp $S.ABCD$, đáy chữ nhật $AB = 2a, AD = 5a, SA = 3a \perp (ABCD)$. Tính $d(A, (SBC))$.</p>
-        <div class="text-xs sm:text-sm text-slate-700">
-          Chọn gốc $A(0;0;0) \implies B(2a; 0; 0), S(0; 0; 3a)$.<br>
-          $(SBC)$ cắt $Ax, Az$ và song song $Ay \implies \frac{x}{2a} + \frac{z}{3a} = 1 \iff 3x + 2z - 6a = 0$.
-          $$d(A, (SBC)) = \frac{|-6a|}{\sqrt{3^2 + 2^2}} = \mathbf{\frac{6a\sqrt{13}}{13}}$$
-        </div>
-      </div>
-
-      <!-- Tự luận 8 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1.5 text-indigo-700">Câu 8: Tọa độ điểm thỏa điều kiện hình học</div>
-        <p class="text-xs sm:text-sm text-slate-600 mb-2">Cho $A(1;-2;0), B(-3;1;1), C(3;-1;1)$. $M(a, b, c) \in (ABC)$, $\triangle ABM$ cân tại $M$, $MA \parallel (Oyz)$. Tính $a + 18b + 6c$.</p>
-        <div class="text-xs sm:text-sm text-slate-700 space-y-1">
-          <p>• $(ABC)$ có VTPT $[\vec{AB}, \vec{AC}] \parallel (1; 3; -5) \implies x + 3y - 5z + 5 = 0$.</p>
-          <p>• $MA \parallel (Oyz): x = 0 \implies x_M = x_A \implies \mathbf{a = 1}$.</p>
-          <p>• $M \in (ABC) \implies 3b - 5c + 6 = 0$ $(1)$.</p>
-          <p>• $MA^2 = MB^2 \iff 3b + c = 7$ $(2)$.</p>
-          <p>Từ (1) và (2) $\implies b = \frac{29}{18}, c = \frac{13}{6}$.</p>
-          <div class="bg-indigo-50/60 p-2 rounded mt-1 font-semibold text-indigo-900">
-            $$T = a + 18b + 6c = 1 + 18\left(\frac{29}{18}\right) + 6\left(\frac{13}{6}\right) = \mathbf{43}$$
-          </div>
-        </div>
-      </div>
-
-      <!-- Tự luận 9 - CÓ 2 CÁCH -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border-2 border-indigo-200">
-        <div class="flex justify-between items-center mb-1">
-          <span class="font-bold text-slate-900 text-sm text-indigo-700">Câu 9: Cực trị khoảng cách</span>
-          <span class="text-xs bg-indigo-100 text-indigo-800 font-semibold px-2 py-0.5 rounded-full">Trọng tâm</span>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-600 mb-3 bg-slate-50 p-2 rounded border border-slate-100">
-          Cho $A(1; 1; 2)$ và $(P): (m - 1)x + y + mz - 1 = 0$. Tìm $m$ để $d(A, (P))$ lớn nhất.
-        </p>
-
-        <!-- Cách 1 -->
-        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 mb-3">
-          <div class="font-bold text-xs text-indigo-800 uppercase tracking-wide mb-1">Cách 1: Bản chất hình học (Trục quay)</div>
-          <div class="text-xs sm:text-sm text-slate-700 space-y-1">
-            <p>$(P)$ luôn chứa đường thẳng $\Delta: \begin{cases} x + z = 0 \\ -x + y - 1 = 0 \end{cases} \implies \vec{u}_\Delta = (1; 1; -1)$.</p>
-            <p>Gọi $H(t; 1+t; -t) \in \Delta$ là hình chiếu của $A$ lên $\Delta$. Ta có $d(A, (P)) \le AH$.</p>
-            <p>Khoảng cách cực đại khi $(P) \perp AH \iff \vec{AH} \cdot \vec{u}_\Delta = 0 \iff t = -\frac{1}{3} \implies \vec{AH} \parallel (4; 1; 5)$.</p>
-            <p>Khi đó: $\vec{n}_P = (m - 1; 1; m) \parallel (4; 1; 5) \implies \frac{m-1}{4} = \frac{1}{1} = \frac{m}{5} \iff \mathbf{m = 5}$.</p>
-          </div>
-        </div>
-
-        <!-- Cách 2 -->
-        <div class="bg-indigo-50/50 p-3 rounded-xl border border-indigo-100">
-          <div class="font-bold text-xs text-indigo-800 uppercase tracking-wide mb-1">Cách 2: Đại số (Hàm số khoảng cách)</div>
-          <div class="text-xs sm:text-sm text-slate-700 space-y-1">
-            <p>Công thức: $d(A, (P)) = \dfrac{|(m-1)(1) + 1 + 2m - 1|}{\sqrt{(m-1)^2 + 1 + m^2}} = \dfrac{|3m - 1|}{\sqrt{2m^2 - 2m + 2}}$.</p>
-            <p>Xét hàm bình phương: $f(m) = \dfrac{9m^2 - 6m + 1}{2m^2 - 2m + 2} \implies f'(m) = \dfrac{(3m - 1)(5 - m)}{2(m^2 - m + 1)^2}$.</p>
-            <p>$f'(m) = 0 \iff m = \frac{1}{3}$ (cực tiểu $= 0$) hoặc $\mathbf{m = 5}$ (cực đại $= \frac{14}{3}$).</p>
-            <p class="font-semibold text-indigo-900 mt-1">Kết luận: $d_{\max} = \sqrt{\frac{14}{3}}$ đạt được khi $\mathbf{m = 5}$.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tự luận 10 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="flex justify-between items-center mb-1.5">
-          <span class="font-bold text-slate-900 text-sm text-indigo-700">Câu 10: Đề minh họa 2018</span>
-          <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono">Lăng trụ đều</span>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-600 mb-3 bg-slate-50 p-2 rounded border border-slate-100">
-          Cho hình lăng trụ tam giác đều $ABC.A'B'C'$ có $AB = 2\sqrt{3}, AA' = 2$. Gọi $M, N, P$ lần lượt là trung điểm của $A'B', A'C'$ và $BC$. Tính cosin góc tạo bởi hai mặt phẳng $(AB'C')$ và $(MNP)$.
-        </p>
-
-        <!-- Sơ đồ tọa độ hóa SVG Câu 10 -->
-        <div class="my-3 bg-slate-900/95 rounded-xl p-3 border border-slate-800 shadow-inner">
-          <div class="flex items-center justify-between mb-1.5 px-1">
-            <span class="text-[11px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-              Mô hình tọa độ hóa Oxyz lăng trụ đều
-            </span>
-            <span class="text-[10px] text-slate-400">Gốc tại P (Trung điểm BC)</span>
-          </div>
-          
-          <svg class="w-full max-w-md mx-auto h-auto" viewBox="0 0 360 265" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <marker id="arr-x-10" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444"/>
-              </marker>
-              <marker id="arr-y-10" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
-              </marker>
-              <marker id="arr-z-10" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
-              </marker>
-            </defs>
-
-            <!-- Các mặt phẳng phụ trợ (Tô màu phân biệt) -->
-            <!-- Mặt phẳng (MNP) tô màu xanh ngọc nhạt -->
-            <polygon points="105,100 180,80 210,210" fill="rgba(16, 185, 129, 0.22)" stroke="#10b981" stroke-width="1.6" stroke-dasharray="4 2"/>
-            
-            <!-- Mặt phẳng (AB'C') tô viền tím -->
-            <polygon points="70,185 130,120 290,80" fill="rgba(168, 85, 247, 0.16)" stroke="#a855f7" stroke-width="1.6"/>
-
-            <!-- Khung lăng trụ đáy dưới -->
-            <!-- Cạnh khuất AC -->
-            <line x1="70" y1="185" x2="290" y2="185" stroke="#64748b" stroke-width="1.2" stroke-dasharray="4 3"/>
-            <!-- Cạnh thấy AB, BC -->
-            <line x1="70" y1="185" x2="130" y2="235" stroke="#cbd5e1" stroke-width="1.6"/>
-            <line x1="130" y1="235" x2="290" y2="185" stroke="#cbd5e1" stroke-width="1.6"/>
-
-            <!-- Khung lăng trụ đáy trên A'B'C' -->
-            <line x1="70" y1="75" x2="130" y2="125" stroke="#cbd5e1" stroke-width="1.6"/>
-            <line x1="130" y1="125" x2="290" y2="75" stroke="#cbd5e1" stroke-width="1.6"/>
-            <line x1="70" y1="75" x2="290" y2="75" stroke="#cbd5e1" stroke-width="1.6"/>
-
-            <!-- Các cạnh bên -->
-            <line x1="70" y1="75" x2="70" y2="185" stroke="#cbd5e1" stroke-width="1.6"/>
-            <line x1="130" y1="125" x2="130" y2="235" stroke="#cbd5e1" stroke-width="1.6"/>
-            <line x1="290" y1="75" x2="290" y2="185" stroke="#cbd5e1" stroke-width="1.6"/>
-
-            <!-- Hệ trục tọa độ Oxyz với gốc P(210, 210) -->
-            <!-- Trục Oz hướng thẳng lên -->
-            <line x1="210" y1="210" x2="210" y2="25" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#arr-z-10)"/>
-            <text x="216" y="28" fill="#38bdf8" font-size="12" font-weight="bold">z</text>
-
-            <!-- Trục Ox hướng theo PA (qua A và kéo dài ra ngoài) -->
-            <!-- Đoạn bên trong từ P đến A là nét đứt -->
-            <line x1="210" y1="210" x2="70" y2="185" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="4 2"/>
-            <!-- Đoạn kéo dài ra ngoài là nét liền có mũi tên -->
-            <line x1="70" y1="185" x2="25" y2="177" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arr-x-10)"/>
-            <text x="18" y="175" fill="#ef4444" font-size="12" font-weight="bold">x</text>
-
-            <!-- Trục Oy hướng theo PC và kéo dài -->
-            <line x1="210" y1="210" x2="290" y2="185" stroke="#10b981" stroke-width="1.8"/>
-            <line x1="290" y1="185" x2="330" y2="173" stroke="#10b981" stroke-width="1.8" marker-end="url(#arr-y-10)"/>
-            <text x="336" y="175" fill="#10b981" font-size="12" font-weight="bold">y</text>
-
-            <!-- Ký hiệu góc vuông PA vuông góc BC tại P -->
-            <polyline points="198,208 195,200 207,202" fill="none" stroke="#ef4444" stroke-width="1.2"/>
-
-            <!-- Các điểm mút -->
-            <circle cx="210" cy="210" r="3.5" fill="#fbbf24"/>
-            <text x="216" y="222" fill="#fbbf24" font-size="11" font-weight="bold">P ≡ O</text>
-
-            <circle cx="70" cy="185" r="3" fill="#ffffff"/>
-            <text x="56" y="196" fill="#ffffff" font-size="11" font-weight="bold">A</text>
-
-            <circle cx="130" cy="235" r="3" fill="#ffffff"/>
-            <text x="126" y="250" fill="#ffffff" font-size="11" font-weight="bold">B</text>
-
-            <circle cx="290" cy="185" r="3" fill="#ffffff"/>
-            <text x="296" y="196" fill="#ffffff" font-size="11" font-weight="bold">C</text>
-
-            <circle cx="70" cy="75" r="3" fill="#cbd5e1"/>
-            <text x="56" y="70" fill="#cbd5e1" font-size="11" font-weight="bold">A'</text>
-
-            <circle cx="130" cy="125" r="3" fill="#cbd5e1"/>
-            <text x="136" y="138" fill="#cbd5e1" font-size="11" font-weight="bold">B'</text>
-
-            <circle cx="290" cy="75" r="3" fill="#cbd5e1"/>
-            <text x="296" y="70" fill="#cbd5e1" font-size="11" font-weight="bold">C'</text>
-
-            <circle cx="105" cy="100" r="3" fill="#34d399"/>
-            <text x="92" y="105" fill="#34d399" font-size="11" font-weight="bold">M</text>
-
-            <circle cx="180" cy="80" r="3" fill="#34d399"/>
-            <text x="180" y="70" fill="#34d399" font-size="11" font-weight="bold">N</text>
-          </svg>
-          <div class="flex justify-center items-center gap-4 mt-1 text-[11px] text-slate-300">
-            <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-emerald-400"></span> Mặt phẳng $(MNP)$</span>
-            <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-purple-400"></span> Mặt phẳng $(AB'C')$</span>
-          </div>
-        </div>
-
-        <!-- Lời giải chi tiết chuẩn sư phạm -->
-        <div class="space-y-2 text-xs sm:text-sm text-slate-700">
-          <p>• Tam giác $ABC$ đều cạnh $2\sqrt{3} \implies AP = \frac{2\sqrt{3}\cdot\sqrt{3}}{2} = 3$ và $BP = PC = \sqrt{3}$.</p>
-          <p>• Thiết lập hệ trục $Oxyz$ với gốc $P(0;0;0)$ là trung điểm $BC$:</p>
-          <ul class="list-disc list-inside space-y-0.5 text-slate-600 pl-2">
-            <li>Tia $Ox$ trùng tia $PA \implies A(3; 0; 0)$</li>
-            <li>Tia $Oy$ trùng tia $PC \implies C(0; \sqrt{3}; 0), B(0; -\sqrt{3}; 0)$</li>
-            <li>Tia $Oz \parallel AA' \implies A'(3; 0; 2), B'(0; -\sqrt{3}; 2), C'(0; \sqrt{3}; 2)$</li>
-          </ul>
-          <p>• Tọa độ các trung điểm: $M\left(\frac{3}{2}; -\frac{\sqrt{3}}{2}; 2\right)$, $N\left(\frac{3}{2}; \frac{\sqrt{3}}{2}; 2\right)$, $P(0; 0; 0)$.</p>
-          <p>• VTPT của $(MNP)$ và $(AB'C')$ lần lượt là:</p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-center my-1.5">
-            <div class="bg-emerald-50/70 p-2 rounded-lg border border-emerald-100 font-mono text-xs">
-              $\vec{n}_2 \parallel [\vec{PM}, \vec{PN}] \parallel (4; 0; -3)$
-            </div>
-            <div class="bg-purple-50/70 p-2 rounded-lg border border-purple-100 font-mono text-xs">
-              $\vec{n}_1 \parallel [\vec{AB'}, \vec{AC'}] \parallel (2; 0; 3)$
-            </div>
-          </div>
-          <p>• Cosin góc giữa hai mặt phẳng:</p>
-          <div class="bg-indigo-50/70 p-2 rounded-xl border border-indigo-100 text-center font-bold text-indigo-900">
-            $$\cos\varphi = \frac{|\vec{n}_1 \cdot \vec{n}_2|}{|\vec{n}_1| \cdot |\vec{n}_2|} = \frac{|2(4) + 0 + 3(-3)|}{\sqrt{2^2 + 3^2}\cdot\sqrt{4^2 + (-3)^2}} = \frac{1}{\sqrt{13}\cdot 5} = \mathbf{\frac{\sqrt{13}}{65}}$$
-          </div>
-        </div>
-      </div>
-
-      <!-- Tự luận 11 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1.5 text-indigo-700">Câu 11: Phương trình đoạn chắn</div>
-        <p class="text-xs sm:text-sm text-slate-600 mb-2">$(R)$ qua $B(1;3;-2)$, cắt các tia tại $M, N, P$ thỏa $OP = 2ON = 4OM$. Tính $V_{OMNP}$.</p>
-        <div class="text-xs sm:text-sm text-slate-700">
-          Đặt $OM = m > 0 \implies ON = 2m, OP = 4m$.<br>
-          Phương trình $(R): \frac{x}{m} + \frac{y}{2m} + \frac{z}{4m} = 1 \iff 4x + 2y + z = 4m$.<br>
-          Do qua $B(1; 3; -2) \implies 4(1) + 2(3) - 2 = 4m \iff m = 2$.
-          $$V = \frac{1}{6} OM \cdot ON \cdot OP = \frac{1}{6} \cdot 2 \cdot 4 \cdot 8 = \mathbf{\frac{32}{3}}$$
-        </div>
-      </div>
-
-      <!-- Tự luận 12 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="flex justify-between items-center mb-1.5">
-          <span class="font-bold text-slate-900 text-sm text-indigo-700">Câu 12: Nhóm 1</span>
-          <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono">Tâm tỉ cự & Lăng trụ</span>
-        </div>
-        <p class="text-xs sm:text-sm text-slate-600 mb-3 bg-slate-50 p-2 rounded border border-slate-100">
-          Cho hình lăng trụ tam giác đều $ABC.DEF$, $AB = 6, AD = 2$. Gọi $M, N, P$ lần lượt là trung điểm $DE, DF, BC$. Lập hệ trục tọa độ $Oxyz$ như hình. Điểm $S$ thỏa $\vec{SA} + 2\vec{SB} + \vec{SC} = \vec{0}$. Tính khoảng cách từ $S$ đến mặt phẳng $(MNP)$.
-        </p>
-
-        <!-- Sơ đồ tọa độ hóa SVG Câu 12 -->
-        <div class="my-3 bg-slate-900/95 rounded-xl p-3 border border-slate-800 shadow-inner">
-          <div class="flex items-center justify-between mb-1.5 px-1">
-            <span class="text-[11px] font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
-              Hệ trục Oxyz theo đề bài lăng trụ ABC.DEF
-            </span>
-            <span class="text-[10px] text-slate-400">Gốc P(0;0;0)</span>
-          </div>
-
-          <svg class="w-full max-w-md mx-auto h-auto" viewBox="0 0 360 270" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <marker id="arr-x-12" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444"/>
-              </marker>
-              <marker id="arr-y-12" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
-              </marker>
-              <marker id="arr-z-12" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
-              </marker>
-            </defs>
-
-            <!-- Mặt phẳng (MNP) tô màu thiên thanh -->
-            <polygon points="175,105 255,80 145,215" fill="rgba(14, 165, 233, 0.2)" stroke="#0284c7" stroke-width="1.6" stroke-dasharray="4 2"/>
-
-            <!-- Khung lăng trụ đáy dưới ABC -->
-            <!-- Cạnh khuất AC và đường cao PA khuất -->
-            <line x1="225" y1="185" x2="280" y2="235" stroke="#64748b" stroke-width="1.2" stroke-dasharray="4 3"/>
-            <line x1="145" y1="215" x2="225" y2="185" stroke="#64748b" stroke-width="1.2" stroke-dasharray="4 3"/>
-            
-            <!-- Cạnh thấy AB, BC -->
-            <line x1="75" y1="235" x2="145" y2="215" stroke="#cbd5e1" stroke-width="1.6"/>
-            <line x1="75" y1="235" x2="280" y2="235" stroke="#cbd5e1" stroke-width="1.6"/>
-
-            <!-- Khung lăng trụ đáy trên DEF -->
-            <line x1="75" y1="105" x2="280" y2="105" stroke="#cbd5e1" stroke-width="1.6"/>
-            <line x1="75" y1="105" x2="225" y2="55" stroke="#cbd5e1" stroke-width="1.6"/>
-            <line x1="280" y1="105" x2="225" y2="55" stroke="#cbd5e1" stroke-width="1.6"/>
-
-            <!-- Các cạnh bên -->
-            <line x1="75" y1="105" x2="75" y2="235" stroke="#cbd5e1" stroke-width="1.6"/>
-            <line x1="280" y1="105" x2="280" y2="235" stroke="#cbd5e1" stroke-width="1.6"/>
-            <line x1="225" y1="55" x2="225" y2="185" stroke="#64748b" stroke-width="1.2" stroke-dasharray="4 3"/>
-
-            <!-- Hệ trục tọa độ Oxyz theo đề bài -->
-            <!-- Trục Oz thẳng đứng tại P -->
-            <line x1="145" y1="215" x2="145" y2="25" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#arr-z-12)"/>
-            <text x="152" y="28" fill="#38bdf8" font-size="12" font-weight="bold">z</text>
-
-            <!-- Trục Ox hướng theo PA và kéo dài -->
-            <line x1="145" y1="215" x2="280" y2="235" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="4 2"/>
-            <line x1="280" y1="235" x2="330" y2="242" stroke="#ef4444" stroke-width="1.8" marker-end="url(#arr-x-12)"/>
-            <text x="335" y="244" fill="#ef4444" font-size="12" font-weight="bold">x</text>
-
-            <!-- Trục Oy hướng theo PB và kéo dài -->
-            <line x1="145" y1="215" x2="75" y2="235" stroke="#10b981" stroke-width="1.8"/>
-            <line x1="75" y1="235" x2="35" y2="246" stroke="#10b981" stroke-width="1.8" marker-end="url(#arr-y-12)"/>
-            <text x="25" y="248" fill="#10b981" font-size="12" font-weight="bold">y</text>
-
-            <!-- Ký hiệu góc vuông PA vuông góc BC tại P (màu đỏ như trong đề) -->
-            <polygon points="145,215 152,213 158,217 151,219" fill="#ef4444" opacity="0.8"/>
-
-            <!-- Các điểm đỉnh và trung điểm -->
-            <circle cx="145" cy="215" r="3.5" fill="#fbbf24"/>
-            <text x="133" y="210" fill="#fbbf24" font-size="11" font-weight="bold">P</text>
-
-            <circle cx="75" cy="235" r="3" fill="#ffffff"/>
-            <text x="70" y="250" fill="#ffffff" font-size="11" font-weight="bold">B</text>
-
-            <circle cx="280" cy="235" r="3" fill="#ffffff"/>
-            <text x="277" y="250" fill="#ffffff" font-size="11" font-weight="bold">A</text>
-
-            <circle cx="225" cy="185" r="2.5" fill="#94a3b8"/>
-            <text x="232" y="188" fill="#94a3b8" font-size="11" font-weight="bold">C</text>
-
-            <circle cx="75" cy="105" r="3" fill="#cbd5e1"/>
-            <text x="63" y="105" fill="#cbd5e1" font-size="11" font-weight="bold">E</text>
-
-            <circle cx="280" cy="105" r="3" fill="#cbd5e1"/>
-            <text x="286" y="105" fill="#cbd5e1" font-size="11" font-weight="bold">D</text>
-
-            <circle cx="225" cy="55" r="3" fill="#cbd5e1"/>
-            <text x="225" y="47" fill="#cbd5e1" font-size="11" font-weight="bold">F</text>
-
-            <circle cx="175" cy="105" r="3" fill="#38bdf8"/>
-            <text x="175" y="120" fill="#38bdf8" font-size="11" font-weight="bold">M</text>
-
-            <circle cx="255" cy="80" r="3" fill="#38bdf8"/>
-            <text x="261" y="80" fill="#38bdf8" font-size="11" font-weight="bold">N</text>
-
-            <!-- Điểm S trong đáy -->
-            <circle cx="179" cy="225" r="3.5" fill="#f43f5e"/>
-            <text x="184" y="226" fill="#f43f5e" font-size="11" font-weight="bold">S</text>
-            <!-- Nối đoạn hình chiếu khoảng cách d(S, MNP) -->
-            <line x1="179" y1="225" x2="185" y2="182" stroke="#f43f5e" stroke-width="1.4" stroke-dasharray="2 2"/>
-            <circle cx="185" cy="182" r="2" fill="#f43f5e"/>
-            <text x="189" y="185" fill="#f43f5e" font-size="10">H</text>
-          </svg>
-          <div class="flex justify-center items-center gap-4 mt-1 text-[11px] text-slate-300">
-            <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-sky-400"></span> Mặt phẳng $(MNP)$</span>
-            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Điểm $S$ & khoảng cách $SH$</span>
-          </div>
-        </div>
-
-        <!-- Lời giải chuẩn sư phạm -->
-        <div class="space-y-2 text-xs sm:text-sm text-slate-700">
-          <p>• Chiều cao tam giác đều $ABC$: $PA = \frac{6\sqrt{3}}{2} = 3\sqrt{3}$, $PB = PC = 3$.</p>
-          <p>• Theo hệ trục tọa độ đã dựng trong đề:</p>
-          <ul class="list-disc list-inside space-y-0.5 text-slate-600 pl-2">
-            <li>Gốc $P(0;0;0)$, $A(3\sqrt{3}; 0; 0)$, $B(0; 3; 0)$, $C(0; -3; 0)$</li>
-            <li>Đỉnh trên: $D(3\sqrt{3}; 0; 2), E(0; 3; 2), F(0; -3; 2)$</li>
-            <li>Trung điểm: $M\left(\frac{3\sqrt{3}}{2}; \frac{3}{2}; 2\right)$, $N\left(\frac{3\sqrt{3}}{2}; -\frac{3}{2}; 2\right)$</li>
-          </ul>
-          <p>• Mặt phẳng $(MNP)$ đi qua gốc $P(0;0;0)$ có VTPT là $\vec{n} = (4; 0; -3\sqrt{3})$:</p>
-          <div class="bg-sky-50/70 p-2 rounded-lg border border-sky-100 font-mono text-center text-xs text-sky-900">
-            $$(MNP): 4x - 3\sqrt{3}z = 0$$
-          </div>
-          <p>• Xác định tọa độ $S$: Từ $\vec{SA} + 2\vec{SB} + \vec{SC} = \vec{0} \iff 4\vec{PS} = \vec{PA} + 2\vec{PB} + \vec{PC}$.</p>
-          <p class="text-slate-600 pl-2">Vì $P$ là trung điểm $BC$ nên $\vec{PB} + \vec{PC} = \vec{0} \implies 4\vec{PS} = \vec{PA} + \vec{PB} \implies S\left(\frac{3\sqrt{3}}{4}; \frac{3}{4}; 0\right)$.</p>
-          <p>• Khoảng cách từ điểm $S$ đến mặt phẳng $(MNP)$:</p>
-          <div class="bg-indigo-50/70 p-2.5 rounded-xl border border-indigo-100 text-center font-bold text-indigo-900">
-            $$d(S, (MNP)) = \frac{\left|4\cdot\frac{3\sqrt{3}}{4} - 3\sqrt{3}(0)\right|}{\sqrt{4^2 + 0^2 + (-3\sqrt{3})^2}} = \frac{3\sqrt{3}}{\sqrt{16 + 27}} = \mathbf{\frac{3\sqrt{129}}{43}}$$
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PHẦN III: BÀI TẬP VỀ NHÀ -->
-    <section id="btvn" class="space-y-4">
-      <div class="flex items-center gap-2 px-1">
-        <span class="w-2.5 h-6 bg-emerald-600 rounded-full"></span>
-        <h2 class="text-base sm:text-lg font-bold text-slate-900">Phần III: Bài Tập Về Nhà</h2>
-      </div>
-
-      <!-- BTVN 1 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1 text-emerald-800">Câu 1: Mặt phẳng song song có tham số</div>
-        <div class="text-xs sm:text-sm text-slate-700">
-          $\frac{4}{2} = \frac{m - 3}{-3} = \frac{m^2 + 1}{5} \ne \frac{-7}{-1} \iff \begin{cases} m - 3 = -6 \\ m^2 + 1 = 10 \end{cases} \iff \mathbf{m = -3}$.
-        </div>
-      </div>
-
-      <!-- BTVN 2 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1 text-emerald-800">Câu 2: Mặt phẳng qua 2 điểm và vuông góc $(P)$</div>
-        <div class="text-xs sm:text-sm text-slate-700">
-          VTPT $\vec{n}_Q = \frac{1}{4}[\vec{AB}, \vec{n}_P] = (0; 2; 3)$. Qua $A(2; 4; 1)$:
-          <div class="bg-emerald-50/60 p-2 rounded mt-1 font-semibold text-emerald-900">
-            $$2(y - 4) + 3(z - 1) = 0 \iff \mathbf{2y + 3z - 11 = 0}$$
-          </div>
-        </div>
-      </div>
-
-      <!-- BTVN 3 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1 text-emerald-800">Câu 3: Mặt phẳng trung trực của đoạn thẳng</div>
-        <div class="text-xs sm:text-sm text-slate-700">
-          $\vec{AC'} = \vec{AB} + \vec{AD} + \vec{AA'} \implies C'(7; 4; 4)$. Trung điểm $I\left(\frac{7}{2}; 2; \frac{5}{2}\right)$, VTPT $\vec{DC'} = (7; 4; 3)$.
-          <div class="bg-emerald-50/60 p-2 rounded mt-1 font-semibold text-emerald-900">
-            $$7\left(x - \frac{7}{2}\right) + 4(y - 2) + 3\left(z - \frac{5}{2}\right) = 0 \iff \mathbf{7x + 4y + 3z - 40 = 0}$$
-          </div>
-        </div>
-      </div>
-
-      <!-- BTVN 4 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1 text-emerald-800">Câu 4: Khoảng cách từ điểm đến mặt phẳng</div>
-        <div class="text-xs sm:text-sm text-slate-700">
-          $M(0; 2; 2) \implies (CDM): x + z - 2 = 0$.
-          $$d(B, (CDM)) = \frac{|0 + 0 - 2|}{\sqrt{1^2 + 1^2}} = \sqrt{2} \approx \mathbf{1,41}$$
-        </div>
-      </div>
-
-      <!-- BTVN 5 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1 text-emerald-800">Câu 5: Góc chóp đều (THPTQG 2023)</div>
-        <div class="text-xs sm:text-sm text-slate-700">
-          Gọi $H$ là trung điểm $CD \implies OH = \frac{a}{2}$. Góc giữa $(SCD)$ và đáy là $\widehat{SHO}$:
-          $$\tan\widehat{SHO} = \frac{SO}{OH} = \frac{\frac{a\sqrt{3}}{6}}{\frac{a}{2}} = \frac{\sqrt{3}}{3} \implies \mathbf{\widehat{SHO} = 30^\circ}$$
-        </div>
-      </div>
-
-      <!-- BTVN 6 -->
-      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1 text-emerald-800">Câu 6: Khoảng cách hình lập phương</div>
-        <div class="text-xs sm:text-sm text-slate-700">
-          Chọn gốc $A(0;0;0) \implies M(-3; 0; -1)$, $(EBD): x + y + z - 1 = 0$.
-          $$d(M, (EBD)) = \frac{|-3 + 0 - 1 - 1|}{\sqrt{3}} = \mathbf{\frac{5\sqrt{3}}{3}}$$
-        </div>
-      </div>
-    </section>
-
-    <!-- Nút cuộn lên đầu trang -->
-    <div class="text-center pt-6">
-      <a href="#" class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-slate-600 bg-white border border-slate-200 rounded-full shadow-xs active:scale-95 transition">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
-        Lên đầu trang
-      </a>
-    </div>
-
-  </main>
+<body>
+<h1>BÀI 2 – PHƯƠNG TRÌNH MẶT PHẲNG (tt)</h1>
+<div class="sub">LỜI GIẢI CHI TIẾT</div>
+<h2>VI – Góc giữa hai mặt phẳng</h2>
+<p class="cau"><b class="ct">Ví dụ 1.</b> $\vec n_1=(2;-1;-2)$, $\vec n_2=(1;-1;0)$; $\vec n_1\cdot\vec n_2=3$, $|\vec n_1|=3$, $|\vec n_2|=\sqrt2$.
+\[\cos\alpha=\frac{3}{3\sqrt2}=\frac{\sqrt2}{2}\ \Rightarrow\ \alpha=45^\circ.\]
+<span class="dapan"><b>Đáp án:</b> $45^\circ$.</span></p>
+<h2>ÔN TẬP PHƯƠNG TRÌNH MẶT PHẲNG</h2>
+<h3>I – Trắc nghiệm đúng – sai</h3>
+<section class="q"><div class="qh"><span class="qt">Câu 1</span><span class="tag">Nhóm 4, 5, 6</span></div><div class="stem">Cho $A(1;-2;0),\ B(2;-3;2),\ C(-1;0;4)$ và $(P): x-y-z+2=0$.</div><div class="it s"><span class="lb">a) SAI</span><span class="tx">$[\vt{OA},\vt{OB}]=(-4;-2;1)\implies S_{OAB}=\frac12\sqrt{(-4)^2+(-2)^2+1^2}=\frac{\sqrt{21}}{2}\ne\sqrt{21}$.</span></div><div class="it s"><span class="lb">b) SAI</span><span class="tx">Thay $M(6;7;3)$ vào $(P)$: $6-7-3+2=-2\ne0\implies M\notin(P)$.</span></div><div class="it s"><span class="lb">c) SAI</span><span class="tx">$\vec n_{(ABC)}\parallel[\vt{AB},\vt{AC}]\parallel(1;1;0)\implies (ABC):\ \mathbf{x+y+1=0}$.</span></div><div class="it d"><span class="lb">d) ĐÚNG</span><span class="tx">VTPT mặt phẳng là $[\vt{BC},\vec n_P]=(-1;-1;0)\parallel\mathbf{(1;1;0)}$.</span></div></section>
+<section class="q"><div class="qh"><span class="qt">Câu 2</span><span class="tag">Nhóm 3, 4, 5, 6</span></div><div class="stem">Cho $(P): x+2y-z-1=0,\ (Q): 3x-y+z-5=0$ và $(R): 2x+4y-mz-2=0$.</div><div class="it s"><span class="lb">a) SAI</span><span class="tx">Vì $\frac13\ne\frac{2}{-1}$ nên hai VTPT không cùng phương $\implies (P)$ cắt $(Q)$.</span></div><div class="it d"><span class="lb">b) ĐÚNG</span><span class="tx">Mặt phẳng $(\alpha)\parallel(P)$ và qua $O(0;0;0)$ có dạng: $\mathbf{x+2y-z=0}$.</span></div><div class="it s"><span class="lb">c) SAI</span><span class="tx">Với $m=2$: $(R): 2x+4y-2z-2=0\iff x+2y-z-1=0\implies (R)\equiv(P)$ (trùng nhau).</span></div><div class="it d"><span class="lb">d) ĐÚNG</span><span class="tx">$(P)\perp(R)\iff\vec n_P\cdot\vec n_R=0\iff 1\cdot2+2\cdot4+(-1)(-m)=0\iff \mathbf{m=-10}$.</span></div></section>
+<section class="q"><div class="qh"><span class="qt">Câu 3</span><span class="tag">Bài toán thực tế bể nước</span></div><div class="stem">Bể lập phương cạnh $100$ cm, đáy nghiêng. Khoảng cách từ $A,B,C$ tới đáy lần lượt là $40$ cm, $44$ cm, $48$ cm. Chọn hệ trục: $O$ là đỉnh đáy bể, $Oxy$ là mặt đáy, $Oz$ là cạnh đứng.</div><div class="it s"><span class="lb">a) SAI</span><span class="tx">Cạnh đáy là $100$ cm nên $A(100;0;40)\ne(40;0;0)$.</span></div><div class="it s"><span class="lb">b) SAI</span><span class="tx">$\vt{BA}=(100;0;-4),\ \vt{BC}=(0;100;4)\implies\vec n\parallel\mathbf{(1;-1;25)}\ne(1;1;25)$.</span></div><div class="it d"><span class="lb">c) ĐÚNG</span><span class="tx">Do $ABCD$ là hình bình hành: $z_D=z_A+z_C-z_B=40+48-44=\mathbf{44}$ cm.</span></div><div class="it s"><span class="lb">d) SAI</span><span class="tx">$\cos\beta=\frac{25}{\sqrt{1^2+(-1)^2+25^2}}=\frac{25}{\sqrt{627}}\implies\beta\approx\mathbf{3{,}24^\circ}\ne4{,}23^\circ$.</span></div></section>
+<h3>II – Phần tự luận</h3>
+<p class="cau"><b class="ct">Câu 1.</b> $A(4;0;2),\ B(0;5;1),\ C(4;-1;3),\ D(3;-1;5)$.</p>
+<p><b>a)</b> $\vt{BC}=(4;-6;2)\sim(2;-3;1)$, $\vt{AD}=(-1;-1;3)$. $\vec n=[(2;-3;1),(-1;-1;3)]=(-8;-7;-5)\sim(8;7;5)$. Mặt phẳng qua $B(0;5;1)$:
+\[8x+7(y-5)+5(z-1)=0\iff 8x+7y+5z-40=0.\]
+($A\notin(P)$ vì $32+10-40=2\ne0$.)</p>
+<p><b>b)</b> $(zOx): y=0$, VTPT $(0;1;0)$:
+\[\cos\alpha=\frac{7}{\sqrt{64+49+25}}=\frac7{\sqrt{138}}\ \Rightarrow\ \alpha\approx53{,}4^\circ.\]
+<span class="dapan"><b>Đáp án:</b> a) $8x+7y+5z-40=0$; b) $\approx53{,}4^\circ$.</span></p>
+<p class="cau"><b class="ct">Câu 2.</b> $\vec n_P=(2;-1;-1)$, $\vec n_Q=(1;0;-1)$: $\cos\alpha=\dfrac{2+1}{\sqrt6\cdot\sqrt2}=\dfrac{\sqrt3}2\Rightarrow\alpha=30^\circ$.</p>
+<p><span class="dapan"><b>Đáp án:</b> $30^\circ$.</span></p>
+<p class="cau"><b class="ct">Câu 3.</b> $(Q)\parallel(P)$ nên $(Q): 3(x-1)-5(y+5)+4z=0\iff 3x-5y+4z-28=0$.</p>
+<p><span class="dapan"><b>Đáp án:</b> $3x-5y+4z-28=0$.</span></p>
+<p class="cau"><b class="ct">Câu 4.</b> $\vt{SA}=(4;4;-4)$, $\vt{SB}=(-4;4;-4)$, $[\vt{SA},\vt{SB}]=(0;32;32)\sim(0;1;1)$. $(SAB): y+z-4=0$. Đáy: $z=0$, VTPT $(0;0;1)$.
+\[\cos\varphi=\frac1{\sqrt2}\ \Rightarrow\ \varphi=45^\circ.\]
+<span class="dapan"><b>Đáp án:</b> $45^\circ$.</span></p>
+<p class="cau"><b class="ct">Câu 5.</b> VTPT: $(2;-1;3)$ và $(1;1;1)$ (rút gọn từ hai mặt phẳng đã cho). $\vec n_R=[(2;-1;3),(1;1;1)]=(-4;1;3)\sim(4;-1;-3)$. Mặt phẳng qua $K(1;2;-1)$:
+\[4(x-1)-(y-2)-3(z+1)=0\iff 4x-y-3z-5=0.\]
+<span class="dapan"><b>Đáp án:</b> $4x-y-3z-5=0$.</span></p>
+<p class="cau"><b class="ct">Câu 6.</b> Chọn mặt sàn là $(Oxy)$: $A(0;0;0)$, $B(4;0;0)$, $C(2;2\sqrt3;0)$ và đầu cột $A'(0;0;7)$, $B'(4;0;6)$, $C'(2;2\sqrt3;5)$.</p>
+<p>$\vt{A'B'}=(4;0;-1)$, $\vt{A'C'}=(2;2\sqrt3;-2)$, $[\vt{A'B'},\vt{A'C'}]=(2\sqrt3;6;8\sqrt3)\sim(\sqrt3;3;4\sqrt3)$.
+\[\cos\varphi=\frac{4\sqrt3}{\sqrt{3+9+48}}=\frac{2}{\sqrt5}\ \Rightarrow\ \tan\varphi=\frac12,\ \varphi\approx26{,}6^\circ.\]
+<span class="dapan"><b>Đáp án:</b> $\approx26{,}6^\circ$.</span></p>
+<p class="cau"><b class="ct">Câu 7.</b> $A(0;0;0)$, $B(2a;0;0)$, $D(0;5a;0)$, $C(2a;5a;0)$, $S(0;0;3a)$.</p>
+<p>$[\vt{SB},\vt{BC}]=[(2a;0;-3a),(0;5a;0)]=5a^2(3;0;2)$. $(SBC): 3x+2z-6a=0$.
+\[d(A,(SBC))=\frac{6a}{\sqrt{13}}=\frac{6\sqrt{13}}{13}a.\]
+<span class="dapan"><b>Đáp án:</b> $\dfrac{6\sqrt{13}}{13}a$.</span></p>
+<p class="cau"><b class="ct">Câu 8.</b> $[\vt{AB},\vt{AC}]=[(-4;3;1),(2;1;1)]=(2;6;-10)\sim(1;3;-5)$, nên $(ABC): x+3y-5z+5=0$.</p>
+<p>$MA\parallel(Oyz)\Rightarrow\vt{MA}\perp(1;0;0)\Rightarrow a=1$.</p>
+<p>$MA=MB$ với $a=1$: $(b+2)^2+c^2=16+(b-1)^2+(c-1)^2\iff 3b+c=7$.</p>
+<p>$M\in(ABC)$: $3b-5c=-6$. Giải hệ: $c=\dfrac{13}6$, $b=\dfrac{29}{18}$.
+\[a+18b+6c=1+29+13=43.\]
+<span class="dapan"><b>Đáp án:</b> $43$.</span></p>
+<p class="cau"><b class="ct">Câu 9.</b> $d=\dfrac{|(m-1)+1+2m-1|}{\sqrt{(m-1)^2+1+m^2}}=\dfrac{|3m-1|}{\sqrt{2m^2-2m+2}}$. Đặt $f(m)=d^2$.
+\[f'(m)=\frac{-6m^2+32m-10}{(2m^2-2m+2)^2}=0\iff m=5\ \text{hoặc}\ m=\tfrac13.\]
+$f(5)=\dfrac{14}3$, $f(\tfrac13)=0$, $\lim_{m\to\pm\infty}f=\dfrac92&lt;\dfrac{14}3$. Vậy $d$ lớn nhất khi $m=5$.</p>
+<p><span class="dapan"><b>Đáp án:</b> $m=5$.</span></p>
+<p class="cau"><b class="ct">Câu 10.</b> Đường cao đáy $=\dfrac{2\sqrt3\cdot\sqrt3}2=3$. Chọn hệ trục gốc $P$ (trung điểm $BC$), $Px\equiv PB$, $Py\equiv PA$, $Pz\parallel AA'$ (xem hình).</p>
+<figure class="fig"><svg viewBox="-140 -175 320 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hình tọa độ hóa câu 10"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1a56b0"/></marker></defs><polygon points="75.0,-51.0 95.3,-90.0 -95.3,-90.0" fill="#e07b00" fill-opacity="0.22" stroke="#e07b00" stroke-width="1"/><polygon points="85.1,-115.5 -10.1,-115.5 0.0,0.0" fill="#1a56b0" fill-opacity="0.28" stroke="#1a56b0" stroke-width="1"/><line x1="95.3" y1="0.0" x2="-95.3" y2="0.0" stroke="currentColor" stroke-width="1.6"/><line x1="95.3" y1="0.0" x2="95.3" y2="-90.0" stroke="currentColor" stroke-width="1.6"/><line x1="-95.3" y1="0.0" x2="-95.3" y2="-90.0" stroke="currentColor" stroke-width="1.6"/><line x1="75.0" y1="-141.0" x2="95.3" y2="-90.0" stroke="currentColor" stroke-width="1.6"/><line x1="75.0" y1="-141.0" x2="-95.3" y2="-90.0" stroke="currentColor" stroke-width="1.6"/><line x1="95.3" y1="-90.0" x2="-95.3" y2="-90.0" stroke="currentColor" stroke-width="1.6"/><line x1="85.1" y1="-115.5" x2="-10.1" y2="-115.5" stroke="currentColor" stroke-width="1.6"/><line x1="0.0" y1="0.0" x2="85.1" y2="-115.5" stroke="currentColor" stroke-width="1.6"/><line x1="0.0" y1="0.0" x2="-10.1" y2="-115.5" stroke="currentColor" stroke-width="1.6"/><line x1="75.0" y1="-51.0" x2="95.3" y2="0.0" stroke="currentColor" stroke-width="1.3" stroke-dasharray="5,4"/><line x1="75.0" y1="-51.0" x2="-95.3" y2="0.0" stroke="currentColor" stroke-width="1.3" stroke-dasharray="5,4"/><line x1="75.0" y1="-51.0" x2="75.0" y2="-141.0" stroke="currentColor" stroke-width="1.3" stroke-dasharray="5,4"/><line x1="0" y1="0" x2="137.5" y2="0.0" stroke="#1a56b0" stroke-width="1.4" marker-end="url(#ar)"/><text x="143.5" y="4.0" fill="#1a56b0" font-style="italic" font-size="15">x</text><line x1="0" y1="0" x2="105.0" y2="-71.4" stroke="#1a56b0" stroke-width="1.4" marker-end="url(#ar)"/><text x="111.0" y="-67.4" fill="#1a56b0" font-style="italic" font-size="15">y</text><line x1="0" y1="0" x2="0.0" y2="-148.5" stroke="#1a56b0" stroke-width="1.4" marker-end="url(#ar)"/><text x="6.0" y="-152.5" fill="#1a56b0" font-style="italic" font-size="15">z</text><circle cx="0.0" cy="0.0" r="2.6" fill="currentColor"/><circle cx="75.0" cy="-51.0" r="2.6" fill="currentColor"/><circle cx="95.3" cy="0.0" r="2.6" fill="currentColor"/><circle cx="-95.3" cy="0.0" r="2.6" fill="currentColor"/><circle cx="75.0" cy="-141.0" r="2.6" fill="currentColor"/><circle cx="95.3" cy="-90.0" r="2.6" fill="currentColor"/><circle cx="-95.3" cy="-90.0" r="2.6" fill="currentColor"/><circle cx="85.1" cy="-115.5" r="2.6" fill="currentColor"/><circle cx="-10.1" cy="-115.5" r="2.6" fill="currentColor"/><text x="-18.0" y="14.0" font-size="15" font-weight="bold" fill="currentColor">P≡O</text><text x="83.0" y="-41.0" font-size="15" font-weight="bold" fill="currentColor">A</text><text x="101.3" y="16.0" font-size="15" font-weight="bold" fill="currentColor">B</text><text x="-113.3" y="16.0" font-size="15" font-weight="bold" fill="currentColor">C</text><text x="67.0" y="-151.0" font-size="15" font-weight="bold" fill="currentColor">A'</text><text x="103.3" y="-76.0" font-size="15" font-weight="bold" fill="currentColor">B'</text><text x="-119.3" y="-90.0" font-size="15" font-weight="bold" fill="currentColor">C'</text><text x="93.1" y="-119.5" font-size="15" font-weight="bold" fill="currentColor">M</text><text x="-18.1" y="-125.5" font-size="15" font-weight="bold" fill="currentColor">N</text></svg><figcaption>Hình minh họa tọa độ hóa câu 10: gốc P, trục Px theo PB, Py theo PA, Pz theo hướng AA'. Mặt phẳng cam: (AB'C'); mặt phẳng xanh: (MNP).</figcaption></figure>
+<p>\[A(0;3;0),\ B(\sqrt3;0;0),\ C(-\sqrt3;0;0),\ A'(0;3;2),\ B'(\sqrt3;0;2),\ C'(-\sqrt3;0;2),\]
+\[M\!\left(\tfrac{\sqrt3}2;\tfrac32;2\right),\ N\!\left(-\tfrac{\sqrt3}2;\tfrac32;2\right),\ P(0;0;0).\]
+$(AB'C')$: $[\vt{AB'},\vt{AC'}]=[(\sqrt3;-3;2),(-\sqrt3;-3;2)]\sim(0;2;3)$, $\vec n_1=(0;2;3)$.</p>
+<p>$(MNP)$: $[\vt{PM},\vt{PN}]\sim(0;-4;3)$, $\vec n_2=(0;-4;3)$.
+\[\cos=\frac{|-8+9|}{\sqrt{13}\cdot5}=\frac{\sqrt{13}}{65}.\]
+<span class="dapan"><b>Đáp án:</b> $\dfrac{\sqrt{13}}{65}$.</span></p>
+<p class="cau"><b class="ct">Câu 11.</b> $OM=t&gt;0$ thì $N(0;2t;0)$, $P(0;0;4t)$, $(R): 4x+2y+z-4t=0$. $B(1;3;-2)\in(R)\Rightarrow 8=4t\Rightarrow t=2$. Vậy $OM=2$, $ON=4$, $OP=8$:
+\[V=\frac16\cdot2\cdot4\cdot8=\frac{32}3.\]
+<span class="dapan"><b>Đáp án:</b> $\dfrac{32}{3}$.</span></p>
+<p class="cau"><b class="ct">Câu 12.</b> Tam giác $ABC$ đều cạnh $6$ nên $PB=PC=3$, $PA=3\sqrt3$. Chọn gốc $P$, $Px\equiv PA$, $Py\equiv PB$, $Pz\parallel AD$ (xem hình).</p>
+<figure class="fig"><svg viewBox="-170 -175 380 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hình tọa độ hóa câu 12"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1a56b0"/></marker></defs><polygon points="44.4,-51.0 -75.6,-51.0 0.0,0.0" fill="#1a56b0" fill-opacity="0.28" stroke="#1a56b0" stroke-width="1"/><line x1="-31.2" y1="77.9" x2="120.0" y2="0.0" stroke="currentColor" stroke-width="1.6"/><line x1="-31.2" y1="77.9" x2="-120.0" y2="0.0" stroke="currentColor" stroke-width="1.6"/><line x1="-31.2" y1="77.9" x2="-31.2" y2="-12.1" stroke="currentColor" stroke-width="1.6"/><line x1="120.0" y1="0.0" x2="120.0" y2="-90.0" stroke="currentColor" stroke-width="1.6"/><line x1="-120.0" y1="0.0" x2="-120.0" y2="-90.0" stroke="currentColor" stroke-width="1.6"/><line x1="-31.2" y1="-12.1" x2="120.0" y2="-90.0" stroke="currentColor" stroke-width="1.6"/><line x1="-31.2" y1="-12.1" x2="-120.0" y2="-90.0" stroke="currentColor" stroke-width="1.6"/><line x1="120.0" y1="-90.0" x2="-120.0" y2="-90.0" stroke="currentColor" stroke-width="1.6"/><line x1="44.4" y1="-51.0" x2="-75.6" y2="-51.0" stroke="currentColor" stroke-width="1.6"/><line x1="0.0" y1="0.0" x2="44.4" y2="-51.0" stroke="currentColor" stroke-width="1.6"/><line x1="0.0" y1="0.0" x2="-75.6" y2="-51.0" stroke="currentColor" stroke-width="1.6"/><line x1="120.0" y1="0.0" x2="-120.0" y2="0.0" stroke="currentColor" stroke-width="1.3" stroke-dasharray="5,4"/><line x1="0" y1="0" x2="-43.2" y2="108.0" stroke="#1a56b0" stroke-width="1.4" marker-end="url(#ar)"/><text x="-37.2" y="112.0" fill="#1a56b0" font-style="italic" font-size="15">x</text><line x1="0" y1="0" x2="168.0" y2="0.0" stroke="#1a56b0" stroke-width="1.4" marker-end="url(#ar)"/><text x="174.0" y="4.0" fill="#1a56b0" font-style="italic" font-size="15">y</text><line x1="0" y1="0" x2="0.0" y2="-148.5" stroke="#1a56b0" stroke-width="1.4" marker-end="url(#ar)"/><text x="6.0" y="-152.5" fill="#1a56b0" font-style="italic" font-size="15">z</text><circle cx="0.0" cy="0.0" r="2.6" fill="currentColor"/><circle cx="-31.2" cy="77.9" r="2.6" fill="currentColor"/><circle cx="120.0" cy="0.0" r="2.6" fill="currentColor"/><circle cx="-120.0" cy="0.0" r="2.6" fill="currentColor"/><circle cx="-31.2" cy="-12.1" r="2.6" fill="currentColor"/><circle cx="120.0" cy="-90.0" r="2.6" fill="currentColor"/><circle cx="-120.0" cy="-90.0" r="2.6" fill="currentColor"/><circle cx="44.4" cy="-51.0" r="2.6" fill="currentColor"/><circle cx="-75.6" cy="-51.0" r="2.6" fill="currentColor"/><circle cx="22.2" cy="19.5" r="2.6" fill="currentColor"/><text x="-52.0" y="18.0" font-size="15" font-weight="bold" fill="currentColor">P≡O</text><text x="-55.2" y="85.9" font-size="15" font-weight="bold" fill="currentColor">A</text><text x="128.0" y="16.0" font-size="15" font-weight="bold" fill="currentColor">B</text><text x="-138.0" y="16.0" font-size="15" font-weight="bold" fill="currentColor">C</text><text x="-51.2" y="-16.1" font-size="15" font-weight="bold" fill="currentColor">D</text><text x="128.0" y="-96.0" font-size="15" font-weight="bold" fill="currentColor">E</text><text x="-140.0" y="-96.0" font-size="15" font-weight="bold" fill="currentColor">F</text><text x="52.4" y="-57.0" font-size="15" font-weight="bold" fill="currentColor">M</text><text x="-93.6" y="-57.0" font-size="15" font-weight="bold" fill="currentColor">N</text><text x="30.2" y="35.5" font-size="15" font-weight="bold" fill="currentColor">S</text></svg><figcaption>Hình minh họa tọa độ hóa câu 12: gốc P, trục Px theo PA, Py theo PB, Pz theo hướng AD. Mặt phẳng xanh: (MNP); S nằm trong đáy ABC.</figcaption></figure>
+<p>\[A(3\sqrt3;0;0),\ B(0;3;0),\ C(0;-3;0),\ D(3\sqrt3;0;2),\ E(0;3;2),\ F(0;-3;2),\]
+\[M\!\left(\tfrac{3\sqrt3}2;\tfrac32;2\right),\ N\!\left(\tfrac{3\sqrt3}2;-\tfrac32;2\right).\]
+$\vt{SA}+2\vt{SB}+\vt{SC}=\vec0\Rightarrow S=\dfrac{A+2B+C}{4}=\left(\dfrac{3\sqrt3}4;\dfrac34;0\right)$.</p>
+<p>$[\vt{PM},\vt{PN}]=\left(6;0;-\dfrac{9\sqrt3}2\right)\sim(4;0;-3\sqrt3)$, nên $(MNP): 4x-3\sqrt3\,z=0$.
+\[d(S,(MNP))=\frac{4\cdot\frac{3\sqrt3}4}{\sqrt{16+27}}=\frac{3\sqrt3}{\sqrt{43}}=\frac{3\sqrt{129}}{43}.\]
+<span class="dapan"><b>Đáp án:</b> $\dfrac{3\sqrt{129}}{43}$.</span></p>
+<h2>BÀI TẬP VỀ NHÀ</h2>
+<p class="cau"><b class="ct">Câu 1.</b> $\dfrac42=\dfrac{m-3}{-3}=\dfrac{m^2+1}5\ne\dfrac{-7}{-1}\Rightarrow m=-3$ (thử lại: $\dfrac{9+1}5=2$, và $2\ne7$).</p>
+<p><span class="dapan"><b>Đáp án:</b> $m=-3$.</span></p>
+<p class="cau"><b class="ct">Câu 2.</b> $\vt{AB}=(-3;-3;2)$, $\vec n_P=(1;-3;2)$, $\vec n_Q=[\vt{AB},\vec n_P]=(0;8;12)\sim(0;2;3)$. $(Q)$ qua $A(2;4;1)$: $2(y-4)+3(z-1)=0$.</p>
+<p><span class="dapan"><b>Đáp án:</b> $(Q): 2y+3z-11=0$.</span></p>
+<p class="cau"><b class="ct">Câu 3.</b> $C=B+D-A=(3;2;1)$, $C'=C+\vt{AA'}=(7;4;4)$. Mặt phẳng trung trực của $C'D$ qua trung điểm $I\!\left(\tfrac72;2;\tfrac52\right)$, VTPT $\vt{DC'}=(7;4;3)$:
+\[7\left(x-\tfrac72\right)+4(y-2)+3\left(z-\tfrac52\right)=0\iff 7x+4y+3z-40=0.\]
+<span class="dapan"><b>Đáp án:</b> $7x+4y+3z-40=0$.</span></p>
+<p class="cau"><b class="ct">Câu 4.</b> $A(0;0;0)$, $B(0;4;0)$, $D(2;0;0)$, $C(2;4;0)$, $S(0;0;4)$, $M(0;2;2)$. $[\vt{DC},\vt{DM}]=[(0;4;0),(-2;2;2)]=8(1;0;1)$, nên $(CDM): x+z-2=0$.
+\[d(B,(CDM))=\frac{|-2|}{\sqrt2}=\sqrt2\approx1{,}41.\]
+<span class="dapan"><b>Đáp án:</b> $1{,}41$.</span></p>
+<p class="cau"><b class="ct">Câu 5.</b> Gọi $O$ là tâm đáy, $I$ là trung điểm $CD$: góc cần tìm là $\widehat{SIO}$.
+\[\tan\widehat{SIO}=\frac{SO}{OI}=\frac{a\sqrt3/6}{a/2}=\frac{\sqrt3}3\Rightarrow\widehat{SIO}=30^\circ.\]
+<span class="dapan"><b>Đáp án:</b> $30^\circ$.</span></p>
+<p class="cau"><b class="ct">Câu 6.</b> $A(0;0;0)$, $B(1;0;0)$, $D(0;1;0)$, $E(0;0;1)$, $C(1;1;0)$. $\vt{AM}=3\vt{CD}-\vt{AE}=(-3;0;-1)\Rightarrow M(-3;0;-1)$. $(EBD): x+y+z-1=0$.
+\[d(M,(EBD))=\frac{|-3-1-1|}{\sqrt3}=\frac{5\sqrt3}3.\]
+<span class="dapan"><b>Đáp án:</b> $\dfrac{5\sqrt3}{3}$.</span></p>
 </body>
 </html>
