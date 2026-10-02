@@ -480,15 +480,83 @@
         </div>
       </div>
 
-      <!-- Tự luận 11 -->
+      <!-- Tự luận 11a -->
       <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-200">
-        <div class="font-bold text-slate-900 text-sm mb-1.5 text-indigo-700">Câu 11: Phương trình đoạn chắn</div>
+        <div class="font-bold text-slate-900 text-sm mb-1.5 text-indigo-700">Câu 11a: Phương trình đoạn chắn</div>
         <p class="text-xs sm:text-sm text-slate-600 mb-2">$(R)$ qua $B(1;3;-2)$, cắt các tia tại $M, N, P$ thỏa $OP = 2ON = 4OM$. Tính $V_{OMNP}$.</p>
         <div class="text-xs sm:text-sm text-slate-700">
           Đặt $OM = m > 0 \implies ON = 2m, OP = 4m$.<br>
           Phương trình $(R): \frac{x}{m} + \frac{y}{2m} + \frac{z}{4m} = 1 \iff 4x + 2y + z = 4m$.<br>
           Do qua $B(1; 3; -2) \implies 4(1) + 2(3) - 2 = 4m \iff m = 2$.
           $$V = \frac{1}{6} OM \cdot ON \cdot OP = \frac{1}{6} \cdot 2 \cdot 4 \cdot 8 = \mathbf{\frac{32}{3}}$$
+        </div>
+      </div>
+
+      <!-- Tự luận 11b -->
+      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-xs border-2 border-indigo-100">
+        <div class="flex justify-between items-center mb-1.5">
+          <span class="font-bold text-slate-900 text-sm text-indigo-700">Câu 11b: Trực tâm tam giác trong không gian</span>
+          <span class="text-[11px] bg-indigo-50 text-indigo-700 font-semibold px-2 py-0.5 rounded-full border border-indigo-200">Trọng tâm Oxyz</span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-700 mb-3 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+          Trong không gian $Oxyz$, cho các điểm $A(1; 0; 3)$, $B(-1; 2; 1)$, $C(0; 1; 4)$. Gọi $H(x_0; y_0; z_0)$ là trực tâm của tam giác $ABC$. Tính giá trị biểu thức $P = x_0 - y_0$.
+        </p>
+
+        <div class="space-y-2.5 text-xs sm:text-sm text-slate-700">
+          <div>
+            <strong class="text-slate-900 block mb-1">1. Cơ sở lý thuyết sư phạm:</strong>
+            <p class="text-slate-600">
+              Điểm $H(a; b; c)$ là trực tâm của $\triangle ABC$ khi và chỉ khi $H$ đồng phẳng với ba đỉnh $A, B, C$ và thỏa mãn hai điều kiện vuông góc của đường cao:
+            </p>
+            <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 mt-1 font-mono text-center text-xs">
+              $\begin{cases} [\vec{AB}, \vec{AC}] \cdot \vec{AH} = 0 & \text{($H$ thuộc mặt phẳng $(ABC)$)} \\ \vec{CH} \cdot \vec{AB} = 0 & (CH \perp AB) \\ \vec{BH} \cdot \vec{AC} = 0 & (BH \perp AC) \end{cases}$
+            </div>
+          </div>
+
+          <div>
+            <strong class="text-slate-900 block mb-1">2. Thiết lập các vectơ chỉ phương & pháp tuyến:</strong>
+            <ul class="list-disc list-inside space-y-0.5 text-slate-600 pl-1">
+              <li>$\vec{AB} = (-2; 2; -2) = -2(1; -1; 1)$</li>
+              <li>$\vec{AC} = (-1; 1; 1)$</li>
+              <li>Tích có hướng: $[\vec{AB}, \vec{AC}] = (4; 4; 0) = 4(1; 1; 0) \implies \vec{n}_{(ABC)} = (1; 1; 0)$</li>
+              <li>Các vectơ liên quan đến $H(a; b; c)$:<br>
+                $\vec{AH} = (a - 1; b; c - 3)$<br>
+                $\vec{CH} = (a; b - 1; c - 4)$<br>
+                $\vec{BH} = (a + 1; b - 2; c - 1)$
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <strong class="text-slate-900 block mb-1">3. Lập hệ phương trình xác định tọa độ $H$:</strong>
+            <ul class="list-none space-y-1.5 pl-1">
+              <li>
+                • Mặt phẳng $(ABC)$ qua $A(1;0;3)$ có dạng: $1(x - 1) + 1(y - 0) + 0(z - 3) = 0 \iff x + y - 1 = 0$.<br>
+                Do $H \in (ABC) \implies \mathbf{a + b - 1 = 0} \iff a + b = 1 \quad (1)$
+              </li>
+              <li>
+                • $CH \perp AB \iff \vec{CH} \cdot (1; -1; 1) = 0$:<br>
+                $1(a) - 1(b - 1) + 1(c - 4) = 0 \iff \mathbf{a - b + c = 3} \quad (2)$
+              </li>
+              <li>
+                • $BH \perp AC \iff \vec{BH} \cdot \vec{AC} = 0$:<br>
+                $-1(a + 1) + 1(b - 2) + 1(c - 1) = 0 \iff \mathbf{-a + b + c = 4} \quad (3)$
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <strong class="text-slate-900 block mb-1">4. Giải hệ phương trình và kết luận:</strong>
+            <p>Từ $(2)$ và $(3)$, trừ vế theo vế ta được: $2a - 2b = -1 \iff a - b = -\frac{1}{2}$.</p>
+            <p>Kết hợp với $(1): a + b = 1$, ta tìm được:</p>
+            <div class="bg-indigo-50/60 p-2.5 rounded-xl border border-indigo-100 text-center font-semibold text-indigo-900">
+              $$\begin{cases} a = \dfrac{1}{4} \\[4pt] b = \dfrac{3}{4} \\[4pt] c = \dfrac{7}{2} \end{cases} \implies H\left(\frac{1}{4}; \frac{3}{4}; \frac{7}{2}\right)$$
+            </div>
+            <p class="mt-2">Suy ra $x_0 = \dfrac{1}{4}$ và $y_0 = \dfrac{3}{4}$. Giá trị biểu thức $P$ là:</p>
+            <div class="bg-emerald-50/70 p-2 rounded-lg border border-emerald-200 text-center font-bold text-emerald-900 text-sm">
+              $$P = x_0 - y_0 = \frac{1}{4} - \frac{3}{4} = \mathbf{-\frac{1}{2}}$$
+            </div>
+          </div>
         </div>
       </div>
 
