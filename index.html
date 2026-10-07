@@ -92,8 +92,8 @@ footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:26px}
 
   <div class="controls">
     <div class="seg" role="tablist">
-      <button class="on" data-view="chap">Theo chương</button>
-      <button data-view="time">Theo thời gian</button>
+      <button data-view="chap">Theo chương</button>
+      <button class="on" data-view="time">Theo thời gian</button>
     </div>
     <input class="search" id="q" type="search" placeholder="Tìm bài: tích phân, mặt phẳng, chữa đề…" autocomplete="off">
     <div class="filters" id="filters"></div>
@@ -135,7 +135,7 @@ var LOAI = {bt:'Bài tập', lt:'Lý thuyết', cd:'Chữa đề', gk:'Ôn giữ
 var THANG = ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
 
 /* ============================================================ */
-var view = 'chap', loc = 'all';
+var view = 'time', loc = 'all';
 function key(d){var p=d.split('/');return p[2]+p[1]+p[0];}
 function norm(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase();}
 BUOI.sort(function(a,b){return key(b.ngay).localeCompare(key(a.ngay));});
